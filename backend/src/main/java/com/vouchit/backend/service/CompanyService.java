@@ -7,7 +7,7 @@ import java.util.Set;
 
 public interface CompanyService {
 
-    // Crud methods
+
 
     // Create
     CompanyResponse createCompany(CompanyRequest companyRequest);
@@ -17,5 +17,5 @@ public interface CompanyService {
     // Update
     CompanyResponse updateCompany(Long companyId, CompanyRequest companyRequest);
     // Delete
-    void deleteCompany(Long companyId);
+    String deleteCompany(Long companyId);
 }

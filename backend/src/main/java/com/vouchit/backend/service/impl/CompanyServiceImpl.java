@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
@@ -25,12 +26,15 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public CompanyResponse createCompany(CompanyRequest companyRequest) {
-        return null;
+        Company company = mapCompanyRequestToCompany(companyRequest);
+        return mapCompanyToCompanyResponse(companyRepository.save(company));
     }
 
     @Override
     public Set<CompanyResponse> getAllCompanies() {
-        return null;
+        return companyRepository.findAll()
+                .stream().map(this::mapCompanyToCompanyResponse)
+                .collect(Collectors.toSet());
     }
 
     @Override
@@ -46,11 +50,16 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public void deleteCompany(Long companyId) {
-
+    public String deleteCompany(Long companyId) {
+        companyRepository.deleteById(companyId);
+        return "Company deleted successfully";
     }
-//  ================================= PRIVATE METHODS =================================
+
+    //  ================================= PRIVATE METHODS =================================
     private CompanyResponse mapCompanyToCompanyResponse(Company company) {
         return modelMapper.map(company, CompanyResponse.class);
+    }
+    private Company mapCompanyRequestToCompany(CompanyRequest companyRequest) {
+        return modelMapper.map(companyRequest, Company.class);
     }
 }

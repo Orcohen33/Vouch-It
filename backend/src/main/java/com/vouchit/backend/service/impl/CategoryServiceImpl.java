@@ -36,7 +36,6 @@ public class CategoryServiceImpl implements CategoryService {
                 .orElseThrow(() -> new RuntimeException("Category not found"));
     }
 
-
     @Override
     public void updateCategory(CategoryRequest categoryRequest) {
 

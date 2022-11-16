@@ -27,12 +27,13 @@ public class CouponServiceImpl implements CouponService {
     private final ModelMapper modelMapper;
 
     @Autowired
-    public CouponServiceImpl(CouponRepository couponRepository, CategoryRepository categoryRepository, ModelMapper modelMapper) {
+    public CouponServiceImpl(CouponRepository couponRepository,
+                             CategoryRepository categoryRepository,
+                             ModelMapper modelMapper) {
         this.couponRepository = couponRepository;
         this.categoryRepository = categoryRepository;
         this.modelMapper = modelMapper;
     }
-
 
 
     @Override
@@ -40,11 +41,46 @@ public class CouponServiceImpl implements CouponService {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
-        var coupons = couponRepository.getCouponsByCategory(category)
+        return couponRepository.getCouponsByCategory(category)
                 .stream().map(this::mapCouponToCouponResponse)
                 .collect(Collectors.toSet());
-        log.info("coupons: {}", coupons);
-        return coupons;
+    }
+
+    @Override
+    public CouponResponse createCoupon(CouponRequest couponRequest) {
+        Coupon coupon = mapCouponRequestToCoupon(couponRequest);
+        return mapCouponToCouponResponse(couponRepository.save(coupon));
+    }
+
+    @Override
+    public Set<CouponResponse> getAllCoupons() {
+        return couponRepository.findAll()
+                .stream().map(this::mapCouponToCouponResponse)
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    public CouponResponse getCouponById(Long couponId) {
+        return couponRepository.findById(couponId)
+                .map(this::mapCouponToCouponResponse)
+                .orElseThrow(() -> new RuntimeException("Coupon not found"));
+    }
+
+    @Override
+    public CouponResponse updateCoupon(Long couponId, CouponRequest couponRequest) {
+        Coupon coupon = couponRepository.findById(couponId)
+                .orElseThrow(() -> new RuntimeException("Coupon not found"));
+        coupon.setTitle(couponRequest.getTitle());
+        coupon.setDescription(couponRequest.getDescription());
+
+        // TODO: Finish this method, add to categoryRepository the option the find category by name.
+        return null;
+    }
+
+    @Override
+    public String deleteCoupon(Long couponId) {
+        couponRepository.deleteById(couponId);
+        return "Coupon deleted successfully";
     }
 
 //    ================================= PRIVATE METHODS =================================
