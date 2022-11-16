@@ -1,5 +1,21 @@
 package com.vouchit.backend.model.entity;
 
+import lombok.*;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Set;
+
+@Entity
+@Table(name = "purchases")
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString()
+@EqualsAndHashCode(of = "id")
+@Builder
 public class Purchase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,5 +31,5 @@ public class Purchase {
             joinColumns = @JoinColumn(name = "purchase_id"),
             inverseJoinColumns = @JoinColumn(name = "coupon_id"))
     private Set<Coupon> coupons;
-    
+
 }

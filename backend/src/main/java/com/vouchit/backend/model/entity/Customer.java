@@ -1,5 +1,20 @@
 package com.vouchit.backend.model.entity;
 
+import lombok.*;
+
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
+@Table(name = "customers")
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@EqualsAndHashCode(of = "id")
+@Builder
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

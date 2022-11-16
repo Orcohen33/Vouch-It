@@ -9,11 +9,10 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = {"coupons"})
+@ToString
 @EqualsAndHashCode(of = {"id"})
 @Builder
 @Table(name = "companies")
-
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +24,7 @@ public class Company {
     @OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
     private Set<Coupon> coupons;
 
-//    public void setCoupons(Set<Coupon> coupons) {
-//        coupons.forEach(coupon -> coupon.setCompany(this));
-//        this.coupons = coupons;
-//    }
+
 }
 
 
