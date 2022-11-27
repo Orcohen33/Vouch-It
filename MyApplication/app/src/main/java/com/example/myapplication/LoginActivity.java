@@ -9,9 +9,8 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.myapplication.customer.Customer;
-import com.example.myapplication.customer.CustomerRequest;
+import com.example.myapplication.customer.CustomerSignin;
 import com.example.myapplication.retrofit.CustomerApi;
-import com.example.myapplication.retrofit.PostApi;
 import com.example.myapplication.retrofit.RetrofitService;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -33,12 +32,21 @@ public class LoginActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
+
+        signUpButton();
         login();
     }
+    void signUpButton(){
+        MaterialButton signupButton =findViewById( R.id.signup_transfer_button);
 
+        signupButton.setOnClickListener(v ->{
+            Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+            startActivity(intent);
+        });
+    }
     void login() {
-        TextInputEditText email = findViewById(R.id.text_email_address);
-        TextInputEditText password = findViewById(R.id.text_password);
+        TextInputEditText email = findViewById(R.id.text_email_address_login);
+        TextInputEditText password = findViewById(R.id.text_password_login);
         MaterialButton button = findViewById(R.id.signin_button);
 
 
@@ -48,11 +56,11 @@ public class LoginActivity extends AppCompatActivity {
                 .create(CustomerApi.class);
 
         button.setOnClickListener(v -> {
-            CustomerRequest customerRequest = new CustomerRequest(
+            CustomerSignin customerSignin = new CustomerSignin(
                     Objects.requireNonNull(email.getText()).toString(),
                     Objects.requireNonNull(password.getText()).toString());
 
-            customerApi.login(customerRequest)
+            customerApi.login(customerSignin)
                     .enqueue(new Callback<Customer>() {
                         @Override
                         public void onResponse(@NonNull Call<Customer> call, @NonNull Response<Customer> response) {

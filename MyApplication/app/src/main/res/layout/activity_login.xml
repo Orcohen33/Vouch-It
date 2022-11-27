@@ -53,7 +53,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_password"
+        app:layout_constraintTop_toBottomOf="@+id/text_password_login"
         app:layout_constraintVertical_bias="0.018" />
 
     <ImageView
@@ -69,7 +69,7 @@
         app:srcCompat="@drawable/logo" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/text_email_address"
+        android:id="@+id/text_email_address_login"
         android:layout_width="269dp"
         android:layout_height="55dp"
         android:background="@drawable/input_bg"
@@ -84,7 +84,7 @@
         app:layout_constraintVertical_bias="0.054" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/text_password"
+        android:id="@+id/text_password_login"
         android:layout_width="269dp"
         android:layout_height="55dp"
         android:background="@drawable/input_bg"
@@ -96,11 +96,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_email_address"
+        app:layout_constraintTop_toBottomOf="@+id/text_email_address_login"
         app:layout_constraintVertical_bias="0.045" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/signup_button"
+        android:id="@+id/signup_transfer_button"
         android:layout_width="168dp"
         android:layout_height="62dp"
         android:background="@android:drawable/alert_dark_frame"
@@ -113,7 +113,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_password"
+        app:layout_constraintTop_toBottomOf="@+id/text_password_login"
         app:layout_constraintVertical_bias="0.701" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

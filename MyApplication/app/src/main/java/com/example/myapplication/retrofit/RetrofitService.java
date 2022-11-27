@@ -11,7 +11,13 @@ public class RetrofitService {
     private final Retrofit retrofit;
 
     private RetrofitService() {
-        retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create(new Gson())).build();
+        retrofit = new Retrofit
+                .Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(
+                        GsonConverterFactory.create(new Gson())
+                )
+                .build();
     }
 
     public static synchronized RetrofitService getInstance() {

@@ -1,10 +1,10 @@
 package com.example.myapplication.customer;
 
-public class CustomerRequest {
+public class CustomerSignin {
     private String email;
     private String password;
 
-    public CustomerRequest(String email, String password) {
+    public CustomerSignin(String email, String password) {
         this.email = email;
         this.password = password;
     }
