@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -46,7 +47,6 @@ public class SignupActivity extends AppCompatActivity {
             String email = Objects.requireNonNull(emailInput.getText()).toString();
             String password = Objects.requireNonNull(passwordInput.getText()).toString();
             String confirmPassword = Objects.requireNonNull(confirmPasswordInput.getText()).toString();
-            System.out.println(password + " " + confirmPassword);
             if (!password.trim().equals(confirmPassword.trim())) {
                 Toast.makeText(this, "Passwords don't match, please try again", Toast.LENGTH_SHORT).show();
             }
@@ -58,7 +58,7 @@ public class SignupActivity extends AppCompatActivity {
             customerApi.signup(customerSignup)
                     .enqueue(new Callback<Customer>() {
                         @Override
-                        public void onResponse(Call<Customer> call, Response<Customer> response) {
+                        public void onResponse(@NonNull Call<Customer> call, @NonNull Response<Customer> response) {
                             if (response.isSuccessful()) {
                                 Toast.makeText(SignupActivity.this, "Signup success", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
@@ -67,9 +67,10 @@ public class SignupActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<Customer> call, Throwable t) {
+                        public void onFailure(@NonNull Call<Customer> call, @NonNull Throwable t) {
                             Toast.makeText(SignupActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-
+                            System.out.println(t.getMessage());
+                            System.out.println("TEST");
                         }
                     });
         });

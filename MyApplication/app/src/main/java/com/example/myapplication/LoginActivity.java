@@ -66,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                         public void onResponse(@NonNull Call<Customer> call, @NonNull Response<Customer> response) {
                             if (response.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
+
                             }
                         }
 
