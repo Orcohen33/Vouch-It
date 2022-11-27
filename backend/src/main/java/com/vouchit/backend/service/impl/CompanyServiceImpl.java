@@ -2,9 +2,12 @@ package com.vouchit.backend.service.impl;
 
 import com.vouchit.backend.model.entity.Company;
 import com.vouchit.backend.model.request.CompanyRequest;
+import com.vouchit.backend.model.request.CouponRequest;
 import com.vouchit.backend.model.response.CompanyResponse;
+import com.vouchit.backend.model.response.CouponResponse;
 import com.vouchit.backend.repository.CompanyRepository;
 import com.vouchit.backend.service.CompanyService;
+import com.vouchit.backend.service.CouponService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +19,14 @@ import java.util.stream.Collectors;
 public class CompanyServiceImpl implements CompanyService {
 
     private final CompanyRepository companyRepository;
+
+    private final CouponService couponService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public CompanyServiceImpl(CompanyRepository companyRepository, ModelMapper modelMapper) {
+    public CompanyServiceImpl(CompanyRepository companyRepository, CouponService couponService, ModelMapper modelMapper) {
         this.companyRepository = companyRepository;
+        this.couponService = couponService;
         this.modelMapper = modelMapper;
     }
 
@@ -55,11 +61,43 @@ public class CompanyServiceImpl implements CompanyService {
         return "Company deleted successfully";
     }
 
+    // Logic
+    @Override
+    public CouponResponse createCoupon(Long companyId, CouponRequest couponRequest) {
+        return null;
+    }
+
+    @Override
+    public CouponResponse updateCoupon(Long companyId, CouponRequest couponRequest) {
+        return null;
+    }
+
+    @Override
+    public CouponResponse deleteCoupon(Long companyId, CouponRequest couponRequest) {
+        return null;
+    }
+
+    @Override
+    public Set<CouponResponse> getAllCouponsById(Long companyId) {
+        return null;
+    }
+
+    @Override
+    public CouponResponse getCouponByIdAndCategory(Long companyId, Long categoryId, Long couponId) {
+        return null;
+    }
+
+    @Override
+    public Set<CouponResponse> getCouponsByMaxPrice(Long companyId, Long categoryId) {
+        return null;
+    }
+    // End of logic
+
     //  ================================= PRIVATE METHODS =================================
-    private CompanyResponse mapCompanyToCompanyResponse(Company company) {
+   public CompanyResponse mapCompanyToCompanyResponse(Company company) {
         return modelMapper.map(company, CompanyResponse.class);
     }
-    private Company mapCompanyRequestToCompany(CompanyRequest companyRequest) {
+    public Company mapCompanyRequestToCompany(CompanyRequest companyRequest) {
         return modelMapper.map(companyRequest, Company.class);
     }
 }

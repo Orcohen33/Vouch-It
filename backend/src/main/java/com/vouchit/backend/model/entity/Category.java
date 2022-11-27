@@ -20,6 +20,8 @@ public class Category {
     private Long id;
     private String name;
 
+
+
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private Set<Coupon> coupons;
 }

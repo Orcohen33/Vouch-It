@@ -9,7 +9,6 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @EqualsAndHashCode(of = {"id"})
 @Builder
 @Table(name = "companies")

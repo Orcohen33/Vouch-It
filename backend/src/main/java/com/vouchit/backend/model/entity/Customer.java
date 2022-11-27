@@ -1,5 +1,6 @@
 package com.vouchit.backend.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class Customer {
     @JoinTable(name = "customers_coupons",
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "coupon_id"))
+    @JsonIgnore
     private Set<Coupon> coupons;
 
 

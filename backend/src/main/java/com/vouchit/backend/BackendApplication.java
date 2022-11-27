@@ -1,5 +1,6 @@
 package com.vouchit.backend;
 
+import com.vouchit.backend.utils.CouponExpirationDailyJob;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,4 +20,5 @@ public class BackendApplication {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
+
 }

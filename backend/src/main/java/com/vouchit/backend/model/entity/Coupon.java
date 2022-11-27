@@ -14,7 +14,6 @@ import java.util.Set;
 @Setter
 @Getter
 @EqualsAndHashCode(of = {"id"})
-@ToString
 public class Coupon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
