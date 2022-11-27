@@ -24,39 +24,38 @@
 
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/text_email_address"
-        android:layout_width="269dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="508dp"
-        android:background="@drawable/input_bg"
-        android:ems="10"
-        android:hint=" Email"
-        android:paddingLeft="7dp"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FullNameSignIn"
-        app:layout_constraintVertical_bias="0.906" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/CreatePasswordSignIn"
+        android:id="@+id/PasswordSignIn"
         android:layout_width="268dp"
         android:layout_height="57dp"
-        android:layout_marginBottom="416dp"
         android:background="@drawable/input_bg"
         android:ems="10"
         android:hint=" Password"
+        android:inputType="textEmailAddress"
         android:paddingLeft="7dp"
-        android:inputType="text"
+        android:password="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.535" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/EmailSignIn"
+        android:layout_width="268dp"
+        android:layout_height="57dp"
+        android:background="@drawable/input_bg"
+        android:ems="10"
+        android:hint=" Email"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="7dp"
         android:password="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_email_address"
-        app:layout_constraintVertical_bias="0.974" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.403" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/ConfirmPasswordSignIn"
@@ -65,15 +64,15 @@
         android:background="@drawable/input_bg"
         android:ems="10"
         android:hint=" Confirm Password"
-
         android:inputType="textEmailAddress"
+        android:paddingLeft="7dp"
         android:password="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CreatePasswordSignIn"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.667" />
 
     <ImageView
         android:id="@+id/logo"
