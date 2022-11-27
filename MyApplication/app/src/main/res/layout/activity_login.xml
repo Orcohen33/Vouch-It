@@ -100,16 +100,20 @@
         app:layout_constraintVertical_bias="0.045" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/JoinViaFacebookButton"
-        android:layout_width="219dp"
-        android:layout_height="39dp"
-        android:backgroundTint="@color/white"
-        android:foreground="@drawable/facebook"
-        android:text="Button"
+        android:id="@+id/signup_button"
+        android:layout_width="168dp"
+        android:layout_height="62dp"
+        android:background="@android:drawable/alert_dark_frame"
+        android:fontFamily="@font/actor"
+        android:text="sign up"
+        android:textColor="#0C0A0A"
+        android:textStyle="bold"
+        app:backgroundTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_button"
-        app:layout_constraintVertical_bias="0.376" />
+        app:layout_constraintTop_toBottomOf="@+id/text_password"
+        app:layout_constraintVertical_bias="0.701" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
