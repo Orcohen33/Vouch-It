@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.Objects;
 
 public class NavigationBarActivity extends AppCompatActivity {
 
@@ -25,6 +28,19 @@ public class NavigationBarActivity extends AppCompatActivity {
         });
 
 
-
     }
+
+    private void searchBar(){
+        TextInputEditText searchEditText = findViewById(R.id.search_bar);
+        searchEditText.setOnClickListener(v -> {
+            String textInput = Objects.requireNonNull(searchEditText.getText()).toString();
+            /*
+            TODO: after creating a database - we need to check here if the input match a data in the db,
+            if inside - to show it on the screen
+             */
+
+
+        });
+    }
+
 }
