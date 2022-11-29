@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NavigationBarActivity">
+    tools:context=".NavigationBarActivity"
+    tools:openDrawer="start">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayoutCompat"
@@ -69,6 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="end"
+        app:menu="@menu/drawer_menu"
 
         app:layout_constraintBottom_toBottomOf="@id/linearLayoutCompat"
         app:layout_constraintStart_toStartOf="@id/linearLayoutCompat"
