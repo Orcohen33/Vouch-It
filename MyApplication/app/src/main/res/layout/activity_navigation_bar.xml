@@ -27,18 +27,20 @@
 
             <ImageView
                 android:id="@+id/cart_image_view"
-                android:contentDescription="@string/material_motion_easing_standard"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:contentDescription="@string/material_motion_easing_standard"
                 app:srcCompat="@drawable/cart" />
 
-            <SearchView
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/search_bar"
                 android:layout_width="300dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="10dp"
-                android:background="@android:drawable/button_onoff_indicator_off"
+                android:paddingLeft="17dp"
+                android:background="@drawable/rounded_edittext"
                 android:hint="Search"
+                android:inputType="text"
                 android:textColor="#000000"
                 android:textSize="15sp"
 
