@@ -1,8 +1,8 @@
-package com.example.myapplication.retrofit;
+package com.example.myapplication.interfaces;
 
-import com.example.myapplication.customer.Customer;
-import com.example.myapplication.customer.CustomerSignin;
-import com.example.myapplication.customer.CustomerSignup;
+import com.example.myapplication.models.customer.Customer;
+import com.example.myapplication.models.customer.CustomerSignin;
+import com.example.myapplication.models.customer.CustomerSignup;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

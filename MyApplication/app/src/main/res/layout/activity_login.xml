@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="#FFFFFF"
     android:backgroundTintMode="src_in"
-    tools:context=".LoginActivity">
+    tools:context=".activities.LoginActivity">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/signin_button"

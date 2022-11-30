@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,10 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.myapplication.customer.Customer;
-import com.example.myapplication.customer.CustomerSignup;
-import com.example.myapplication.retrofit.CustomerApi;
-import com.example.myapplication.retrofit.RetrofitService;
+import com.example.myapplication.R;
+import com.example.myapplication.models.customer.Customer;
+import com.example.myapplication.models.customer.CustomerSignup;
+import com.example.myapplication.interfaces.CustomerApi;
+import com.example.myapplication.network.RetrofitService;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 

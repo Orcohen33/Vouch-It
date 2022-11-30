@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".activities.MainActivity"
     tools:openDrawer="start">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -59,82 +59,24 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!--        app:menu="@menu/drawer_menu"-->
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_bar_view"
         android:layout_width="180dp"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:paddingTop="15dp"
-        app:menu="@menu/drawer_menu"
-
-
         app:layout_constraintBottom_toBottomOf="@id/linearLayoutCompat"
         app:layout_constraintStart_toStartOf="@id/linearLayoutCompat"
-        app:layout_constraintTop_toTopOf="@id/linearLayoutCompat">
+        app:layout_constraintTop_toTopOf="@id/linearLayoutCompat"
+        >
 
-<!--            <ImageView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="200dp"-->
-<!--                android:contentDescription="@string/material_motion_easing_standard"-->
-<!--                android:scaleType="centerCrop" />-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/category_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="vertical"-->
-<!--                android:padding="10dp"-->
-<!--                android:layout_marginTop="30dp">-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textColor="#000000"-->
-<!--                    android:textSize="20sp" />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textColor="#000000"-->
-<!--                    android:textSize="20sp" />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textColor="#000000"-->
-<!--                    android:textSize="20sp" />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textColor="#000000"-->
-<!--                    android:textSize="20sp" />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textColor="#000000"-->
-<!--                    android:textSize="20sp" />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textColor="#000000"-->
-<!--                    android:textSize="20sp" />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textColor="#000000"-->
-<!--                    android:textSize="20sp" />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textColor="#000000"-->
-<!--                    android:textSize="20sp" />-->
-<!--            </LinearLayout>-->
-
+            />
 
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

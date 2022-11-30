@@ -1,4 +1,4 @@
-package com.example.myapplication.customer;
+package com.example.myapplication.models.customer;
 
 public class CustomerSignin {
     private String email;

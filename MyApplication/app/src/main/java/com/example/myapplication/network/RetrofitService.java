@@ -1,4 +1,4 @@
-package com.example.myapplication.retrofit;
+package com.example.myapplication.network;
 
 import com.google.gson.Gson;
 
@@ -6,7 +6,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitService {
-    private static final String BASE_URL = "http://172.19.128.1:8081/";
+    private static final String BASE_URL = "http://172.19.240.1:8081/";
     private static RetrofitService mInstance;
     private final Retrofit retrofit;
 
