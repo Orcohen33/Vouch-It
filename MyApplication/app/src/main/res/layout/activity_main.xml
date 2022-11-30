@@ -1,70 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-    <View
-        android:id="@+id/Uprectangle"
-        android:layout_width="409dp"
-        android:layout_height="63dp"
-        android:background="#6200EE"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".MainActivity"
+    tools:openDrawer="start">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/searchBox"
-        android:layout_width="217dp"
-        android:layout_height="34dp"
-        android:background="@android:drawable/button_onoff_indicator_off"
-        android:backgroundTint="@color/white"
-        android:ems="10"
-        android:gravity="center"
-        android:hint=" Search"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/Uprectangle"
-        app:layout_constraintHorizontal_bias="0.369"
-        app:layout_constraintStart_toStartOf="@+id/Uprectangle"
-        app:layout_constraintTop_toTopOf="@+id/Uprectangle"
-        app:layout_constraintVertical_bias="0.024" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayoutCompat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageButton"
-        android:layout_width="37dp"
-        android:layout_height="30dp"
-        android:backgroundTint="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/searchBox"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/search"
-        tools:layout_editor_absoluteY="17dp" />
+        <LinearLayout
+            android:id="@+id/layoutToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/design_default_color_primary"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/CartButton"
-        android:layout_width="51dp"
-        android:layout_height="46dp"
-        android:backgroundTint="#6200EE"
-        android:foreground="@drawable/cart"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.802"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.015" />
+            <ImageView
+                android:id="@+id/cart_image_view"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@string/material_motion_easing_standard"
+                app:srcCompat="@drawable/cart" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/MoreOptionsButton"
-        android:layout_width="51dp"
-        android:layout_height="46dp"
-        android:backgroundTint="#6200EE"
-        android:foreground="@drawable/menu_btn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toEndOf="@+id/CartButton"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.015" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/search_bar"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/rounded_edittext"
+                android:hint="Search"
+                android:inputType="text"
+                android:paddingLeft="17dp"
+                android:textColor="#000000"
+                android:textSize="15sp"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                />
+
+            <ImageView
+                android:contentDescription="@string/material_motion_easing_standard"
+                android:id="@+id/menu_image_view"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                app:srcCompat="@drawable/menu_btn" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_bar_view"
+        android:layout_width="180dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:paddingTop="15dp"
+        app:menu="@menu/drawer_menu"
+
+
+        app:layout_constraintBottom_toBottomOf="@id/linearLayoutCompat"
+        app:layout_constraintStart_toStartOf="@id/linearLayoutCompat"
+        app:layout_constraintTop_toTopOf="@id/linearLayoutCompat">
+
+<!--            <ImageView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="200dp"-->
+<!--                android:contentDescription="@string/material_motion_easing_standard"-->
+<!--                android:scaleType="centerCrop" />-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:padding="10dp"-->
+<!--                android:layout_marginTop="30dp">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textColor="#000000"-->
+<!--                    android:textSize="20sp" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textColor="#000000"-->
+<!--                    android:textSize="20sp" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textColor="#000000"-->
+<!--                    android:textSize="20sp" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textColor="#000000"-->
+<!--                    android:textSize="20sp" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textColor="#000000"-->
+<!--                    android:textSize="20sp" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textColor="#000000"-->
+<!--                    android:textSize="20sp" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textColor="#000000"-->
+<!--                    android:textSize="20sp" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textColor="#000000"-->
+<!--                    android:textSize="20sp" />-->
+<!--            </LinearLayout>-->
+
+
+    </com.google.android.material.navigation.NavigationView>
+</androidx.drawerlayout.widget.DrawerLayout>
