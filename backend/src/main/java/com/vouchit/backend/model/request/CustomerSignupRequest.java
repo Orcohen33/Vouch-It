@@ -1,4 +1,10 @@
 package com.vouchit.backend.model.request;
 
-public record CustomerSignupRequest(String fullName, String email, String password) {
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+
+public record CustomerSignupRequest(@NotBlank String fullName,
+                                    @Email String email,
+                                    @Min(6) String password) {
 }

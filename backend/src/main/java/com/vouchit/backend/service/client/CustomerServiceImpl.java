@@ -61,7 +61,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer signUp(String fullName, String email, String password) {
         if (!customerRepository.existsCustomerByEmail(email)) {
-
+            Customer customer = Customer.builder()
+                    .firstName(fullName)
+                    .email(email)
+                    .password(password)
+                    .build();
+            customerRepository.save(customer);
+            return customer;
         }
         return null;
     }

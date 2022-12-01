@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,19 +20,22 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
+
     @Autowired
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }
 
+    @Transactional
     @PostMapping("/login")
     public ResponseEntity<Customer> login(@RequestBody CustomerSignInRequest customerSignInRequest) {
-        log.info("CustomerController: login");
         log.info("CustomerController: login: logInRequest: {}", customerSignInRequest);
+
         Customer customer = customerService.login(customerSignInRequest.email(), customerSignInRequest.password());
         return ResponseEntity.status(HttpStatus.OK).body(customer);
     }
 
+    @Transactional
     @PostMapping("/signup")
     public ResponseEntity<Customer> signUp(@RequestBody CustomerSignupRequest customerSignupRequest) {
         log.info("CustomerController: signUp");

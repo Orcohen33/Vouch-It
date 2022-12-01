@@ -20,6 +20,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    // TODO: Change to fullName;
     private String firstName;
     private String lastName;
     private String email;
@@ -33,6 +34,8 @@ public class Customer {
     private Set<Coupon> coupons;
 
 
-
+/*
+    controller -> service -> repository -> entity
+ */
 
 }
