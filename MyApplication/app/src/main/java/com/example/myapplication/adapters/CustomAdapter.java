@@ -29,14 +29,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.category_raw, parent, false);
+        View view = inflater.inflate(R.layout.category_raw_view, parent, false);
         System.out.println("onCreateViewHolder called");
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        System.out.println("Position: " + position);
+        System.out.println("onBindViewHolder called");
         holder.categoryTextView.setText(categories.get(position));
     }
 
@@ -49,7 +49,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         TextView categoryTextView;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            System.out.println("MyViewHolder called");
             categoryTextView = itemView.findViewById(R.id.category_text_view);
         }
+    }
+
+    public void addNewCategory(String category) {
+        categories.add(category);
+        System.out.println("addNewCategory called");
     }
 }

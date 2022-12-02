@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -42,12 +43,13 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("Menu clicked");
         });
 
+
         categories = new ArrayList<>();
         storeCategoriesInArray();
-        System.out.println("Categories: x1x1x1 " + categories);
         customAdapter = new CustomAdapter(MainActivity.this, categories);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     List<String> storeCategoriesInArray() {
@@ -65,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
                         categories.add(category.getName());
                         System.out.println("[ON RESPONSE] Category: " + category.getName());
                     }
-                    customAdapter.notifyDataSetChanged();
                 }
             }
 
