@@ -59,8 +59,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--        app:menu="@menu/drawer_menu"-->
-
+    <!-- Container for navigation bar view-->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_bar_view"
         android:layout_width="wrap_content"
@@ -69,20 +68,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="?android:actionBarSize"-->
-<!--            android:orientation="vertical"-->
-<!--            android:background="@color/black">-->
-
-<!--            <TextView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:text="קטגוריות"/>-->
-
-
-<!--        </LinearLayout>-->
 
         <LinearLayout
             android:id="@+id/linearLayoutNavBar"
@@ -112,7 +97,3 @@
         </LinearLayout>
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>
-
-<!--                android:paddingTop="?android:actionBarSize"
-                android:paddingBottom="20dp"-->
-<!--    android:layout_marginTop="?android:actionBarSize"-->
