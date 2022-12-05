@@ -1,19 +1,39 @@
 package com.example.myapplication.ui.home;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.example.myapplication.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
+    List<String> categoriesNames;
+    List<Integer> categoriesImages;
 
     public HomeViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        initializeViews();
+
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    private void initializeViews() {
+        categoriesNames = new ArrayList<>();
+        categoriesImages = new ArrayList<>();
+
+        // TODO: Change the categories and images to your own
+        categoriesNames.add("Category 1");
+        categoriesNames.add("Category 2");
+        categoriesNames.add("Category 3");
+        categoriesNames.add("Category 4");
+        categoriesNames.add("Category 5");
+
+        categoriesImages.add(R.drawable.microphone);
+        categoriesImages.add(R.drawable.cart);
+        categoriesImages.add(R.drawable.ic_menu_gallery);
+        categoriesImages.add(R.drawable.ic_menu_slideshow);
+        categoriesImages.add(R.drawable.ic_restaurant);
+
     }
+
 }
