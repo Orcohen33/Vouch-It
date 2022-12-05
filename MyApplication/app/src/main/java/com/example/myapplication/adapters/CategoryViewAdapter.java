@@ -46,7 +46,6 @@ public class CategoryViewAdapter extends RecyclerView.Adapter<CategoryViewAdapte
             Toast.makeText(v.getContext(), "Clicked on " + category, Toast.LENGTH_SHORT).show();
 //                Change the current View to the clicked category without change the activity
             NavController navController = Navigation.findNavController(v);
-            navController.navigate(R.id.nav_gallery);
             /*
                 TODO: 1.Change the names of the cateogries to the name of the fragment
                       2.Change the "R.id.*" to the name of the fragment
@@ -62,6 +61,8 @@ public class CategoryViewAdapter extends RecyclerView.Adapter<CategoryViewAdapte
             } else if (category.equals("Category 5")) {
                 navController.navigate(R.id.nav_slideshow);
             }
+            // then reset the current fragment to the first item
+             navController.popBackStack(R.id.nav_home, true);
 
         });
     }
