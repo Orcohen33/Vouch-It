@@ -5,7 +5,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class CouponViewAdapter extends RecyclerView.Adapter<CouponViewAdapter.ViewHolder> {
+import java.util.List;
+
+public class CouponsViewAdapter extends RecyclerView.Adapter<CouponsViewAdapter.ViewHolder> {
+
+    List<Integer> couponsImages;
+    List<String> couponsTitles;
+    List<String> couponsPrices;
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
