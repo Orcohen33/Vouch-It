@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class PrevActivity extends AppCompatActivity {
 
     List<String> categories;
     RecyclerView recyclerView;
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_prev);
 
         drawerLayout = findViewById(R.id.drawer_layout);
         recyclerView = findViewById(R.id.category_recycler_view);
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         categories = new ArrayList<>();
         storeCategoriesInArray();
-        customAdapter = new CustomAdapter(MainActivity.this, categories);
+        customAdapter = new CustomAdapter(PrevActivity.this, categories);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
