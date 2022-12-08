@@ -11,7 +11,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/signin_button"
         android:layout_width="232dp"
-        android:layout_height="46dp"
+        android:layout_height="49dp"
         android:background="@drawable/btn_conf"
         android:text="Let's go"
         android:textSize="17dp"
@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:drawable/alert_dark_frame"
-        android:fontFamily="@font/actor"
+
         android:text="Forgot password?"
         android:textColor="#0C0A0A"
         android:textStyle="bold"
@@ -104,7 +104,6 @@
         android:layout_width="168dp"
         android:layout_height="62dp"
         android:background="@android:drawable/alert_dark_frame"
-        android:fontFamily="@font/actor"
         android:text="sign up"
         android:textColor="#0C0A0A"
         android:textStyle="bold"

@@ -1,7 +1,5 @@
-package com.example.myapplication.ui.shows;
+package com.example.myapplication.fragments.shows;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.myapplication.R;

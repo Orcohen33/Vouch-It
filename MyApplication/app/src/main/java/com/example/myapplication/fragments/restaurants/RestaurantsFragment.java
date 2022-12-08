@@ -1,10 +1,9 @@
-package com.example.myapplication.ui.shows;
+package com.example.myapplication.fragments.restaurants;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,22 +13,20 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.adapters.CouponsViewAdapter;
-import com.example.myapplication.databinding.FragmentShowsBinding;
+import com.example.myapplication.databinding.FragmentRestaurantBinding;
 
-public class ShowsFragment extends Fragment {
+public class RestaurantsFragment extends Fragment {
 
-    private FragmentShowsBinding binding;
-    private ShowViewModel showViewModel;
+    private FragmentRestaurantBinding binding;
+    private RestaurantsViewModel restaurantsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        showViewModel =
-                new ViewModelProvider(this).get(ShowViewModel.class);
+        restaurantsViewModel =
+                new ViewModelProvider(this).get(RestaurantsViewModel.class);
 
-        binding = FragmentShowsBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        return root;
+        binding = FragmentRestaurantBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
@@ -44,13 +41,12 @@ public class ShowsFragment extends Fragment {
 
         RecyclerView couponsList = binding.couponsList;
         CouponsViewAdapter adapter = new CouponsViewAdapter(
-                showViewModel.couponsImages,
-                showViewModel.couponsTitles,
-                showViewModel.couponsPrices,
+                restaurantsViewModel.couponsImages,
+                restaurantsViewModel.couponsTitles,
+                restaurantsViewModel.couponsPrices,
                 getContext()
         );
 
-        // Here you can choose the span count for the grid layout
         couponsList.setLayoutManager(new GridLayoutManager(getContext(), 1, GridLayoutManager.VERTICAL, false));
         couponsList.setHasFixedSize(true);
         couponsList.setAdapter(adapter);

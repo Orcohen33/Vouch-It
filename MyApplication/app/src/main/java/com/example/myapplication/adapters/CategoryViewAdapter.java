@@ -47,19 +47,25 @@ public class CategoryViewAdapter extends RecyclerView.Adapter<CategoryViewAdapte
 //                Change the current View to the clicked category without change the activity
             NavController navController = Navigation.findNavController(v);
             /*
-                TODO: 1.Change the names of the cateogries to the name of the fragment
+                TODO: 1.Change the names of the categories to the name of the fragment
                       2.Change the "R.id.*" to the name of the fragment
              */
-            if (category.equals("Category 1")) {
-                navController.navigate(R.id.nav_gallery);
-            } else if (category.equals("Category 2")) {
-                navController.navigate(R.id.nav_slideshow);
-            } else if (category.equals("Category 3")) {
-                navController.navigate(R.id.nav_slideshow);
-            } else if (category.equals("Category 4")) {
-                navController.navigate(R.id.nav_slideshow);
-            } else if (category.equals("Category 5")) {
-                navController.navigate(R.id.nav_slideshow);
+            switch (category) {
+                case "Category 1":
+                    navController.navigate(R.id.nav_spa);
+                    break;
+                case "Category 2":
+                    navController.navigate(R.id.nav_shows);
+                    break;
+                case "Category 3":
+                    navController.navigate(R.id.nav_spa);
+                    break;
+                case "Category 4":
+                    navController.navigate(R.id.nav_shows);
+                    break;
+                case "Category 5":
+                    navController.navigate(R.id.nav_shows);
+                    break;
             }
             // then reset the current fragment to the first item
              navController.popBackStack(R.id.nav_home, true);

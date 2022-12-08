@@ -50,13 +50,3 @@ dependencies {
     implementation group: 'com.squareup.retrofit2', name: 'converter-gson', version: '2.9.0'
 }
 
-//signingConfigs{
-//    release{
-//        try{
-//            String keyAlias = System.getenv("KEY_ALIAS")
-//        }
-//        catch (Exception e){
-//            println("Error: " + e)
-//        }
-//    }
-//}

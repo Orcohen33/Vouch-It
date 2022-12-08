@@ -2,6 +2,7 @@ package com.example.myapplication.activities;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -28,20 +29,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "TODO: Shopping cart", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        binding.appBarMain.fab.setOnClickListener(view -> Snackbar.make(view, "TODO: Shopping cart", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home,
+                R.id.nav_spa,
+                R.id.nav_shows,
+                R.id.nav_restaurants
+        )
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -57,5 +57,20 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        binding.appBarMain.fab.setVisibility(View.VISIBLE);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            String name = bundle.getString("name");
+            String email = bundle.getString("email");
+            if (name != null && email != null) {
+                ((TextView) binding.navView.getHeaderView(0).findViewById(R.id.nav_header_name)).setText(name);
+                ((TextView) binding.navView.getHeaderView(0).findViewById(R.id.nav_header_email)).setText(email);
+            }
+        }
     }
 }

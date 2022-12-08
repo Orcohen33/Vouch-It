@@ -1,17 +1,17 @@
 package com.example.myapplication.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.myapplication.R;
+import com.example.myapplication.interfaces.CustomerApi;
 import com.example.myapplication.models.customer.Customer;
 import com.example.myapplication.models.customer.CustomerSignin;
-import com.example.myapplication.interfaces.CustomerApi;
 import com.example.myapplication.network.RetrofitService;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
+
 
         signUpButton();
         login();
@@ -67,7 +68,12 @@ public class LoginActivity extends AppCompatActivity {
                         public void onResponse(@NonNull Call<Customer> call, @NonNull Response<Customer> response) {
                             if (response.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
+                                // Extract the details from response to variables
+                                Customer customer = response.body();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                assert customer != null;
+                                intent.putExtra("name", customer.getFirstName());
+                                intent.putExtra("email", customer.getEmail());
                                 startActivity(intent);
                             }
                         }

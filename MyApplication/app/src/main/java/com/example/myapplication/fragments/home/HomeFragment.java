@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.home;
+package com.example.myapplication.fragments.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -25,8 +25,7 @@ public class HomeFragment extends Fragment {
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-        return root;
+        return binding.getRoot();
     }
 
     @Override

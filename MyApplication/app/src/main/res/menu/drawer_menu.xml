@@ -14,7 +14,7 @@
         <item android:id="@+id/nav_electricity"
             android:icon="@drawable/ic_phone_electricity"
             android:title="מוצרי חשמל"/>
-        <item android:id="@+id/nav_spa"
+        <item android:id="@+id/nav_spaa"
             android:icon="@drawable/ic_spa"
             android:title="ספא"/>
 
