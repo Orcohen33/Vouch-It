@@ -3,9 +3,17 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
-        <item name="colorPrimary">@color/design_default_color_primary</item>
-        <item name="colorPrimaryDark">@color/blue</item>
-        <item name="colorAccent">@color/blue</item>
+        <item name="colorPrimary">@color/green_light</item>
+        <item name="colorPrimaryDark">@color/green_light</item>
+        <item name="colorAccent">@color/green_light</item>
+        <item name="android:navigationBarColor">@color/white</item>
+    </style>
+
+    <style name="AppThemeMaterial" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/green_light</item>
+        <item name="colorPrimaryDark">@color/green_light</item>
+        <item name="colorAccent">@color/green_light</item>
+        <item name="android:navigationBarColor">@color/white</item>
     </style>
 
 </resources>

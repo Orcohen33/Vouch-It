@@ -91,7 +91,7 @@
         android:background="@drawable/btn_conf"
         android:text="Let's Start"
         android:textSize="17dp"
-        app:backgroundTint="@color/blue"
+        app:backgroundTint="@color/green_light"
         app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

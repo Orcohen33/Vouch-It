@@ -9,7 +9,10 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.example.myapplication.interfaces.CompanyApi;
 import com.example.myapplication.interfaces.CustomerApi;
+import com.example.myapplication.models.company.Company;
+import com.example.myapplication.models.company.CompanySignIn;
 import com.example.myapplication.models.customer.Customer;
 import com.example.myapplication.models.customer.CustomerSignin;
 import com.example.myapplication.network.RetrofitService;
@@ -49,15 +52,17 @@ public class LoginActivity extends AppCompatActivity {
     void login() {
         TextInputEditText email = findViewById(R.id.text_email_address_login);
         TextInputEditText password = findViewById(R.id.text_password_login);
-        MaterialButton button = findViewById(R.id.signin_customer_button);
+        MaterialButton signInAsCustomer = findViewById(R.id.signin_customer_button);
+        MaterialButton signInAsCompany = findViewById(R.id.signin_company_button);
 
 
-        CustomerApi customerApi = RetrofitService
-                .getInstance()
-                .getRetrofit()
-                .create(CustomerApi.class);
 
-        button.setOnClickListener(v -> {
+
+        signInAsCustomer.setOnClickListener(v -> {
+            CustomerApi customerApi = RetrofitService
+                    .getInstance()
+                    .getRetrofit()
+                    .create(CustomerApi.class);
             CustomerSignin customerSignin = new CustomerSignin(
                     Objects.requireNonNull(email.getText()).toString(),
                     Objects.requireNonNull(password.getText()).toString());
@@ -70,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
                                 // Extract the details from response to variables
                                 Customer customer = response.body();
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, CustomerActivity.class);
                                 assert customer != null;
                                 intent.putExtra("name", customer.getFirstName());
                                 intent.putExtra("email", customer.getEmail());
@@ -80,6 +85,39 @@ public class LoginActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(@NonNull Call<Customer> call, @NonNull Throwable t) {
+                            System.out.println(t.getMessage());
+                            System.out.println(Arrays.toString(t.getStackTrace()));
+                            Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        });
+        signInAsCompany.setOnClickListener(v -> {
+            CompanyApi companyApi = RetrofitService
+                    .getInstance()
+                    .getRetrofit()
+                    .create(CompanyApi.class);
+            CompanySignIn companySignIn = new CompanySignIn(
+                    Objects.requireNonNull(email.getText()).toString(),
+                    Objects.requireNonNull(password.getText()).toString());
+
+            companyApi.login(companySignIn)
+                    .enqueue(new Callback<com.example.myapplication.models.company.Company>() {
+                        @Override
+                        public void onResponse(@NonNull Call<Company> call, @NonNull Response<Company> response) {
+                            if (response.isSuccessful()) {
+                                Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
+                                // Extract the details from response to variables
+                                com.example.myapplication.models.company.Company company = response.body();
+                                Intent intent = new Intent(LoginActivity.this, CustomerActivity.class);
+                                assert company != null;
+                                intent.putExtra("name", company.getName());
+                                intent.putExtra("email", company.getEmail());
+                                startActivity(intent);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Call<com.example.myapplication.models.company.Company> call, @NonNull Throwable t) {
                             System.out.println(t.getMessage());
                             System.out.println(Arrays.toString(t.getStackTrace()));
                             Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
