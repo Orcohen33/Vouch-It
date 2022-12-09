@@ -4,7 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +38,16 @@ public class CompanyCouponsViewAdapter extends RecyclerView.Adapter<CompanyCoupo
     public void onBindViewHolder(@NonNull CompanyCouponsViewAdapter.ViewHolder holder, int position) {
         String title = couponsTitles.get(position);
         holder.title.setText(title);
+
+        holder.delete.setOnClickListener(v -> {
+            Toast.makeText(v.getContext(), "Clicked on " + title, Toast.LENGTH_SHORT).show();
+
+            // delete this item from the list
+            couponsTitles.remove(position);
+            // notify the adapter that the data has changed
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, couponsTitles.size());
+        });
     }
 
     @Override
@@ -46,10 +58,14 @@ public class CompanyCouponsViewAdapter extends RecyclerView.Adapter<CompanyCoupo
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView title;
+        Button delete;
+        Button edit;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.title_coupon_text_view);
+            delete = itemView.findViewById(R.id.delete_coupon_button);
+            edit = itemView.findViewById(R.id.edit_coupon_button);
         }
     }
 }

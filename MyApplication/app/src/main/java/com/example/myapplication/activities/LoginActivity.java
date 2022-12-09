@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
                                 // Extract the details from response to variables
                                 com.example.myapplication.models.company.Company company = response.body();
-                                Intent intent = new Intent(LoginActivity.this, CustomerActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, CompanyActivity.class);
                                 assert company != null;
                                 intent.putExtra("name", company.getName());
                                 intent.putExtra("email", company.getEmail());
