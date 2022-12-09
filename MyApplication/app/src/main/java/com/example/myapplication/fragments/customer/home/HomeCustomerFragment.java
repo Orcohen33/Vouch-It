@@ -1,4 +1,4 @@
-package com.example.myapplication.fragments.home;
+package com.example.myapplication.fragments.customer.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,18 +13,18 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.adapters.CategoryViewAdapter;
-import com.example.myapplication.databinding.FragmentHomeBinding;
+import com.example.myapplication.databinding.FragmentHomeCustomerBinding;
 
-public class HomeFragment extends Fragment {
+public class HomeCustomerFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
-    private HomeViewModel homeViewModel;
+    private FragmentHomeCustomerBinding binding;
+    private HomeCustomerViewModel homeCustomerViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        homeCustomerViewModel =
+                new ViewModelProvider(this).get(HomeCustomerViewModel.class);
+        binding = FragmentHomeCustomerBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -39,7 +39,10 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         RecyclerView categoryList = binding.categoryList;
-        CategoryViewAdapter adapter = new CategoryViewAdapter(homeViewModel.categoriesNames, homeViewModel.categoriesImages, getContext());
+        CategoryViewAdapter adapter = new CategoryViewAdapter(homeCustomerViewModel.categoriesNames,
+                homeCustomerViewModel.categoriesImages,
+                getContext()
+        );
         // Here you can choose the span count for the grid layout
         categoryList.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
         categoryList.setHasFixedSize(true);

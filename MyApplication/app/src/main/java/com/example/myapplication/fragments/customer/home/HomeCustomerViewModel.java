@@ -1,4 +1,4 @@
-package com.example.myapplication.fragments.home;
+package com.example.myapplication.fragments.customer.home;
 
 import androidx.lifecycle.ViewModel;
 
@@ -7,12 +7,12 @@ import com.example.myapplication.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeViewModel extends ViewModel {
+public class HomeCustomerViewModel extends ViewModel {
 
     List<String> categoriesNames;
     List<Integer> categoriesImages;
 
-    public HomeViewModel() {
+    public HomeCustomerViewModel() {
         initializeViews();
 
     }

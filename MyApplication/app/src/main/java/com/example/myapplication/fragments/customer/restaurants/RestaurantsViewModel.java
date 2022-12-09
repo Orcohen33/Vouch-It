@@ -1,4 +1,4 @@
-package com.example.myapplication.fragments.restaurants;
+package com.example.myapplication.fragments.customer.restaurants;
 
 import androidx.lifecycle.ViewModel;
 

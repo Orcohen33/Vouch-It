@@ -6,24 +6,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 
 import java.util.List;
 
-public class CouponsViewAdapter extends RecyclerView.Adapter<CouponsViewAdapter.ViewHolder> {
+
+/**
+ * A custom adapter to use with the RecyclerView widget.
+ * This adapter is used to display a simple list of text
+ * with a title and a subtitle and image.
+ */
+public class CustomerCouponsViewAdapter extends RecyclerView.Adapter<CustomerCouponsViewAdapter.ViewHolder> {
     List<Integer> couponsImages;
     List<String> couponsTitles;
     List<String> couponsPrices;
     LayoutInflater inflater;
 
-    public CouponsViewAdapter(List<Integer> couponsImages, List<String> couponsTitles, List<String> couponsPrices, Context ctx) {
+    public CustomerCouponsViewAdapter(List<Integer> couponsImages, List<String> couponsTitles, List<String> couponsPrices, Context ctx) {
         this.couponsImages = couponsImages;
         this.couponsTitles = couponsTitles;
         this.couponsPrices = couponsPrices;

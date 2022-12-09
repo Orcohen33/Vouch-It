@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/couponsList"
+        android:id="@+id/coupons_customer_list"
         android:layout_width="409dp"
         android:layout_height="729dp"
         android:layout_marginStart="1dp"

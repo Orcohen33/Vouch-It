@@ -1,4 +1,4 @@
-package com.example.myapplication.fragments.shows;
+package com.example.myapplication.fragments.customer.shows;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.adapters.CouponsViewAdapter;
+import com.example.myapplication.adapters.CustomerCouponsViewAdapter;
 import com.example.myapplication.databinding.FragmentShowsBinding;
 
 public class ShowsFragment extends Fragment {
@@ -40,8 +40,8 @@ public class ShowsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView couponsList = binding.couponsList;
-        CouponsViewAdapter adapter = new CouponsViewAdapter(
+        RecyclerView couponsList = binding.couponsCustomerList;
+        CustomerCouponsViewAdapter adapter = new CustomerCouponsViewAdapter(
                 showViewModel.couponsImages,
                 showViewModel.couponsTitles,
                 showViewModel.couponsPrices,

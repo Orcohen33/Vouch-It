@@ -1,4 +1,4 @@
-package com.example.myapplication.fragments.spa;
+package com.example.myapplication.fragments.customer.spa;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.adapters.CouponsViewAdapter;
+import com.example.myapplication.adapters.CustomerCouponsViewAdapter;
 import com.example.myapplication.databinding.FragmentSpaBinding;
 
 public class SpaFragment extends Fragment {
@@ -39,8 +39,8 @@ public class SpaFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView couponsList = binding.couponsList;
-        CouponsViewAdapter adapter = new CouponsViewAdapter(
+        RecyclerView couponsList = binding.couponsCustomerList;
+        CustomerCouponsViewAdapter adapter = new CustomerCouponsViewAdapter(
                 spaViewModel.couponsImages,
                 spaViewModel.couponsTitles,
                 spaViewModel.couponsPrices,

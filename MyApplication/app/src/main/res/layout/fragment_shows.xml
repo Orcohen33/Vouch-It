@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.shows.ShowsFragment">
+    tools:context=".fragments.customer.shows.ShowsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/couponsList"
+        android:id="@+id/coupons_customer_list"
         android:layout_width="409dp"
         android:layout_height="729dp"
         android:layout_marginStart="1dp"

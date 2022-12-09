@@ -1,4 +1,4 @@
-package com.example.myapplication.fragments.shows;
+package com.example.myapplication.fragments.customer.spa;
 
 import androidx.lifecycle.ViewModel;
 
@@ -7,13 +7,12 @@ import com.example.myapplication.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowViewModel extends ViewModel {
-
+public class SpaViewModel extends ViewModel {
     List<Integer> couponsImages;
     List<String> couponsTitles;
     List<String> couponsPrices;
 
-    public ShowViewModel() {
+    public SpaViewModel() {
         initializeCoupons();
     }
 
@@ -22,17 +21,17 @@ public class ShowViewModel extends ViewModel {
         couponsTitles = new ArrayList<>();
         couponsPrices = new ArrayList<>();
 
-        couponsTitles.add("Coupon 1");
-        couponsTitles.add("Coupon 2");
-        couponsTitles.add("Coupon 3");
-        couponsTitles.add("Coupon 4");
-        couponsTitles.add("Coupon 5");
+        couponsTitles.add("Spa 1");
+        couponsTitles.add("Spa 2");
+        couponsTitles.add("Spa 3");
+        couponsTitles.add("Spa 4");
+        couponsTitles.add("Spa 5");
 
-        couponsPrices.add("Price :1$");
-        couponsPrices.add("Price :2$");
-        couponsPrices.add("Price :3$");
-        couponsPrices.add("Price :4$");
-        couponsPrices.add("Price :5$");
+        couponsPrices.add("Price :10$");
+        couponsPrices.add("Price :20$");
+        couponsPrices.add("Price :30$");
+        couponsPrices.add("Price :40$");
+        couponsPrices.add("Price :50$");
 
         couponsImages.add(R.drawable.microphone);
         couponsImages.add(R.drawable.microphone);
@@ -41,5 +40,4 @@ public class ShowViewModel extends ViewModel {
         couponsImages.add(R.drawable.microphone);
 
     }
-
 }
