@@ -20,14 +20,35 @@ public class CompanyServiceImpl implements CompanyService {
 
     private final CompanyRepository companyRepository;
 
-    private final CouponService couponService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public CompanyServiceImpl(CompanyRepository companyRepository, CouponService couponService, ModelMapper modelMapper) {
+    public CompanyServiceImpl(CompanyRepository companyRepository, ModelMapper modelMapper) {
         this.companyRepository = companyRepository;
-        this.couponService = couponService;
         this.modelMapper = modelMapper;
+    }
+
+    @Override
+    public CompanyResponse login(String email, String password) {
+        if (!companyRepository.existsCompanyByEmailAndPassword(email, password)) {
+            return null;
+        }
+        Company company = companyRepository.findCompanyByEmailAndPassword(email, password);
+        return modelMapper.map(company, CompanyResponse.class);
+    }
+
+    @Override
+    public CompanyResponse signUp(String fullName, String email, String password) {
+        if (companyRepository.existsCompanyByEmail(email)) {
+            return null;
+        }
+        Company company = Company.builder()
+                .name(fullName)
+                .email(email)
+                .password(password)
+                .build();
+        companyRepository.save(company);
+        return modelMapper.map(company, CompanyResponse.class);
     }
 
     @Override
@@ -94,9 +115,10 @@ public class CompanyServiceImpl implements CompanyService {
     // End of logic
 
     //  ================================= PRIVATE METHODS =================================
-   public CompanyResponse mapCompanyToCompanyResponse(Company company) {
+    public CompanyResponse mapCompanyToCompanyResponse(Company company) {
         return modelMapper.map(company, CompanyResponse.class);
     }
+
     public Company mapCompanyRequestToCompany(CompanyRequest companyRequest) {
         return modelMapper.map(companyRequest, Company.class);
     }

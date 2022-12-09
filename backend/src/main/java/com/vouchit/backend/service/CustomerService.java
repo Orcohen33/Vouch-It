@@ -15,6 +15,8 @@ public interface CustomerService {
 
     Customer login(String email, String password);
 
+    Customer signUp(String fullName, String email, String password);
+
     boolean purchaseCoupon(Long customerId, Long couponId);
 
     Set<Coupon> getCustomerCoupons();
@@ -33,6 +35,4 @@ public interface CustomerService {
 
     CategoryResponse mapCategoryToCategoryResponse(Category category);
 
-
-    Customer signUp(String fullName, String email, String password);
 }
