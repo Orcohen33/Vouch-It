@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     void login() {
         TextInputEditText email = findViewById(R.id.text_email_address_login);
         TextInputEditText password = findViewById(R.id.text_password_login);
-        MaterialButton button = findViewById(R.id.signin_button);
+        MaterialButton button = findViewById(R.id.signin_customer_button);
 
 
         CustomerApi customerApi = RetrofitService

@@ -25,7 +25,8 @@
         </activity>
         <activity
             android:name=".activities.SignupActivity"
-            android:exported="false" >
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -33,7 +34,7 @@
         <activity
             android:name=".activities.LoginActivity"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.NoActionBar" >
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" >
 
              <intent-filter>
              <action android:name="android.intent.action.MAIN" />
