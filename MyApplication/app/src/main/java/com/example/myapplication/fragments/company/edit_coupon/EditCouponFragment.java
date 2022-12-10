@@ -12,6 +12,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentEditCouponCompanyBinding;
 
+/**
+ * This class is the fragment that is shown when the user is in the edit coupon page of the company.
+ */
 public class EditCouponFragment extends Fragment {
 
     private FragmentEditCouponCompanyBinding binding;

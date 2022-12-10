@@ -5,6 +5,10 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is the ViewModel for the HomeCompanyFragment.
+ * It contains the list of coupons that are displayed in the HomeCompanyFragment.
+ */
 public class HomeCompanyViewModel extends ViewModel {
 
     List<String> couponsTitles;

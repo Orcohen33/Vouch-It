@@ -15,6 +15,10 @@ import com.example.myapplication.R;
 
 import java.util.List;
 
+/**
+ * This class is the adapter for the RecyclerView that is shown in the HomeCompanyFragment.
+ * It is used to show the coupons of the current company.
+ */
 public class CompanyCouponsViewAdapter extends RecyclerView.Adapter<CompanyCouponsViewAdapter.ViewHolder> {
 
     List<String> couponsTitles;
@@ -39,9 +43,11 @@ public class CompanyCouponsViewAdapter extends RecyclerView.Adapter<CompanyCoupo
         String title = couponsTitles.get(position);
         holder.title.setText(title);
 
+        // TODO: Add the functionality of the edit button.
+
+        // When the delete button is clicked, delete the coupon.
         holder.delete.setOnClickListener(v -> {
             Toast.makeText(v.getContext(), "Clicked on " + title, Toast.LENGTH_SHORT).show();
-
             // delete this item from the list
             couponsTitles.remove(position);
             // notify the adapter that the data has changed

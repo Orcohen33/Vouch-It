@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 
 import com.example.myapplication.R;
 
+/**
+ * This class is the fragment that is shown when the user is in the add coupon page of the company.
+ */
 public class AddCouponFragment extends Fragment {
 
     private AddCouponViewModel mViewModel;

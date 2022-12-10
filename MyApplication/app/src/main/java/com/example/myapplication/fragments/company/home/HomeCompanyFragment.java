@@ -16,6 +16,9 @@ import com.example.myapplication.R;
 import com.example.myapplication.adapters.CompanyCouponsViewAdapter;
 import com.example.myapplication.databinding.FragmentHomeCompanyBinding;
 
+/**
+ * This class is the fragment that is shown when the user is in the home page of the company.
+ */
 public class HomeCompanyFragment extends Fragment {
 
     private FragmentHomeCompanyBinding binding;
@@ -37,14 +40,17 @@ public class HomeCompanyFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Move to the edit coupon fragment.
         binding.buttonFirst.setOnClickListener(view1 ->
                 NavHostFragment.findNavController(HomeCompanyFragment.this)
                 .navigate(R.id.action_HomeCompanyFragment_to_EditCouponFragment));
 
+        // Move to the add coupon fragment
         binding.addNewCoupon.setOnClickListener(view1 ->
                 NavHostFragment.findNavController(HomeCompanyFragment.this)
                 .navigate(R.id.action_HomeCompanyFragment_to_AddCouponFragment));
 
+        // Recycler view for the coupons.
         RecyclerView couponsList = binding.couponCompanyList;
         CompanyCouponsViewAdapter adapter = new CompanyCouponsViewAdapter(
                 homeCompanyViewModel.couponsTitles,
