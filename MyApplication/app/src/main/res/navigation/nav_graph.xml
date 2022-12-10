@@ -3,26 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/HomeCompanyFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/HomeCompanyFragment"
         android:name="com.example.myapplication.fragments.company.home.HomeCompanyFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/company_home_fragment_label"
         tools:layout="@layout/fragment_home_company">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_HomeCompanyFragment_to_EditCouponFragment"
+            app:destination="@id/EditCompanyFragment" />
+        <action
+            android:id="@+id/action_HomeCompanyFragment_to_AddCouponFragment"
+            app:destination="@id/AddCouponFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
+        android:id="@+id/EditCompanyFragment"
         android:name="com.example.myapplication.fragments.company.edit_coupon.EditCouponFragment"
-        android:label="@string/second_fragment_label"
+        android:label="@string/company_edit_coupon_fragment_label"
         tools:layout="@layout/fragment_edit_coupon_company">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_EditCouponFragment_to_HomeCompanyFragment"
+            app:destination="@id/HomeCompanyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/AddCouponFragment"
+        android:name="com.example.myapplication.fragments.company.add_coupon.AddCouponFragment"
+        android:label="@string/company_add_coupon_fragment_label"
+        tools:layout="@layout/fragment_add_coupon">
+
+        <action
+            android:id="@+id/action_AddCouponFragment_to_HomeCompanyFragment"
+            app:destination="@id/HomeCompanyFragment" />
     </fragment>
 </navigation>

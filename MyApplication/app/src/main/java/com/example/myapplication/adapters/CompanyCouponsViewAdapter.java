@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,8 +58,8 @@ public class CompanyCouponsViewAdapter extends RecyclerView.Adapter<CompanyCoupo
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView title;
-        Button delete;
-        Button edit;
+        ImageButton delete;
+        ImageButton edit;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

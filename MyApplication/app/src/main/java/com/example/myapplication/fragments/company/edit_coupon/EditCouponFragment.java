@@ -18,7 +18,7 @@ public class EditCouponFragment extends Fragment {
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
+            @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
 
@@ -34,7 +34,7 @@ public class EditCouponFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(EditCouponFragment.this)
-                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
+                        .navigate(R.id.action_EditCouponFragment_to_HomeCompanyFragment);
             }
         });
     }

@@ -18,11 +18,14 @@
     <string name="menu_restaurants">Restaurants</string>
     <string name="title_activity_company">CompanyActivity</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="company_home_fragment_label">My coupons</string>
+    <string name="company_edit_coupon_fragment_label">Edit</string>
+    <string name="company_add_coupon_fragment_label">New coupon</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!--  String for signup activity  -->
+    <string name="signup_as_company">Signup as company</string>
 </resources>

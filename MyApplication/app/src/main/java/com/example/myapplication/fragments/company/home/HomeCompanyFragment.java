@@ -23,7 +23,7 @@ public class HomeCompanyFragment extends Fragment {
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
+            @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
 
@@ -37,13 +37,13 @@ public class HomeCompanyFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        binding.buttonFirst.setOnClickListener(view1 ->
                 NavHostFragment.findNavController(HomeCompanyFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-            }
-        });
+                .navigate(R.id.action_HomeCompanyFragment_to_EditCouponFragment));
+
+        binding.addNewCoupon.setOnClickListener(view1 ->
+                NavHostFragment.findNavController(HomeCompanyFragment.this)
+                .navigate(R.id.action_HomeCompanyFragment_to_AddCouponFragment));
 
         RecyclerView couponsList = binding.couponCompanyList;
         CompanyCouponsViewAdapter adapter = new CompanyCouponsViewAdapter(
@@ -53,7 +53,6 @@ public class HomeCompanyFragment extends Fragment {
         couponsList.setLayoutManager(new GridLayoutManager(getContext(), 1, GridLayoutManager.VERTICAL, false));
         couponsList.setHasFixedSize(true);
         couponsList.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
     }
 
     @Override
