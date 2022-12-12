@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.activities.CompanyActivity;
 import com.example.myapplication.adapters.CompanyCouponsViewAdapter;
 import com.example.myapplication.databinding.FragmentHomeCompanyBinding;
 
@@ -24,6 +25,10 @@ public class HomeCompanyFragment extends Fragment {
     private FragmentHomeCompanyBinding binding;
     private HomeCompanyViewModel homeCompanyViewModel;
 
+    private Long companyId;
+    private String companyName;
+    private String companyEmail;
+
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -31,8 +36,18 @@ public class HomeCompanyFragment extends Fragment {
     ) {
 
         homeCompanyViewModel = new ViewModelProvider(this).get(HomeCompanyViewModel.class);
-
         binding = FragmentHomeCompanyBinding.inflate(inflater, container, false);
+
+        if (this.getArguments() != null) {
+            companyId = this.getArguments().getLong("id");
+            companyName = this.getArguments().getString("name");
+            companyEmail = this.getArguments().getString("email");
+            System.out.println("HomeCompanyFragment: " + companyId + ", " + companyName + ", " + companyEmail);
+        }
+        homeCompanyViewModel.setId(companyId);
+        homeCompanyViewModel.setName(companyName);
+        homeCompanyViewModel.setEmail(companyEmail);
+        homeCompanyViewModel.initializeCoupons();
         return binding.getRoot();
 
     }
@@ -43,12 +58,12 @@ public class HomeCompanyFragment extends Fragment {
         // Move to the edit coupon fragment.
         binding.buttonFirst.setOnClickListener(view1 ->
                 NavHostFragment.findNavController(HomeCompanyFragment.this)
-                .navigate(R.id.action_HomeCompanyFragment_to_EditCouponFragment));
+                        .navigate(R.id.action_HomeCompanyFragment_to_EditCouponFragment, this.getArguments()));
 
         // Move to the add coupon fragment
         binding.addNewCoupon.setOnClickListener(view1 ->
                 NavHostFragment.findNavController(HomeCompanyFragment.this)
-                .navigate(R.id.action_HomeCompanyFragment_to_AddCouponFragment));
+                        .navigate(R.id.action_HomeCompanyFragment_to_AddCouponFragment, this.getArguments()));
 
         // Recycler view for the coupons.
         RecyclerView couponsList = binding.couponCompanyList;
@@ -59,6 +74,7 @@ public class HomeCompanyFragment extends Fragment {
         couponsList.setLayoutManager(new GridLayoutManager(getContext(), 1, GridLayoutManager.VERTICAL, false));
         couponsList.setHasFixedSize(true);
         couponsList.setAdapter(adapter);
+
     }
 
     @Override

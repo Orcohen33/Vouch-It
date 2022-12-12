@@ -10,11 +10,13 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityCompanyBinding;
+import com.example.myapplication.fragments.company.home.HomeCompanyFragment;
 
 public class CompanyActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityCompanyBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,9 @@ public class CompanyActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(
                 this,
                 R.id.nav_host_fragment_content_company);
+        // new - pass the company name and email to the HomeCompanyFragment
+        navController.setGraph(R.navigation.nav_graph, getIntent().getExtras());
+
         appBarConfiguration = new AppBarConfiguration
                 .Builder(navController.getGraph())
                 .build();
@@ -41,6 +46,8 @@ public class CompanyActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_company);
+        // new - pass the bundle
+        navController.setGraph(R.navigation.nav_graph, getIntent().getExtras());
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }

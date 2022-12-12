@@ -91,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
         });
+
         signInAsCompany.setOnClickListener(v -> {
             CompanyApi companyApi = RetrofitService
                     .getInstance()
@@ -107,9 +108,10 @@ public class LoginActivity extends AppCompatActivity {
                             if (response.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
                                 // Extract the details from response to variables
-                                com.example.myapplication.models.company.Company company = response.body();
+                                Company company = response.body();
                                 Intent intent = new Intent(LoginActivity.this, CompanyActivity.class);
                                 assert company != null;
+                                intent.putExtra("id", company.getId());
                                 intent.putExtra("name", company.getName());
                                 intent.putExtra("email", company.getEmail());
                                 startActivity(intent);
