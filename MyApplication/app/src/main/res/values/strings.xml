@@ -24,7 +24,6 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <!--  String for signup activity  -->
     <string name="signup_as_company">Signup as company</string>
@@ -33,5 +32,9 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in_short">actuin</string>
     <string name="action_sign_in">Sign in</string>
+
+    <!--  START HOME_COMPANY_FRAGMENT  -->
+    <string name="progress_bar_empty_coupons">You have no coupons</string>
+    <!--  END HOME_COMPANY_FRAGMENT  -->
 
 </resources>

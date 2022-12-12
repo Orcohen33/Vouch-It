@@ -1,59 +1,47 @@
 package com.example.myapplication.fragments.company.home;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModel;
+import android.app.Application;
 
-import com.example.myapplication.interfaces.CouponApi;
-import com.example.myapplication.models.coupon.Coupon;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+
 import com.example.myapplication.models.coupon.CouponResponse;
-import com.example.myapplication.models.coupon.CouponResponses;
-import com.example.myapplication.network.RetrofitService;
+import com.example.myapplication.repository.CompanyCouponRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * This class is the ViewModel for the HomeCompanyFragment.
  * It contains the list of coupons that are displayed in the HomeCompanyFragment.
  */
-public class HomeCompanyViewModel extends ViewModel {
+public class HomeCompanyViewModel extends AndroidViewModel {
 
     private Long id;
     private String name;
     private String email;
     List<String> couponsTitles;
 
-    public HomeCompanyViewModel() {
+    private CompanyCouponRepository companyCouponRepository;
+    private LiveData<List<CouponResponse>> couponResponsesLiveData;
+
+    public HomeCompanyViewModel(@NonNull Application application) {
+        super(application);
+        couponsTitles = new ArrayList<>();
+        System.out.println("HomeCompanyViewModel: " + id + ", " + name + ", " + email);
     }
 
-    public void initializeCoupons() {
-        couponsTitles = new ArrayList<>();
-        CouponApi couponApi = RetrofitService
-                .getInstance()
-                .getRetrofit()
-                .create(CouponApi.class);
+    void init(){
+        System.out.println("HomeCompanyViewModel: init");
+        if (id!=null){
+            companyCouponRepository = new CompanyCouponRepository();
+            couponResponsesLiveData = companyCouponRepository.getCouponsByCompanyId(id);
+        }
+    }
 
-        couponApi.getCouponsByCompanyId(id).enqueue(new Callback<CouponResponses>() {
-            @Override
-            public void onResponse(@NonNull Call<CouponResponses> call, Response<CouponResponses> response) {
-                if (response.isSuccessful()) {
-                    CouponResponses coupons = response.body();
-                    if (coupons != null) {
-                        for (CouponResponse coupon : coupons.getCoupons()) {
-                            couponsTitles.add(coupon.getTitle());
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CouponResponses> call, Throwable t) {
-            }
-        });
+    public LiveData<List<CouponResponse>> getCouponResponsesLiveData() {
+        return couponResponsesLiveData;
     }
 
     public Long getId() {
