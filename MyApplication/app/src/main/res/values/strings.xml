@@ -28,4 +28,10 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <!--  String for signup activity  -->
     <string name="signup_as_company">Signup as company</string>
+
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in_short">actuin</string>
+    <string name="action_sign_in">Sign in</string>
+
 </resources>

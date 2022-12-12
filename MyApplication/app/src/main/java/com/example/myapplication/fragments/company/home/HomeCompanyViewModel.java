@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.myapplication.interfaces.CouponApi;
 import com.example.myapplication.models.coupon.Coupon;
+import com.example.myapplication.models.coupon.CouponResponse;
+import com.example.myapplication.models.coupon.CouponResponses;
 import com.example.myapplication.network.RetrofitService;
 
 import java.util.ArrayList;
@@ -35,22 +37,21 @@ public class HomeCompanyViewModel extends ViewModel {
                 .getRetrofit()
                 .create(CouponApi.class);
 
-        couponApi.getCouponsByCompanyId(getId()).enqueue(new Callback<List<Coupon>>() {
+        couponApi.getCouponsByCompanyId(id).enqueue(new Callback<CouponResponses>() {
             @Override
-            public void onResponse(@NonNull Call<List<Coupon>> call, @NonNull Response<List<Coupon>> response) {
+            public void onResponse(@NonNull Call<CouponResponses> call, Response<CouponResponses> response) {
                 if (response.isSuccessful()) {
-                    List<Coupon> coupons = response.body();
-                    assert coupons != null;
-                    for (Coupon coupon : coupons) {
-                        System.out.println(coupon);
-                        couponsTitles.add(coupon.getTitle());
+                    CouponResponses coupons = response.body();
+                    if (coupons != null) {
+                        for (CouponResponse coupon : coupons.getCoupons()) {
+                            couponsTitles.add(coupon.getTitle());
+                        }
                     }
                 }
-
             }
+
             @Override
-            public void onFailure(@NonNull Call<List<Coupon>> call, @NonNull Throwable t) {
-                System.out.println("HomeCompanyViewModel: " + t.getMessage());
+            public void onFailure(Call<CouponResponses> call, Throwable t) {
             }
         });
     }
