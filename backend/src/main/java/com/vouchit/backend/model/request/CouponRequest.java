@@ -1,5 +1,6 @@
 package com.vouchit.backend.model.request;
 
+import com.vouchit.backend.model.request.company.CompanyRequest;
 import lombok.*;
 
 import javax.validation.constraints.Min;

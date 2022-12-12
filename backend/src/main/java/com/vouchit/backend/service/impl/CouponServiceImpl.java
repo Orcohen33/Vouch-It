@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -81,6 +82,13 @@ public class CouponServiceImpl implements CouponService {
     public String deleteCoupon(Long couponId) {
         couponRepository.deleteById(couponId);
         return "Coupon deleted successfully";
+    }
+
+    @Override
+    public Set<CouponResponse> getAllCouponsByCompanyId(Long companyId) {
+        return couponRepository.getAllByCompanyId(companyId)
+                .stream().map(this::mapCouponToCouponResponse)
+                .collect(Collectors.toSet());
     }
 
 //    ================================= PRIVATE METHODS =================================

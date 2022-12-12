@@ -5,6 +5,7 @@ import com.vouchit.backend.model.entity.Coupon;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -18,4 +19,5 @@ public interface CouponRepository extends JpaRepository<Coupon, Long> {
     @Query("select c from Coupon c inner join c.customers customers where customers.id = ?1")
     Set<Coupon> getAllByCustomersId(Long id);
 
+    Set<Coupon> getAllByCompanyId(Long companyId);
 }

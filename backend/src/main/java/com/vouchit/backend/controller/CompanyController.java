@@ -1,6 +1,8 @@
 package com.vouchit.backend.controller;
 
-import com.vouchit.backend.model.request.*;
+import com.vouchit.backend.model.request.company.CompanyRequest;
+import com.vouchit.backend.model.request.company.CompanySignInRequest;
+import com.vouchit.backend.model.request.company.CompanySignUpRequest;
 import com.vouchit.backend.model.response.CompanyResponse;
 import com.vouchit.backend.service.CompanyService;
 import lombok.extern.slf4j.Slf4j;

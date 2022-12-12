@@ -1,4 +1,4 @@
-package com.vouchit.backend.model.request;
+package com.vouchit.backend.model.request.customer;
 
 import lombok.*;
 

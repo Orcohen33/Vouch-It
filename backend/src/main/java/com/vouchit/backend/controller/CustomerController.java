@@ -2,8 +2,8 @@ package com.vouchit.backend.controller;
 
 import com.vouchit.backend.model.entity.Customer;
 import com.vouchit.backend.model.request.CategoryRequest;
-import com.vouchit.backend.model.request.CustomerSignInRequest;
-import com.vouchit.backend.model.request.CustomerSignupRequest;
+import com.vouchit.backend.model.request.customer.CustomerSignInRequest;
+import com.vouchit.backend.model.request.customer.CustomerSignupRequest;
 import com.vouchit.backend.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

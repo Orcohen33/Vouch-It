@@ -1,7 +1,7 @@
 package com.vouchit.backend.service;
 
 import com.vouchit.backend.model.entity.Company;
-import com.vouchit.backend.model.request.CompanyRequest;
+import com.vouchit.backend.model.request.company.CompanyRequest;
 import com.vouchit.backend.model.request.CouponRequest;
 import com.vouchit.backend.model.response.CompanyResponse;
 import com.vouchit.backend.model.response.CouponResponse;

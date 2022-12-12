@@ -1,13 +1,12 @@
 package com.vouchit.backend.service.impl;
 
 import com.vouchit.backend.model.entity.Company;
-import com.vouchit.backend.model.request.CompanyRequest;
+import com.vouchit.backend.model.request.company.CompanyRequest;
 import com.vouchit.backend.model.request.CouponRequest;
 import com.vouchit.backend.model.response.CompanyResponse;
 import com.vouchit.backend.model.response.CouponResponse;
 import com.vouchit.backend.repository.CompanyRepository;
 import com.vouchit.backend.service.CompanyService;
-import com.vouchit.backend.service.CouponService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

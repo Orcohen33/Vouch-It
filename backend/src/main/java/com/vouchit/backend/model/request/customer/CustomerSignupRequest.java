@@ -1,4 +1,4 @@
-package com.vouchit.backend.model.request;
+package com.vouchit.backend.model.request.customer;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
