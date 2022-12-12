@@ -36,22 +36,25 @@ public class CompanyServiceImpl implements CompanyService {
         return modelMapper.map(company, CompanyResponse.class);
     }
 
-    @Override
-    public CompanyResponse signUp(String fullName, String email, String password) {
-        if (companyRepository.existsCompanyByEmail(email)) {
-            return null;
-        }
-        Company company = Company.builder()
-                .name(fullName)
-                .email(email)
-                .password(password)
-                .build();
-        companyRepository.save(company);
-        return modelMapper.map(company, CompanyResponse.class);
-    }
+//    @Override
+//    public CompanyResponse signUp(String fullName, String email, String password) {
+//        if (companyRepository.existsCompanyByEmail(email)) {
+//            return null;
+//        }
+//        Company company = Company.builder()
+//                .name(fullName)
+//                .email(email)
+//                .password(password)
+//                .build();
+//        companyRepository.save(company);
+//        return modelMapper.map(company, CompanyResponse.class);
+//    }
 
     @Override
     public CompanyResponse createCompany(CompanyRequest companyRequest) {
+        if (companyRepository.existsCompanyByEmail(companyRequest.getEmail())) {
+            return null;
+        }
         Company company = mapCompanyRequestToCompany(companyRequest);
         return mapCompanyToCompanyResponse(companyRepository.save(company));
     }

@@ -2,7 +2,6 @@ package com.vouchit.backend.controller;
 
 import com.vouchit.backend.model.request.company.CompanyRequest;
 import com.vouchit.backend.model.request.company.CompanySignInRequest;
-import com.vouchit.backend.model.request.company.CompanySignUpRequest;
 import com.vouchit.backend.model.response.CompanyResponse;
 import com.vouchit.backend.service.CompanyService;
 import lombok.extern.slf4j.Slf4j;
@@ -39,15 +38,21 @@ public class CompanyController {
 
     @Transactional
     @PostMapping("/signup")
-    public ResponseEntity<CompanyResponse> signUp(@RequestBody CompanySignUpRequest companySignUpRequest) {
-        log.info("CompanyController: signUp");
-        log.info("CompanyController: signUp: logInRequest: {}", companySignUpRequest);
-        CompanyResponse companyResponse = companyService.signUp(companySignUpRequest.fullName(),
-                companySignUpRequest.email(),
-                companySignUpRequest.password());
-        return ResponseEntity.status(HttpStatus.CREATED).body(companyResponse);
+    public ResponseEntity<CompanyResponse> createCompany(@RequestBody CompanyRequest companyRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(companyService.createCompany(companyRequest));
     }
 
+    // Get company by id
+
+//    public ResponseEntity<CompanyResponse> signUp(@RequestBody CompanySignUpRequest companySignUpRequest) {
+//        log.info("CompanyController: signUp");
+//        log.info("CompanyController: signUp: logInRequest: {}", companySignUpRequest);
+//        CompanyResponse companyResponse = companyService.signUp(companySignUpRequest.fullName(),
+//                companySignUpRequest.email(),
+//                companySignUpRequest.password());
+//        return ResponseEntity.status(HttpStatus.CREATED).body(companyResponse);
+
+//    }
 
 
     // Get all companies
@@ -56,15 +61,9 @@ public class CompanyController {
         return ResponseEntity.ok(companyService.getAllCompanies());
     }
 
-    // Get company by id
     @GetMapping("/{id}")
     public ResponseEntity<CompanyResponse> getCompanyById(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok(companyService.getCompanyById(id));
-    }
-
-    @PostMapping
-    public ResponseEntity<CompanyResponse> createCompany(@RequestBody CompanyRequest companyRequest) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(companyService.createCompany(companyRequest));
     }
 
     @DeleteMapping("/{id}")

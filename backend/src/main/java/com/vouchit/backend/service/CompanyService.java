@@ -14,7 +14,7 @@ public interface CompanyService {
 
     CompanyResponse login(String email, String password);
 
-    CompanyResponse signUp(String fullName, String email, String password);
+//    CompanyResponse signUp(String fullName, String email, String password);
     // Create
     CompanyResponse createCompany(CompanyRequest companyRequest);
     // Read
