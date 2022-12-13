@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.databinding.FragmentAddCouponBinding;
-import com.example.myapplication.models.coupon.Coupon;
 import com.google.android.material.button.MaterialButton;
 
 import java.time.LocalDate;
@@ -26,6 +25,7 @@ public class AddCouponFragment extends Fragment {
     private FragmentAddCouponBinding binding;
     private AddCouponViewModel mViewModel;
 
+    private Long companyId;
     private String companyName;
     private String companyEmail;
 
@@ -39,38 +39,50 @@ public class AddCouponFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(AddCouponViewModel.class);
         binding = FragmentAddCouponBinding.inflate(inflater, container, false);
         assert this.getArguments() != null;
+        companyId = this.getArguments().getLong("id");
         companyName = this.getArguments().getString("name");
         companyEmail = this.getArguments().getString("email");
-        System.out.println("[AddCouponFragment] Company name: " + companyName);
-        System.out.println("[AddCouponFragment] Company email: " + companyEmail);
-        addCouponButtonListener();
+        mViewModel.setCompanyName(companyName);
+        mViewModel.setCompanyEmail(companyEmail);
+        System.out.println("[ON_CREATE_VIEW]: companyId: " + companyId);
+        mViewModel.setCompanyId(companyId);
         return binding.getRoot();
-//        return inflater.inflate(R.layout.fragment_add_coupon, container, false);
     }
 
-    private void addCouponButtonListener() {
-//        Coupon coupon = new Coupon();
-        MaterialButton addCouponButton = binding.companyCouponAddButton;
-        addCouponButton.setOnClickListener(v -> {
-            mViewModel.couponTitle = Objects.requireNonNull(binding.companyCouponNameInput.getText()).toString();
-            mViewModel.couponDescription = Objects.requireNonNull(binding.companyCouponDescriptionInput.getText()).toString();
-            mViewModel.couponCategory = "funny";
-            mViewModel.couponPrice = Objects.requireNonNull(binding.companyCouponPriceInput.getText()).toString();
-            mViewModel.couponAmount = Objects.requireNonNull(binding.companyCouponAmountInput.getText()).toString();
-            mViewModel.couponImage = null;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                mViewModel.couponStartDate = LocalDate.of(
-                        Integer.parseInt(String.valueOf(binding.companyCouponStartDateInput.getYear())),
-                        Integer.parseInt(String.valueOf(binding.companyCouponStartDateInput.getMonth() + 1)),
-                        Integer.parseInt(String.valueOf(binding.companyCouponStartDateInput.getDayOfMonth()))
-                );
-                mViewModel.couponEndDate = LocalDate.of(
-                        Integer.parseInt(String.valueOf(binding.companyCouponEndDateInput.getYear())),
-                        Integer.parseInt(String.valueOf(binding.companyCouponEndDateInput.getMonth() + 1)),
-                        Integer.parseInt(String.valueOf(binding.companyCouponEndDateInput.getDayOfMonth()))
-                );
-            }
-            System.out.println(mViewModel);
+//    private void addCouponButtonListener() {
+//        CouponRequest coupon = new CouponRequest();
+//        MaterialButton addCouponButton = binding.companyCouponAddButton;
+//        addCouponButton.setOnClickListener(v -> {
+//            mViewModel.couponTitle = Objects.requireNonNull(binding.companyCouponNameInput.getText()).toString();
+//            mViewModel.couponDescription = Objects.requireNonNull(binding.companyCouponDescriptionInput.getText()).toString();
+//            mViewModel.couponCategory = "מצחיק";
+//            mViewModel.couponPrice = Objects.requireNonNull(binding.companyCouponPriceInput.getText()).toString();
+//            mViewModel.couponAmount = Objects.requireNonNull(binding.companyCouponAmountInput.getText()).toString();
+//            mViewModel.couponImage = null;
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                mViewModel.couponStartDate = LocalDate.of(
+//                        Integer.parseInt(String.valueOf(binding.companyCouponStartDateInput.getYear())),
+//                        Integer.parseInt(String.valueOf(binding.companyCouponStartDateInput.getMonth() + 1)),
+//                        Integer.parseInt(String.valueOf(binding.companyCouponStartDateInput.getDayOfMonth()))
+//                );
+//                mViewModel.couponEndDate = LocalDate.of(
+//                        Integer.parseInt(String.valueOf(binding.companyCouponEndDateInput.getYear())),
+//                        Integer.parseInt(String.valueOf(binding.companyCouponEndDateInput.getMonth() + 1)),
+//                        Integer.parseInt(String.valueOf(binding.companyCouponEndDateInput.getDayOfMonth()))
+//                );
+//            }
+//            System.out.println(mViewModel);
+//            mViewModel.addCoupon();
+//        });
+//    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        binding.companyCouponAddButton.setOnClickListener(v -> {
+            mViewModel.initializeAllFields(binding);
             mViewModel.addCoupon();
         });
     }
@@ -83,21 +95,3 @@ public class AddCouponFragment extends Fragment {
 
 }
 
-
-
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        mViewModel = new ViewModelProvider(this).get(AddCouponViewModel.class);
-//    }
-
-
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        mViewModel = new ViewModelProvider(this).get(AddCouponViewModel.class);
-//
-//
-//        // TODO: Use the ViewModel
-
-//    }

@@ -22,11 +22,11 @@ public class ShowViewModel extends ViewModel {
         couponsTitles = new ArrayList<>();
         couponsPrices = new ArrayList<>();
 
-        couponsTitles.add("Coupon 1");
-        couponsTitles.add("Coupon 2");
-        couponsTitles.add("Coupon 3");
-        couponsTitles.add("Coupon 4");
-        couponsTitles.add("Coupon 5");
+        couponsTitles.add("CouponRequest 1");
+        couponsTitles.add("CouponRequest 2");
+        couponsTitles.add("CouponRequest 3");
+        couponsTitles.add("CouponRequest 4");
+        couponsTitles.add("CouponRequest 5");
 
         couponsPrices.add("Price :1$");
         couponsPrices.add("Price :2$");
