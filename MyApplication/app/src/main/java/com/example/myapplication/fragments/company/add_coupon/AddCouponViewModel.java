@@ -14,6 +14,7 @@ import com.example.myapplication.repository.CompanyCouponRepository;
 import com.google.android.material.button.MaterialButton;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
@@ -37,8 +38,8 @@ public class AddCouponViewModel extends AndroidViewModel {
     String couponPrice;
     String couponAmount;
     String couponImage;
-    LocalDate couponStartDate;
-    LocalDate couponEndDate;
+    String couponStartDate;
+    String couponEndDate;
     CompanyCouponRepository companyCouponRepository;
 
     public void setCompanyId(Long companyId) {
@@ -77,9 +78,7 @@ public class AddCouponViewModel extends AndroidViewModel {
         coupon.setEndDate(couponEndDate);
         coupon.setCompanyId(companyId);
         coupon.setCategoryId(3L);
-        System.out.println("[ADD_COUPON]: "+coupon);
         companyCouponRepository.createCoupon(coupon);
-        System.out.println("Adding coupon");
     }
 
     public void initializeAllFields(FragmentAddCouponBinding binding) {
@@ -90,16 +89,16 @@ public class AddCouponViewModel extends AndroidViewModel {
         couponAmount = Objects.requireNonNull(binding.companyCouponAmountInput.getText()).toString();
         couponImage = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            couponStartDate = LocalDate.of(
-                    Integer.parseInt(String.valueOf(binding.companyCouponStartDateInput.getYear())),
-                    Integer.parseInt(String.valueOf(binding.companyCouponStartDateInput.getMonth() + 1)),
-                    Integer.parseInt(String.valueOf(binding.companyCouponStartDateInput.getDayOfMonth()))
-            );
-            couponEndDate = LocalDate.of(
-                    Integer.parseInt(String.valueOf(binding.companyCouponEndDateInput.getYear())),
-                    Integer.parseInt(String.valueOf(binding.companyCouponEndDateInput.getMonth() + 1)),
-                    Integer.parseInt(String.valueOf(binding.companyCouponEndDateInput.getDayOfMonth()))
-            );
+            int startDateMonth = binding.companyCouponStartDateInput.getMonth() + 1;
+            int endDateMonth = binding.companyCouponEndDateInput.getMonth() + 1;
+            couponStartDate =
+                    binding.companyCouponStartDateInput.getYear()+"-" +
+                    (startDateMonth < 10 ? "0"+startDateMonth: startDateMonth)+"-" +
+                    binding.companyCouponStartDateInput.getDayOfMonth();
+
+            couponEndDate = binding.companyCouponEndDateInput.getYear()+"-" +
+                    (endDateMonth < 10 ? "0"+endDateMonth: endDateMonth)+"-" +
+                    binding.companyCouponEndDateInput.getDayOfMonth();
         }
         System.out.println("Initializing all fields");
     }

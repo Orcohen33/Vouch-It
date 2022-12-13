@@ -16,11 +16,14 @@ public class CouponRequest {
     private String title;
     @Size(min = 3, max = 255)
     private String description;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private String startDate;
+    private String endDate;
     private Integer amount;
     private Double price;
     private String image;
+
+    private Long companyId;
+    private Long categoryId;
 
     public Long getCompanyId() {
         return companyId;
@@ -38,9 +41,6 @@ public class CouponRequest {
         this.categoryId = categoryId;
     }
 
-    private Long companyId;
-    private Long categoryId;
-
     public String getTitle() {
         return title;
     }
@@ -57,19 +57,19 @@ public class CouponRequest {
         this.description = description;
     }
 
-    public LocalDate getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

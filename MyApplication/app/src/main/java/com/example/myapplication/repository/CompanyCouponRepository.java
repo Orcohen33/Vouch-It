@@ -51,7 +51,6 @@ public class CompanyCouponRepository {
             public void onResponse(@NonNull Call<CouponResponse> call, @NonNull Response<CouponResponse> response) {
                 if (response.isSuccessful()) {
                     data.setValue(response.body());
-                    Toast.makeText(null, "Coupon created successfully", Toast.LENGTH_SHORT).show();
                 }
             }
 
