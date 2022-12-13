@@ -45,7 +45,6 @@ public class CustomerCouponsViewAdapter extends RecyclerView.Adapter<CustomerCou
         Integer image = couponsImages.get(position);
         String title = couponsTitles.get(position);
         String price = couponsPrices.get(position);
-        System.out.println("image: " + image + " title: " + title + " price: " + price);
         holder.image.setImageResource(image);
         holder.title.setText(title);
         holder.price.setText(price);
