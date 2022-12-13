@@ -1,11 +1,8 @@
 package com.example.myapplication.models.coupon;
 
-import com.example.myapplication.models.category.Category;
 import com.example.myapplication.models.category.CategoryResponse;
 import com.example.myapplication.models.company.CompanyResponse;
 import com.google.gson.annotations.SerializedName;
-
-import java.time.LocalDate;
 
 public class CouponResponse {
 
@@ -32,5 +29,29 @@ public class CouponResponse {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    @Override
+    public String toString() {
+        return "CouponResponse{" +
+                "id=" + id +
+                ", title='" + title + '\n' +
+                ", description='" + description + '\n' +
+                ", image='" + image + '\n' +
+                ", amount=" + amount + '\n' +
+                ", price=" + price + '\n' +
+                ", startDate='" + startDate+ '\n' +
+                ", endDate='" + endDate + '\n' +
+                ", category=" + category + '\n' +
+                ", company=" + company + '\n' +
+                '}';
     }
 }

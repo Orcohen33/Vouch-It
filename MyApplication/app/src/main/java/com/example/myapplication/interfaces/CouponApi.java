@@ -9,7 +9,6 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 
@@ -20,6 +19,9 @@ public interface CouponApi {
 
     @POST("/api/v1/coupon")
     Call<CouponResponse> createCoupon(@Body CouponRequest couponRequest);
+
+    @GET("/api/v1/coupon/category/{id}")
+    Call<List<CouponResponse>> getCouponsByCategoryId(@Path("id") Long id);
 
 
 }

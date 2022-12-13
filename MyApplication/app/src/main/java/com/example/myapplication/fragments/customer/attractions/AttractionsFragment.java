@@ -1,4 +1,4 @@
-package com.example.myapplication.fragments.customer.restaurants;
+package com.example.myapplication.fragments.customer.attractions;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -18,24 +18,23 @@ import com.example.myapplication.adapters.CustomerCouponsViewAdapter;
 import com.example.myapplication.databinding.FragmentSpaBinding;
 import com.example.myapplication.fragments.customer.CouponsByCategoryViewModel;
 
-public class RestaurantsFragment extends Fragment {
-
-    private final Long categoryId = 5L;
+public class AttractionsFragment extends Fragment {
+    private final Long categoryId = 4L;
     private FragmentSpaBinding binding;
-    private CouponsByCategoryViewModel restaurantsViewModel;
+    private CouponsByCategoryViewModel attractionsViewModel;
     private CustomerCouponsViewAdapter adapter;
     private RecyclerView recyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        restaurantsViewModel =
-                new ViewModelProvider(this).get(RestaurantsViewModel.class);
+        attractionsViewModel =
+                new ViewModelProvider(this).get(AttractionsViewModel.class);
         binding = FragmentSpaBinding.inflate(inflater, container, false);
         recyclerView = binding.couponsCustomerList;
         adapter = new CustomerCouponsViewAdapter(
-                restaurantsViewModel.getCouponsImages(),
-                restaurantsViewModel.getCouponsTitles(),
-                restaurantsViewModel.getCouponsPrices(),
+                attractionsViewModel.getCouponsImages(),
+                attractionsViewModel.getCouponsTitles(),
+                attractionsViewModel.getCouponsPrices(),
                 getContext()
         );
 
@@ -43,19 +42,19 @@ public class RestaurantsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
-        restaurantsViewModel.init(categoryId);
+        attractionsViewModel.init(categoryId);
         getCategoryCoupons();
         return binding.getRoot();
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private void getCategoryCoupons() {
-        restaurantsViewModel.getCategoryCouponsResponseLiveData().observe(getViewLifecycleOwner(), coupons -> {
+        attractionsViewModel.getCategoryCouponsResponseLiveData().observe(getViewLifecycleOwner(), coupons -> {
             if (coupons != null && coupons.size() > 0) {
                 for (int i = 0; i < coupons.size(); i++) {
-                    restaurantsViewModel.getCouponsImages().add(R.drawable.microphone);
-                    restaurantsViewModel.getCouponsTitles().add(coupons.get(i).getTitle());
-                    restaurantsViewModel.getCouponsPrices().add(String.valueOf(coupons.get(i).getPrice()));
+                    attractionsViewModel.getCouponsImages().add(R.drawable.microphone);
+                    attractionsViewModel.getCouponsTitles().add(coupons.get(i).getTitle());
+                    attractionsViewModel.getCouponsPrices().add(String.valueOf(coupons.get(i).getPrice()));
                 }
                 adapter.notifyDataSetChanged();
             }

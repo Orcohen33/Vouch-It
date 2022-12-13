@@ -51,19 +51,19 @@ public class CategoryViewAdapter extends RecyclerView.Adapter<CategoryViewAdapte
                       2.Change the "R.id.*" to the name of the fragment
              */
             switch (category) {
-                case "Category 1":
+                case "ספא":
                     navController.navigate(R.id.nav_spa);
                     break;
-                case "Category 2":
+                case "שופינג":
                     navController.navigate(R.id.nav_shows);
                     break;
-                case "Category 3":
+                case "הופעות":
                     navController.navigate(R.id.nav_spa);
                     break;
-                case "Category 4":
+                case "אטרקציות":
                     navController.navigate(R.id.nav_shows);
                     break;
-                case "Category 5":
+                case "מסעדות":
                     navController.navigate(R.id.nav_shows);
                     break;
             }

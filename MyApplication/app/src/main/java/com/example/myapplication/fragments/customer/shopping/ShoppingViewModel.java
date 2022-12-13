@@ -1,11 +1,11 @@
-package com.example.myapplication.fragments.customer.restaurants;
+package com.example.myapplication.fragments.customer.shopping;
 
 import com.example.myapplication.fragments.customer.CouponsByCategoryViewModel;
 
-public class RestaurantsViewModel extends CouponsByCategoryViewModel {
+public class ShoppingViewModel extends CouponsByCategoryViewModel {
 
     Long categoryId;
-    public RestaurantsViewModel() {
+    public ShoppingViewModel() {
         super();
     }
     public void setCategoryId(Long categoryId) {

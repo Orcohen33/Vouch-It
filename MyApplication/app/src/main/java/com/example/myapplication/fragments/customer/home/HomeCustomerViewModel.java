@@ -22,11 +22,11 @@ public class HomeCustomerViewModel extends ViewModel {
         categoriesImages = new ArrayList<>();
 
         // TODO: Change the categories and images to your own
-        categoriesNames.add("Category 1");
-        categoriesNames.add("Category 2");
-        categoriesNames.add("Category 3");
-        categoriesNames.add("Category 4");
-        categoriesNames.add("Category 5");
+        categoriesNames.add("ספא");
+        categoriesNames.add("שופינג");
+        categoriesNames.add("הופעות");
+        categoriesNames.add("אטרקציות");
+        categoriesNames.add("מסעדות");
 
         categoriesImages.add(R.drawable.microphone);
         categoriesImages.add(R.drawable.cart);
