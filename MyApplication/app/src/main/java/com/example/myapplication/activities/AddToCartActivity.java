@@ -16,9 +16,15 @@ public class AddToCartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.maincart);
     }
-    public void onImageClick(View view) {
+    public void onBackCartImageClick(View view) {
         Intent intent = new Intent(this, CustomerActivity.class);
         startActivity(intent);
+    }
+   //on click of the button
+    public void onButtonClick(View view) {
+        Intent intent = new Intent(this, PaymentActivity.class);
+        startActivity(intent);
+
     }
 
 
