@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/AppTheme">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cartListItems"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        android:paddingTop="?android:actionBarSize"
+        android:scrollbarSize="5dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/Uprectangle"
+        android:layout_width="408dp"
+        android:layout_height="81dp"
+        android:background="@color/green_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/cart"
+        android:layout_width="143dp"
+        android:layout_height="182dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Uprectangle"
+        app:layout_constraintVertical_bias="0.431"
+        app:srcCompat="@drawable/shoppingcart"
+        android:alpha="0.5" />
+
+    <View
+        android:id="@+id/downRectangle"
+        android:layout_width="408dp"
+        android:layout_height="77dp"
+        android:background="@color/green_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cart"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/payment_button"
+        android:layout_width="131dp"
+        android:layout_height="70dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="#BFF6FA"
+        android:text="Payment"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/downRectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/downRectangle"
+        app:layout_constraintTop_toTopOf="@+id/cartListItems"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="153dp"
+        android:layout_height="53dp"
+
+        android:layout_marginTop="756dp"
+        android:text="סכום לתשלום: "
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cartListItems" />
+
+
+    <TextView
+        android:id="@+id/buy"
+        android:layout_width="146dp"
+        android:layout_height="27dp"
+        android:backgroundTint="#000000"
+        android:shadowColor="#070707"
+        android:text="רכישות Vouch-It"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/cart"
+        app:layout_constraintEnd_toEndOf="@+id/Uprectangle"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.064" />
+
+    <ImageView
+        android:id="@+id/my_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onImageClick"
+        android:src="@drawable/backbutton"
+        app:layout_constraintBottom_toTopOf="@+id/price"
+        app:layout_constraintEnd_toEndOf="@+id/Uprectangle"
+        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintStart_toEndOf="@+id/buy"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.02" />
+
+    />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

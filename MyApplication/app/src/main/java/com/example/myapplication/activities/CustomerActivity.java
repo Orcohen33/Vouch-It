@@ -1,5 +1,6 @@
 package com.example.myapplication.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -29,8 +30,11 @@ public class CustomerActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(view -> Snackbar.make(view, "TODO: Shopping cart", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+        binding.appBarMain.fab.setOnClickListener(view -> {
+            Intent intent = new Intent(this, AddToCartActivity.class);
+            startActivity(intent);
+        });
+        ;
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
