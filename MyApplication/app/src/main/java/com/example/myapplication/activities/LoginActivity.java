@@ -111,9 +111,9 @@ public class LoginActivity extends AppCompatActivity {
                                 Company company = response.body();
                                 Intent intent = new Intent(LoginActivity.this, CompanyActivity.class);
                                 assert company != null;
-                                intent.putExtra("id", company.getId());
-                                intent.putExtra("name", company.getName());
-                                intent.putExtra("email", company.getEmail());
+                                intent.putExtra("companyId", company.getId());
+                                intent.putExtra("companyName", company.getName());
+                                intent.putExtra("companyEmail", company.getEmail());
                                 startActivity(intent);
                             }
                         }

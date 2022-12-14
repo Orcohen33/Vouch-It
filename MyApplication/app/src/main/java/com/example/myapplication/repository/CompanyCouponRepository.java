@@ -1,11 +1,11 @@
 package com.example.myapplication.repository;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
 import com.example.myapplication.interfaces.CouponApi;
 import com.example.myapplication.models.coupon.CouponRequest;
@@ -41,10 +41,11 @@ public class CompanyCouponRepository {
                 Log.e(TAG, "onFailure: ", t);
             }
         });
+        // sort data before returning it
         return data;
     }
 
-    public LiveData<CouponResponse> createCoupon(CouponRequest couponRequest) {
+    public void createCoupon(CouponRequest couponRequest) {
         final MutableLiveData<CouponResponse> data = new MutableLiveData<>();
         couponApi.createCoupon(couponRequest).enqueue(new Callback<CouponResponse>() {
             @Override
@@ -53,12 +54,25 @@ public class CompanyCouponRepository {
                     data.setValue(response.body());
                 }
             }
-
             @Override
             public void onFailure(@NonNull Call<CouponResponse> call, @NonNull Throwable t) {
                 Log.e(TAG, "onFailure: ", t);
             }
         });
-        return data;
+    }
+
+    public void deleteCouponById(Long id) {
+        couponApi.deleteCouponById(id).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "onResponse: Coupon deleted successfully");
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
     }
 }

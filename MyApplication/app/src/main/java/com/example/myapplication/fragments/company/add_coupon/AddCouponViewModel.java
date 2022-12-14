@@ -75,28 +75,7 @@ public class AddCouponViewModel extends AndroidViewModel {
         coupon.setEndDate(couponEndDate);
         coupon.setCompanyId(companyId);
         coupon.setCategoryId(3L);
-//        List<CouponRequest> coupons = generate250Coupons();
-//        for (CouponRequest couponRequest : coupons) {
-//            companyCouponRepository.createCoupon(couponRequest);
-//        }
         companyCouponRepository.createCoupon(coupon);
-    }
-    List<CouponRequest> generate250Coupons(){
-        Random random = new Random();
-        List<CouponRequest> coupons = new ArrayList<>();
-        for (int i = 0; i < 250; i++) {
-            CouponRequest request = new CouponRequest();
-            request.setTitle("Coupon #" + i);
-            request.setDescription("Description for coupon #" + i);
-            request.setStartDate("2022-12-12");
-            request.setEndDate("2022-12-31");
-            request.setAmount(100);
-            request.setPrice(10.0);
-            request.setCompanyId(5L);
-            request.setCategoryId((long) (random.nextInt(5) + 1));
-            coupons.add(request);
-        }
-        return coupons;
     }
 
     public void initializeAllFields(FragmentAddCouponBinding binding) {

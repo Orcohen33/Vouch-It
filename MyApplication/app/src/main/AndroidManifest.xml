@@ -23,15 +23,15 @@
             android:theme="@style/AppTheme"/>
         <activity
             android:name=".activities.CustomerActivity"
-            android:exported="true"
+            android:exported="false"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme" >
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
+        <activity android:name=".activities.CompanyActivity"
+            android:theme="@style/AppThemeMaterial"
+            android:label="@string/title_activity_company" />
         <activity
             android:name=".activities.SignupActivity"
             android:theme="@style/AppThemeMaterial"
@@ -45,10 +45,10 @@
             android:exported="true"
             android:theme="@style/AppThemeMaterial" >
 
-<!--             <intent-filter>-->
-<!--             <action android:name="android.intent.action.MAIN" />-->
-<!--             <category android:name="android.intent.category.LAUNCHER" />-->
-<!--             </intent-filter>-->
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
 
             <meta-data
                 android:name="android.app.lib_name"

@@ -34,9 +34,9 @@ public class AddCouponFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(AddCouponViewModel.class);
         binding = FragmentAddCouponBinding.inflate(inflater, container, false);
         assert this.getArguments() != null;
-        companyId = this.getArguments().getLong("id");
-        companyName = this.getArguments().getString("name");
-        companyEmail = this.getArguments().getString("email");
+        companyId = this.getArguments().getLong("companyId");
+        companyName = this.getArguments().getString("companyName");
+        companyEmail = this.getArguments().getString("companyEmail");
         mViewModel.setCompanyName(companyName);
         mViewModel.setCompanyEmail(companyEmail);
         mViewModel.setCompanyId(companyId);

@@ -1,10 +1,12 @@
 package com.example.myapplication.fragments.company.home;
 
 import android.app.Application;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
 
 import com.example.myapplication.models.coupon.CouponResponse;
 import com.example.myapplication.repository.CompanyCouponRepository;
@@ -22,6 +24,7 @@ public class HomeCompanyViewModel extends AndroidViewModel {
     private String name;
     private String email;
     List<String> couponsTitles;
+    List<Long> couponsIds;
 
     private CompanyCouponRepository companyCouponRepository;
     private LiveData<List<CouponResponse>> couponResponsesLiveData;
@@ -29,6 +32,7 @@ public class HomeCompanyViewModel extends AndroidViewModel {
     public HomeCompanyViewModel(@NonNull Application application) {
         super(application);
         couponsTitles = new ArrayList<>();
+        couponsIds = new ArrayList<>();
         System.out.println("HomeCompanyViewModel: " + id + ", " + name + ", " + email);
     }
 
@@ -41,6 +45,13 @@ public class HomeCompanyViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<CouponResponse>> getCouponResponsesLiveData() {
+        // sort the data before returning it
+        couponResponsesLiveData = Transformations.map(couponResponsesLiveData, couponResponses -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                couponResponses.sort((o1, o2) -> o1.getTitle().compareTo(o2.getTitle()));
+            }
+            return couponResponses;
+        });
         return couponResponsesLiveData;
     }
 

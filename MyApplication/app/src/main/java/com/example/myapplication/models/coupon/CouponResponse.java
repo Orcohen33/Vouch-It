@@ -39,6 +39,34 @@ public class CouponResponse {
         return price;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public CategoryResponse getCategory() {
+        return category;
+    }
+
+    public CompanyResponse getCompany() {
+        return company;
+    }
+
     @Override
     public String toString() {
         return "CouponResponse{" +

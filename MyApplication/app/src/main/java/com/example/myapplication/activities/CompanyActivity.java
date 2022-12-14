@@ -10,7 +10,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityCompanyBinding;
-import com.example.myapplication.fragments.company.home.HomeCompanyFragment;
 
 public class CompanyActivity extends AppCompatActivity {
 
@@ -38,9 +37,6 @@ public class CompanyActivity extends AppCompatActivity {
                 .build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-//        binding.addNewCoupon.setOnClickListener(view ->
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show());
     }
 
     @Override

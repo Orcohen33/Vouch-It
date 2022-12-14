@@ -17,10 +17,12 @@ import com.example.myapplication.R;
 import com.example.myapplication.adapters.CompanyCouponsViewAdapter;
 import com.example.myapplication.databinding.FragmentHomeCompanyBinding;
 
+import java.util.Objects;
+
 /**
  * This class is the fragment that is shown when the user is in the home page of the company.
  */
-public class HomeCompanyFragment extends Fragment {
+public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewAdapter.ItemClickListener {
 
     FragmentHomeCompanyBinding binding;
 
@@ -46,6 +48,7 @@ public class HomeCompanyFragment extends Fragment {
         recyclerView = binding.couponCompanyList;
         adapter = new CompanyCouponsViewAdapter(
                 homeCompanyViewModel.couponsTitles,
+                this,
                 getContext()
         );
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1, GridLayoutManager.VERTICAL, false));
@@ -53,9 +56,9 @@ public class HomeCompanyFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         if (this.getArguments() != null) {
-            companyId = this.getArguments().getLong("id");
-            companyName = this.getArguments().getString("name");
-            companyEmail = this.getArguments().getString("email");
+            companyId = this.getArguments().getLong("companyId");
+            companyName = this.getArguments().getString("companyName");
+            companyEmail = this.getArguments().getString("companyEmail");
             homeCompanyViewModel.setId(companyId);
             homeCompanyViewModel.setName(companyName);
             homeCompanyViewModel.setEmail(companyEmail);
@@ -63,6 +66,7 @@ public class HomeCompanyFragment extends Fragment {
             getCompanyCoupons();
         }
 
+        // sort the coupons by name and then show it to user
 
         return binding.getRoot();
 
@@ -76,6 +80,7 @@ public class HomeCompanyFragment extends Fragment {
                     binding.noCoupons.setVisibility(View.GONE); // hide the "no coupons" text
                     for (int i = 0; i < couponResponses.size(); i++) {
                         homeCompanyViewModel.couponsTitles.add(couponResponses.get(i).getTitle());
+                        homeCompanyViewModel.couponsIds.add(couponResponses.get(i).getId());
                     }
                     adapter.notifyDataSetChanged();
                 }
@@ -109,4 +114,15 @@ public class HomeCompanyFragment extends Fragment {
         homeCompanyViewModel.couponsTitles.clear();
     }
 
+    @Override
+    public void onItemClick(View view, int position) {
+        Bundle bundle = new Bundle();
+        bundle.putLong("id", companyId);
+        bundle.putString("name", companyName);
+        bundle.putString("email", companyEmail);
+        bundle.putString("couponTitle", homeCompanyViewModel.couponsTitles.get(position));
+        bundle.putLong("couponId",homeCompanyViewModel.couponsIds.get(position));
+        NavHostFragment.findNavController(HomeCompanyFragment.this)
+                .navigate(R.id.action_HomeCompanyFragment_to_EditCouponFragment, bundle);
+    }
 }

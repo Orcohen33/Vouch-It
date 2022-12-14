@@ -1,5 +1,6 @@
 package com.example.myapplication.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,11 +25,14 @@ public class CompanyCouponsViewAdapter extends RecyclerView.Adapter<CompanyCoupo
     List<String> couponsTitles;
 
     LayoutInflater inflater;
+    ItemClickListener itemClickListener;
 
     public CompanyCouponsViewAdapter(List<String> couponsTitles,
+                                     ItemClickListener itemClickListener,
                                      Context ctx) {
         this.couponsTitles = couponsTitles;
         this.inflater = LayoutInflater.from(ctx);
+        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -45,14 +49,23 @@ public class CompanyCouponsViewAdapter extends RecyclerView.Adapter<CompanyCoupo
 
         // TODO: Add the functionality of the edit button.
 
+        holder.itemView.setOnClickListener(v -> itemClickListener.onItemClick(v, position));
         // When the delete button is clicked, delete the coupon.
         holder.delete.setOnClickListener(v -> {
-            Toast.makeText(v.getContext(), "Clicked on " + title, Toast.LENGTH_SHORT).show();
-            // delete this item from the list
-            couponsTitles.remove(position);
-            // notify the adapter that the data has changed
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, couponsTitles.size());
+            AlertDialog.Builder builder = new AlertDialog.Builder(inflater.getContext());
+            builder.setTitle("Delete coupon");
+            builder.setMessage("Are you sure you want to delete this coupon?");
+            builder.setPositiveButton("Yes", (dialog, which) -> {
+                // delete this item from the list
+                couponsTitles.remove(position);
+                // notify the adapter that the data has changed
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, couponsTitles.size());
+            });
+            builder.setNegativeButton("No", (dialog, which) -> {
+                // do nothing
+            });
+            builder.show();
         });
     }
 
@@ -73,5 +86,9 @@ public class CompanyCouponsViewAdapter extends RecyclerView.Adapter<CompanyCoupo
             delete = itemView.findViewById(R.id.delete_coupon_button);
             edit = itemView.findViewById(R.id.edit_coupon_button);
         }
+    }
+
+    public interface ItemClickListener {
+        void onItemClick(View view, int position);
     }
 }
