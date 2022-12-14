@@ -61,14 +61,12 @@ public class CategoryViewAdapter extends RecyclerView.Adapter<CategoryViewAdapte
                     navController.navigate(R.id.nav_spa);
                     break;
                 case "אטרקציות":
-                    navController.navigate(R.id.nav_shows);
+                    navController.navigate(R.id.nav_spa);
                     break;
                 case "מסעדות":
-                    navController.navigate(R.id.nav_shows);
+                    navController.navigate(R.id.nav_restaurants);
                     break;
             }
-            // then reset the current fragment to the first item
-             navController.popBackStack(R.id.nav_home, true);
 
         });
     }

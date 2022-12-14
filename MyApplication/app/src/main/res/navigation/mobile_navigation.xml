@@ -11,6 +11,11 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home_customer" />
 
+<!--    <fragment android:id="@+id/nav_attractions"-->
+<!--        android:name="com.example.myapplication.fragments.customer.attractions.AttractionsFragment"-->
+<!--&lt;!&ndash;        android:label="@string/menu_attractions"&ndash;&gt;-->
+<!--&lt;!&ndash;        tools:layout="@layout/fragment_attractions_customer"&ndash;&gt;-->
+<!--        />-->
     <fragment
         android:id="@+id/nav_spa"
         android:name="com.example.myapplication.fragments.customer.spa.SpaFragment"
