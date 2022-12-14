@@ -39,8 +39,8 @@ public class PaymentActivity extends AppCompatActivity {
         EditText.OnFocusChangeListener onFocusChangeListenerCardHolderName = (v, hasFocus) -> {
             if (!hasFocus) {
                 EditText editText = (EditText) v;
-                if (editText.getText().length() < 3) {
-                    editText.setError("Card holder name must be at least 3 characters");
+                if (editText.getText().length() < 4 || !editText.getText().toString().contains(" ")) {
+                    editText.setError("- Card holder name must be at least 4 characters\n- Card holder name must be full name");
                 }
             }
         };
@@ -62,8 +62,8 @@ public class PaymentActivity extends AppCompatActivity {
             if (!hasFocus) {
                 EditText editText = (EditText) v;
                 if (editText.getText().toString().isEmpty() ||
-                        editText.getText().length() != 4 || Integer.parseInt(editText.getText().toString()) < 2021) {
-                    editText.setError("- Expiry year must be 4 digits\n- Expiry year must be at least 2021");
+                        editText.getText().length() != 4 || Integer.parseInt(editText.getText().toString()) < 2022) {
+                    editText.setError("- Expiry year must be 4 digits\n- Expiry year must be at least 2022");
                 }
             }
         };

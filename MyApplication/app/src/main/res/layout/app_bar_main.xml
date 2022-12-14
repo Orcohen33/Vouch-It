@@ -28,6 +28,6 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
-        app:srcCompat="@drawable/shoppingcart" />
+        app:srcCompat="@drawable/ic_white_shopping_cart" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
