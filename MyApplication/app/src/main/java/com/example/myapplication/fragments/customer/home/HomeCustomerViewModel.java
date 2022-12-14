@@ -28,11 +28,11 @@ public class HomeCustomerViewModel extends ViewModel {
         categoriesNames.add("אטרקציות");
         categoriesNames.add("מסעדות");
 
-        categoriesImages.add(R.drawable.microphone);
-        categoriesImages.add(R.drawable.cart);
-        categoriesImages.add(R.drawable.ic_menu_gallery);
-        categoriesImages.add(R.drawable.ic_menu_slideshow);
-        categoriesImages.add(R.drawable.ic_restaurant);
+        categoriesImages.add(R.drawable.spa_icon);
+        categoriesImages.add(R.drawable.shopping_bag_icon);
+        categoriesImages.add(R.drawable.shows_icon);
+        categoriesImages.add(R.drawable.atractions_icon);
+        categoriesImages.add(R.drawable.restaurant_icon);
 
     }
 

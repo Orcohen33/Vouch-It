@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 
+import java.util.Calendar;
+
 public class PaymentActivity extends AppCompatActivity {
 
     @Override
@@ -24,6 +26,8 @@ public class PaymentActivity extends AppCompatActivity {
         EditText expiryMonth = findViewById(R.id.expiration_month);
         EditText expiryYear = findViewById(R.id.expiration_year);
         EditText cvv = findViewById(R.id.cvv);
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
 
         // Check validation of the fields
         EditText.OnFocusChangeListener onFocusChangeListenerCardNumber = (v, hasFocus) -> {
@@ -39,7 +43,8 @@ public class PaymentActivity extends AppCompatActivity {
         EditText.OnFocusChangeListener onFocusChangeListenerCardHolderName = (v, hasFocus) -> {
             if (!hasFocus) {
                 EditText editText = (EditText) v;
-                if (editText.getText().length() < 4 || !editText.getText().toString().contains(" ")) {
+                String[] name = editText.getText().toString().split(" ");
+                if (editText.getText().length() < 4 || !editText.getText().toString().contains(" ") || name.length <= 1) {
                     editText.setError("- Card holder name must be at least 4 characters\n- Card holder name must be full name");
                 }
             }
@@ -62,7 +67,7 @@ public class PaymentActivity extends AppCompatActivity {
             if (!hasFocus) {
                 EditText editText = (EditText) v;
                 if (editText.getText().toString().isEmpty() ||
-                        editText.getText().length() != 4 || Integer.parseInt(editText.getText().toString()) < 2022) {
+                        editText.getText().length() != 4 || Integer.parseInt(editText.getText().toString()) < year) {
                     editText.setError("- Expiry year must be 4 digits\n- Expiry year must be at least 2022");
                 }
             }
