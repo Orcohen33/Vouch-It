@@ -7,6 +7,7 @@ public class Company {
     private String email;
     private String password;
 
+
     public Company(Long id,
                    String name,
                    String email,

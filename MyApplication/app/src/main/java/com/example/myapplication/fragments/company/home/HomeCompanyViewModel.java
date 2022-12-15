@@ -12,6 +12,7 @@ import com.example.myapplication.models.coupon.CouponResponse;
 import com.example.myapplication.repository.CompanyCouponRepository;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -36,23 +37,29 @@ public class HomeCompanyViewModel extends AndroidViewModel {
         System.out.println("HomeCompanyViewModel: " + id + ", " + name + ", " + email);
     }
 
-    void init(){
+    void init() {
         System.out.println("HomeCompanyViewModel: init");
-        if (id!=null){
+        if (id != null) {
             companyCouponRepository = new CompanyCouponRepository();
             couponResponsesLiveData = companyCouponRepository.getCouponsByCompanyId(id);
         }
     }
 
     public LiveData<List<CouponResponse>> getCouponResponsesLiveData() {
+        System.out.println("HomeCompanyViewModel: getCouponResponsesLiveData");
         // sort the data before returning it
         couponResponsesLiveData = Transformations.map(couponResponsesLiveData, couponResponses -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                couponResponses.sort((o1, o2) -> o1.getTitle().compareTo(o2.getTitle()));
+                couponResponses.sort(Comparator.comparing(CouponResponse::getTitle));
             }
             return couponResponses;
         });
         return couponResponsesLiveData;
+    }
+
+    public void deleteCouponById(Long couponId) {
+//        companyCouponRepository.deleteCoupon(couponId);
+        companyCouponRepository.deleteCouponById(couponId);
     }
 
     public Long getId() {

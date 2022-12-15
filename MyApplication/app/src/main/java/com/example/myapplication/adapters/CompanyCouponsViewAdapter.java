@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,24 +48,31 @@ public class CompanyCouponsViewAdapter extends RecyclerView.Adapter<CompanyCoupo
 
         // TODO: Add the functionality of the edit button.
 
-        holder.itemView.setOnClickListener(v -> itemClickListener.onItemClick(v, position));
+        holder.edit.setOnClickListener(v -> itemClickListener.onEditClick(v, position));
         // When the delete button is clicked, delete the coupon.
         holder.delete.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(inflater.getContext());
-            builder.setTitle("Delete coupon");
-            builder.setMessage("Are you sure you want to delete this coupon?");
-            builder.setPositiveButton("Yes", (dialog, which) -> {
-                // delete this item from the list
-                couponsTitles.remove(position);
-                // notify the adapter that the data has changed
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, couponsTitles.size());
-            });
-            builder.setNegativeButton("No", (dialog, which) -> {
-                // do nothing
-            });
-            builder.show();
+            extracted(position);
+            itemClickListener.onDeleteClick(v, position);
+
         });
+    }
+
+    private void extracted(int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(inflater.getContext());
+        builder.setTitle("Delete coupon");
+        builder.setMessage("Are you sure you want to delete this coupon?");
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            // delete this item from the list
+//            couponsTitles.remove(position);
+
+            // notify the adapter that the data has changed
+//            notifyItemRemoved(position);
+//            notifyItemRangeChanged(position, couponsTitles.size());
+        });
+        builder.setNegativeButton("No", (dialog, which) -> {
+            // do nothing
+        });
+        builder.show();
     }
 
     @Override
@@ -89,6 +95,7 @@ public class CompanyCouponsViewAdapter extends RecyclerView.Adapter<CompanyCoupo
     }
 
     public interface ItemClickListener {
-        void onItemClick(View view, int position);
+        void onEditClick(View view, int position);
+        void onDeleteClick(View view, int position);
     }
 }

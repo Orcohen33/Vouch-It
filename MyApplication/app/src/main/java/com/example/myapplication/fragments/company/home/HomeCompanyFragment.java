@@ -1,7 +1,10 @@
 package com.example.myapplication.fragments.company.home;
 
+import static android.content.ContentValues.TAG;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,15 +68,13 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
             homeCompanyViewModel.init();
             getCompanyCoupons();
         }
-
         // sort the coupons by name and then show it to user
-
         return binding.getRoot();
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private void getCompanyCoupons() {
+        System.out.println("getCompanyCoupons");
         if (companyId != null) {
             homeCompanyViewModel.getCouponResponsesLiveData().observe(getViewLifecycleOwner(), couponResponses -> {
                 if (couponResponses != null && couponResponses.size() > 0) {
@@ -115,7 +116,7 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
     }
 
     @Override
-    public void onItemClick(View view, int position) {
+    public void onEditClick(View view, int position) {
         Bundle bundle = new Bundle();
         bundle.putLong("id", companyId);
         bundle.putString("name", companyName);
@@ -124,5 +125,18 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
         bundle.putLong("couponId",homeCompanyViewModel.couponsIds.get(position));
         NavHostFragment.findNavController(HomeCompanyFragment.this)
                 .navigate(R.id.action_HomeCompanyFragment_to_EditCouponFragment, bundle);
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    @Override
+    public void onDeleteClick(View view, int position) {
+        Log.d(TAG, "onDeleteClick: " + homeCompanyViewModel.couponsIds.get(position));
+        homeCompanyViewModel.couponsTitles.remove(position);
+        homeCompanyViewModel.couponsIds.remove(position);
+        Objects.requireNonNull(recyclerView.getAdapter()).notifyItemRemoved(position);
+        Objects.requireNonNull(recyclerView.getAdapter()).notifyItemRangeChanged(position, homeCompanyViewModel.couponsTitles.size());
+//        homeCompanyViewModel.deleteCouponById(homeCompanyViewModel.couponsIds.get(position));
+
+//        adapter.notifyDataSetChanged();
     }
 }

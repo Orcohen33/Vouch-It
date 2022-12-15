@@ -6,6 +6,7 @@ import com.example.myapplication.models.coupon.CouponResponse;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -33,6 +34,9 @@ public interface CouponApi {
     @PUT("/api/v1/coupon/{id}")
     Call<CouponResponse> updateCoupon(@Path("id") Long id, @Body CouponRequest couponRequest);
 
+//    @DELETE("/api/v1/coupon/{id}")
+//    Call<String> deleteCouponById(Long id);
+
     @DELETE("/api/v1/coupon/{id}")
-    Call<String> deleteCouponById(Long id);
+    void deleteCouponById(@Path("id") int id, Callback<String> callback);
 }

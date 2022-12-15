@@ -43,9 +43,16 @@ public class SpaFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
+//        spaViewModel.init(categoryId);
+//        getCategoryCoupons();
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         spaViewModel.init(categoryId);
         getCategoryCoupons();
-        return binding.getRoot();
     }
 
     @SuppressLint("NotifyDataSetChanged")

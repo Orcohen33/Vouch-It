@@ -27,6 +27,7 @@ public class CompanyCouponRepository {
     }
 
     public LiveData<List<CouponResponse>> getCouponsByCompanyId(Long id) {
+        System.out.println("CompanyCouponRepository.getCouponsByCompanyId");
         final MutableLiveData<List<CouponResponse>> data = new MutableLiveData<>();
         couponApi.getCouponsByCompanyId(id).enqueue(new Callback<List<CouponResponse>>() {
             @Override
@@ -62,13 +63,15 @@ public class CompanyCouponRepository {
     }
 
     public void deleteCouponById(Long id) {
-        couponApi.deleteCouponById(id).enqueue(new Callback<String>() {
+        final MutableLiveData<String> data = new MutableLiveData<>();
+        couponApi.deleteCouponById(id.intValue(), new Callback<String>() {
             @Override
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                 if (response.isSuccessful()) {
-                    Log.d(TAG, "onResponse: Coupon deleted successfully");
+                    data.setValue(response.body());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
                 Log.e(TAG, "onFailure: ", t);
