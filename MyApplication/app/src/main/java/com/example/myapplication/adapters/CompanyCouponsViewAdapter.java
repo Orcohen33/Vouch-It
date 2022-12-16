@@ -45,30 +45,16 @@ public class CompanyCouponsViewAdapter extends RecyclerView.Adapter<CompanyCoupo
     public void onBindViewHolder(@NonNull CompanyCouponsViewAdapter.ViewHolder holder, int position) {
         String title = couponsTitles.get(position);
         holder.title.setText(title);
-
-        // TODO: Add the functionality of the edit button.
-
+        // When the user clicks on the edit button, the user is redirected to the edit coupon page.
         holder.edit.setOnClickListener(v -> itemClickListener.onEditClick(v, position));
         // When the delete button is clicked, delete the coupon.
-        holder.delete.setOnClickListener(v -> {
-            extracted(position);
-            itemClickListener.onDeleteClick(v, position);
-
-        });
+        holder.delete.setOnClickListener(v -> dialogForDeleteAction(position));
     }
-
-    private void extracted(int position) {
+    private void dialogForDeleteAction(int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(inflater.getContext());
         builder.setTitle("Delete coupon");
         builder.setMessage("Are you sure you want to delete this coupon?");
-        builder.setPositiveButton("Yes", (dialog, which) -> {
-            // delete this item from the list
-//            couponsTitles.remove(position);
-
-            // notify the adapter that the data has changed
-//            notifyItemRemoved(position);
-//            notifyItemRangeChanged(position, couponsTitles.size());
-        });
+        builder.setPositiveButton("Yes", (dialog, which) -> itemClickListener.onDeleteClick(position));
         builder.setNegativeButton("No", (dialog, which) -> {
             // do nothing
         });
@@ -96,6 +82,6 @@ public class CompanyCouponsViewAdapter extends RecyclerView.Adapter<CompanyCoupo
 
     public interface ItemClickListener {
         void onEditClick(View view, int position);
-        void onDeleteClick(View view, int position);
+        void onDeleteClick( int position);
     }
 }

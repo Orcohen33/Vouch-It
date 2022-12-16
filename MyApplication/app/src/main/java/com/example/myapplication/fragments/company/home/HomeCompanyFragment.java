@@ -65,11 +65,17 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
             homeCompanyViewModel.setId(companyId);
             homeCompanyViewModel.setName(companyName);
             homeCompanyViewModel.setEmail(companyEmail);
-            homeCompanyViewModel.init();
-            getCompanyCoupons();
+
         }
         // sort the coupons by name and then show it to user
         return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        homeCompanyViewModel.init();
+        getCompanyCoupons();
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -95,16 +101,10 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Move to the edit coupon fragment.
-        binding.buttonFirst.setOnClickListener(view1 ->
-                NavHostFragment.findNavController(HomeCompanyFragment.this)
-                        .navigate(R.id.action_HomeCompanyFragment_to_EditCouponFragment, this.getArguments()));
-
         // Move to the add coupon fragment
         binding.addNewCoupon.setOnClickListener(view1 ->
                 NavHostFragment.findNavController(HomeCompanyFragment.this)
                         .navigate(R.id.action_HomeCompanyFragment_to_AddCouponFragment, this.getArguments()));
-
 
     }
 
@@ -113,12 +113,13 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
         super.onDestroyView();
         binding = null;
         homeCompanyViewModel.couponsTitles.clear();
+        homeCompanyViewModel.couponsIds.clear();
     }
 
     @Override
     public void onEditClick(View view, int position) {
         Bundle bundle = new Bundle();
-        bundle.putLong("id", companyId);
+        bundle.putLong("companyId", companyId);
         bundle.putString("name", companyName);
         bundle.putString("email", companyEmail);
         bundle.putString("couponTitle", homeCompanyViewModel.couponsTitles.get(position));
@@ -127,16 +128,18 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
                 .navigate(R.id.action_HomeCompanyFragment_to_EditCouponFragment, bundle);
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+//    @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void onDeleteClick(View view, int position) {
+    public void onDeleteClick( int position) {
         Log.d(TAG, "onDeleteClick: " + homeCompanyViewModel.couponsIds.get(position));
         homeCompanyViewModel.couponsTitles.remove(position);
+        homeCompanyViewModel.deleteCouponById(homeCompanyViewModel.couponsIds.get(position));
         homeCompanyViewModel.couponsIds.remove(position);
         Objects.requireNonNull(recyclerView.getAdapter()).notifyItemRemoved(position);
         Objects.requireNonNull(recyclerView.getAdapter()).notifyItemRangeChanged(position, homeCompanyViewModel.couponsTitles.size());
-//        homeCompanyViewModel.deleteCouponById(homeCompanyViewModel.couponsIds.get(position));
+//        adapter.notifyDataSetChanged();
 
 //        adapter.notifyDataSetChanged();
+        // test@test.com
     }
 }

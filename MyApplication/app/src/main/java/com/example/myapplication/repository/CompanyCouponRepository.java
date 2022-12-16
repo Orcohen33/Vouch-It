@@ -5,7 +5,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 
 import com.example.myapplication.interfaces.CouponApi;
 import com.example.myapplication.models.coupon.CouponRequest;
@@ -62,18 +61,31 @@ public class CompanyCouponRepository {
         });
     }
 
-    public void deleteCouponById(Long id) {
-        final MutableLiveData<String> data = new MutableLiveData<>();
-        couponApi.deleteCouponById(id.intValue(), new Callback<String>() {
+    public void updateCoupon(Long id ,CouponRequest couponRequest) {
+        final MutableLiveData<CouponResponse> data = new MutableLiveData<>();
+        couponApi.updateCoupon(id, couponRequest).enqueue(new Callback<CouponResponse>() {
             @Override
-            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+            public void onResponse(@NonNull Call<CouponResponse> call, @NonNull Response<CouponResponse> response) {
                 if (response.isSuccessful()) {
                     data.setValue(response.body());
                 }
             }
-
             @Override
-            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<CouponResponse> call, @NonNull Throwable t) {
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
+    }
+    public void deleteCouponById(Long id) {
+        couponApi.deleteCouponById(id).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                if (response.isSuccessful()) {
+                    System.out.println("Coupon deleted successfully");
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                 Log.e(TAG, "onFailure: ", t);
             }
         });

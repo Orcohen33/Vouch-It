@@ -1,14 +1,12 @@
 package com.example.myapplication.fragments.company.edit_coupon;
 
 import android.app.Application;
-import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.example.myapplication.databinding.FragmentEditCouponCompanyBinding;
+import com.example.myapplication.models.coupon.CouponRequest;
 import com.example.myapplication.models.coupon.CouponResponse;
 import com.example.myapplication.repository.CompanyCouponRepository;
 import com.example.myapplication.repository.CouponRepository;
@@ -19,27 +17,74 @@ import com.example.myapplication.repository.CouponRepository;
  */
 public class EditCouponViewModel extends AndroidViewModel {
 
+    Long companyId;
+
+    String companyName;
+
+    String companyEmail;
+    String couponTitle;
+    String couponDescription;
+    Long couponCategoryId;
+    String couponPrice;
+    String couponAmount;
+    String couponImage;
+    String couponStartDate;
+    String couponEndDate;
     CouponRepository couponRepository;
+    CompanyCouponRepository companyCouponRepository;
     LiveData<CouponResponse> couponResponse;
 
     public EditCouponViewModel(@NonNull Application application) {
         super(application);
+        couponTitle = "";
+        couponDescription = "";
+        couponCategoryId = null;
+        couponPrice = "";
+        couponAmount = "";
+        couponImage = "";
+        couponStartDate = null;
+        couponEndDate = null;
         couponRepository = new CouponRepository();
+        companyCouponRepository = new CompanyCouponRepository();
     }
 
-    public void init(Long couponId) {
+    public void getCouponById(Long couponId) {
         couponResponse = couponRepository.getCouponById(couponId);
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
+    public void setCouponCategoryId(Long couponCategoryId) {
+        this.couponCategoryId = couponCategoryId;
     }
 
     public LiveData<CouponResponse> getCouponResponse() {
         return couponResponse;
     }
 
-    public void updateCoupon(){
-        // TODO: Implement this method
+    public void updateCoupon(Long couponId){
+        CouponRequest coupon = new CouponRequest();
+        coupon.setTitle(couponTitle);
+        coupon.setDescription(couponDescription);
+        coupon.setPrice(Double.valueOf(couponPrice));
+        coupon.setAmount(Integer.valueOf(couponAmount));
+        coupon.setImage(couponImage);
+        coupon.setStartDate(couponStartDate);
+        coupon.setEndDate(couponEndDate);
+        coupon.setCompanyId(companyId);
+        coupon.setCategoryId(couponCategoryId);
+        companyCouponRepository.updateCoupon(couponId, coupon);
     }
-//    public void updateCoupon(Long couponId, String title, String description, String category, String image, String startDate, String endDate, String price, String amount) {
-//        couponRepository.updateCoupon(couponId, title, description, category, image, startDate, endDate, price, amount);
-//    }
+    public void setArgs(String... args) {
+        couponTitle = args[0];
+        couponDescription = args[1];
+        couponPrice = args[2];
+        couponAmount = args[3];
+        couponImage = args[4];
+        couponStartDate = args[5];
+        couponEndDate = args[6];
+    }
 
 }

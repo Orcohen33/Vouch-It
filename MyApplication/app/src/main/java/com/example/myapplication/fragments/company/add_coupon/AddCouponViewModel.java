@@ -1,18 +1,11 @@
 package com.example.myapplication.fragments.company.add_coupon;
 
 import android.app.Application;
-import android.os.Build;
 
 import androidx.lifecycle.AndroidViewModel;
 
-import com.example.myapplication.databinding.FragmentAddCouponBinding;
 import com.example.myapplication.models.coupon.CouponRequest;
 import com.example.myapplication.repository.CompanyCouponRepository;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
 
 /**
  * This class is the ViewModel for the AddCouponFragment.
@@ -43,6 +36,10 @@ public class AddCouponViewModel extends AndroidViewModel {
         this.companyId = companyId;
     }
 
+    public void setCouponCategoryId(Long couponCategoryId) {
+        this.couponCategoryId = couponCategoryId;
+    }
+
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
@@ -55,7 +52,7 @@ public class AddCouponViewModel extends AndroidViewModel {
         super(application);
         couponTitle = "";
         couponDescription = "";
-        couponCategoryId = 3L;
+        couponCategoryId = null;
         couponPrice = "";
         couponAmount = "";
         couponImage = "";
@@ -74,31 +71,44 @@ public class AddCouponViewModel extends AndroidViewModel {
         coupon.setStartDate(couponStartDate);
         coupon.setEndDate(couponEndDate);
         coupon.setCompanyId(companyId);
-        coupon.setCategoryId(3L);
+        coupon.setCategoryId(couponCategoryId);
         companyCouponRepository.createCoupon(coupon);
     }
 
-    public void initializeAllFields(FragmentAddCouponBinding binding) {
-        couponTitle = Objects.requireNonNull(binding.companyCouponNameInput.getText()).toString();
-        couponDescription = Objects.requireNonNull(binding.companyCouponDescriptionInput.getText()).toString();
-        couponCategoryId = 3L;
-        couponPrice = Objects.requireNonNull(binding.companyCouponPriceInput.getText()).toString();
-        couponAmount = Objects.requireNonNull(binding.companyCouponAmountInput.getText()).toString();
-        couponImage = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            int startDateMonth = binding.companyCouponStartDateInput.getMonth() + 1;
-            int endDateMonth = binding.companyCouponEndDateInput.getMonth() + 1;
-            couponStartDate =
-                    binding.companyCouponStartDateInput.getYear()+"-" +
-                    (startDateMonth < 10 ? "0"+startDateMonth: startDateMonth)+"-" +
-                    binding.companyCouponStartDateInput.getDayOfMonth();
-
-            couponEndDate = binding.companyCouponEndDateInput.getYear()+"-" +
-                    (endDateMonth < 10 ? "0"+endDateMonth: endDateMonth)+"-" +
-                    binding.companyCouponEndDateInput.getDayOfMonth();
-        }
-        System.out.println("Initializing all fields");
+    public void setArgs(String... args) {
+//        companyId = Long.valueOf(args[0]);
+        couponTitle = args[0];
+        couponDescription = args[1];
+//        couponCategoryId = Long.valueOf(args[3]);
+        couponPrice = args[2];
+        couponAmount = args[3];
+        couponImage = args[4];
+        couponStartDate = args[5];
+        couponEndDate = args[6];
     }
+
+//    public void initializeAllFields(FragmentAddCouponBinding binding) {
+//        couponTitle = Objects.requireNonNull(binding.companyCouponNameInput.getText()).toString();
+//        couponDescription = Objects.requireNonNull(binding.companyCouponDescriptionInput.getText()).toString();
+//        couponCategoryId = 3L;
+//        couponPrice = Objects.requireNonNull(binding.companyCouponPriceInput.getText()).toString();
+//        couponAmount = Objects.requireNonNull(binding.companyCouponAmountInput.getText()).toString();
+//        couponImage = null;
+//        binding.companyCouponNameInput.setError("Title is required");
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            int startDateMonth = binding.companyCouponStartDateInput.getMonth() + 1;
+//            int endDateMonth = binding.companyCouponEndDateInput.getMonth() + 1;
+//            couponStartDate =
+//                    binding.companyCouponStartDateInput.getYear()+"-" +
+//                    (startDateMonth < 10 ? "0"+startDateMonth: startDateMonth)+"-" +
+//                    binding.companyCouponStartDateInput.getDayOfMonth();
+//
+//            couponEndDate = binding.companyCouponEndDateInput.getYear()+"-" +
+//                              (endDateMonth < 10 ? "0"+endDateMonth: endDateMonth)+"-" +
+//                              binding.companyCouponEndDateInput.getDayOfMonth();
+//        }
+//        System.out.println("Initializing all fields");
+//    }
 
     @Override
     public String toString() {
