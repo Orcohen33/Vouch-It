@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layoutDirection="ltr">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -12,49 +13,69 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="200dp">
 
             <TextView
                 android:id="@+id/coupon_price_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="175dp"
+                android:layout_marginEnd="175dp"
                 android:text="TextView"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.903"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/coupon_title_text_view"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.236" />
 
             <ImageView
                 android:id="@+id/coupon_image_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="145dp"
+                android:layout_height="116dp"
+                android:layout_marginStart="258dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.38"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/coupon_title_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="25sp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="133dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="176dp"
                 android:text="TextView"
+                android:textSize="25sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/coupon_image_view" />
+                app:layout_constraintTop_toTopOf="@+id/coupon_image_view" />
+
+            <ImageButton
+                android:id="@+id/add_to_cart_coupon_grid_layout"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/add_new_coupon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/coupon_price_text_view"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

@@ -9,43 +9,55 @@
         android:id="@+id/nav_home"
         android:name="com.example.myapplication.fragments.customer.home.HomeCustomerFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home_customer" />
-
-<!--    <fragment android:id="@+id/nav_attractions"-->
+        tools:layout="@layout/fragment_home_customer" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_category"
+            app:destination="@id/nav_category" />
+        <action
+            android:id="@+id/action_nav_home_self"
+            app:destination="@id/nav_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_category"
+        android:name="com.example.myapplication.fragments.customer.category.CategoryFragment"
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/action_nav_category_self"
+            app:destination="@id/nav_category" />
+        <action
+            android:id="@+id/action_nav_category_to_nav_home2"
+            app:destination="@id/nav_home" />
+    </fragment>
+<!--    <fragment-->
+<!--        android:id="@+id/nav_attractions"-->
 <!--        android:name="com.example.myapplication.fragments.customer.attractions.AttractionsFragment"-->
-<!--&lt;!&ndash;        android:label="@string/menu_attractions"&ndash;&gt;-->
-<!--&lt;!&ndash;        tools:layout="@layout/fragment_attractions_customer"&ndash;&gt;-->
-<!--        />-->
-    <fragment
-        android:id="@+id/nav_attractions"
-        android:name="com.example.myapplication.fragments.customer.attractions.AttractionsFragment"
-        android:label="@string/menu_attractions"
-        tools:layout="@layout/fragment_attractions" />
-    <fragment
-        android:id="@+id/nav_shows"
-        android:name="com.example.myapplication.fragments.customer.shows.ShowsFragment"
-        android:label="@string/menu_shows"
-        tools:layout="@layout/fragment_shows" />
-    <fragment
-        android:id="@+id/nav_restaurants"
-        android:name="com.example.myapplication.fragments.customer.restaurants.RestaurantsFragment"
-        android:label="@string/menu_restaurants"
-        tools:layout="@layout/fragment_restaurant" />
-    <fragment
-        android:id="@+id/nav_spa"
-        android:name="com.example.myapplication.fragments.customer.spa.SpaFragment"
-        android:label="@string/menu_spa"
-        tools:layout="@layout/fragment_spa" />
-    <fragment
-        android:id="@+id/nav_shopping"
-        android:name="com.example.myapplication.fragments.customer.shopping.ShoppingFragment"
-        android:label="@string/menu_shopping"
-        tools:layout="@layout/fragment_shopping" />
-    <fragment
-        android:id="@+id/nav_sport"
-        android:name="com.example.myapplication.fragments.customer.sport.SportFragment"
-        android:label="@string/menu_sport"
-        tools:layout="@layout/fragment_sport" />
+<!--        android:label="@string/menu_attractions"-->
+<!--        tools:layout="@layout/fragment_attractions" />-->
+<!--    <fragment-->
+<!--        android:id="@+id/nav_shows"-->
+<!--        android:name="com.example.myapplication.fragments.customer.shows.ShowsFragment"-->
+<!--        android:label="@string/menu_shows"-->
+<!--        tools:layout="@layout/fragment_shows" />-->
+<!--    <fragment-->
+<!--        android:id="@+id/nav_restaurants"-->
+<!--        android:name="com.example.myapplication.fragments.customer.restaurants.RestaurantsFragment"-->
+<!--        android:label="@string/menu_restaurants"-->
+<!--        tools:layout="@layout/fragment_restaurant" />-->
+<!--    <fragment-->
+<!--        android:id="@+id/nav_spa"-->
+<!--        android:name="com.example.myapplication.fragments.customer.spa.SpaFragment"-->
+<!--        android:label="@string/menu_spa"-->
+<!--        tools:layout="@layout/fragment_spa" />-->
+<!--    <fragment-->
+<!--        android:id="@+id/nav_shopping"-->
+<!--        android:name="com.example.myapplication.fragments.customer.shopping.ShoppingFragment"-->
+<!--        android:label="@string/menu_shopping"-->
+<!--        tools:layout="@layout/fragment_shopping" />-->
+<!--    <fragment-->
+<!--        android:id="@+id/nav_sport"-->
+<!--        android:name="com.example.myapplication.fragments.customer.sport.SportFragment"-->
+<!--        android:label="@string/menu_sport"-->
+<!--        tools:layout="@layout/fragment_sport" />-->
 
 
 </navigation>

@@ -27,7 +27,7 @@
 
     <View
         android:id="@+id/Uprectangle"
-        android:layout_width="408dp"
+        android:layout_width="match_parent"
         android:layout_height="81dp"
         android:background="@color/green_light"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +50,7 @@
 
     <View
         android:id="@+id/downRectangle"
-        android:layout_width="408dp"
+        android:layout_width="match_parent"
         android:layout_height="77dp"
         android:background="@color/green_light"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -67,22 +67,20 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:backgroundTint="#BFF6FA"
+        android:onClick="onButtonClick"
         android:text="Payment"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/downRectangle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/downRectangle"
-        app:layout_constraintTop_toTopOf="@+id/cartListItems"
-        app:layout_constraintVertical_bias="1.0"
-        android:onClick="onButtonClick"/>
+        app:layout_constraintTop_toTopOf="@+id/downRectangle" />
 
 
     <TextView
         android:id="@+id/price"
-        android:layout_width="153dp"
-        android:layout_height="53dp"
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="1dp"
         android:text="סכום לתשלום: "
         android:textColor="#000000"
@@ -90,7 +88,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.937"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/downRectangle" />
 
     <TextView
         android:id="@+id/buy"
@@ -101,12 +100,11 @@
         android:text="My Vouch-It cart"
         android:textSize="28sp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/cart"
+        app:layout_constraintBottom_toBottomOf="@+id/Uprectangle"
         app:layout_constraintEnd_toEndOf="@+id/Uprectangle"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.064" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/my_image"

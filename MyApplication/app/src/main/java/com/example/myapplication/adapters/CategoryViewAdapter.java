@@ -1,6 +1,7 @@
 package com.example.myapplication.adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,28 +47,27 @@ public class CategoryViewAdapter extends RecyclerView.Adapter<CategoryViewAdapte
             Toast.makeText(v.getContext(), "Clicked on " + category, Toast.LENGTH_SHORT).show();
 //                Change the current View to the clicked category without change the activity
             NavController navController = Navigation.findNavController(v);
-            /*
-                TODO: 1.Change the names of the categories to the name of the fragment
-                      2.Change the "R.id.*" to the name of the fragment
-             */
             switch (category) {
-                case "ספא":
-                    navController.navigate(R.id.nav_spa);
-                    break;
-                case "שופינג":
-                    navController.navigate(R.id.nav_shows);
+
+                case "אטרקציות":
+                    navController.navigate(R.id.action_nav_home_to_nav_category, createCategoryBundle(4L, "אטרקציות"));
                     break;
                 case "הופעות":
-                    navController.navigate(R.id.nav_spa);
-                    break;
-                case "אטרקציות":
-                    navController.navigate(R.id.nav_spa);
+                    navController.navigate(R.id.action_nav_home_to_nav_category, createCategoryBundle(3L, "הופעות"));
                     break;
                 case "מסעדות":
-                    navController.navigate(R.id.nav_restaurants);
+                    navController.navigate(R.id.action_nav_home_to_nav_category, createCategoryBundle(5L, "מסעדות"));
+                    break;
+                case "ספא":
+                    navController.navigate(R.id.action_nav_home_to_nav_category, createCategoryBundle(1L, "ספא"));
+                    break;
+                case "ספורט":
+                    navController.navigate(R.id.action_nav_home_to_nav_category, createCategoryBundle(6L, "ספורט"));
+                    break;
+                case "שופינג":
+                    navController.navigate(R.id.action_nav_home_to_nav_category, createCategoryBundle(2L, "שופינג"));
                     break;
             }
-
         });
     }
 
@@ -76,9 +76,19 @@ public class CategoryViewAdapter extends RecyclerView.Adapter<CategoryViewAdapte
         return categoriesNames.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    // Method to create a bundle with the category ID
+    private Bundle createCategoryBundle(Long categoryId, String categoryName) {
+        Bundle bundle = new Bundle();
+        bundle.putLong("categoryId", categoryId);
+        bundle.putString("categoryName", categoryName);
+        return bundle;
+    }
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         ImageView image;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.textView2);
@@ -86,3 +96,5 @@ public class CategoryViewAdapter extends RecyclerView.Adapter<CategoryViewAdapte
         }
     }
 }
+
+

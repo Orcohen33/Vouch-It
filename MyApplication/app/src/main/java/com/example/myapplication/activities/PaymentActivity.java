@@ -85,7 +85,7 @@ public class PaymentActivity extends AppCompatActivity {
         cvv.setOnFocusChangeListener(onFocusChangeListenerCvv);
     }
     public void onBackPaymentImageClick(View view) {
-        Intent intent = new Intent(this, AddToCartActivity.class);
+        Intent intent = new Intent(this, CartActivity.class);
         startActivity(intent);
     }
 }

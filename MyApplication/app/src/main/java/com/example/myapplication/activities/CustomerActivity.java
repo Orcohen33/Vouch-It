@@ -1,10 +1,15 @@
 package com.example.myapplication.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -16,11 +21,14 @@ import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityCustomerBinding;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.Objects;
+
 public class CustomerActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityCustomerBinding binding;
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,31 +38,71 @@ public class CustomerActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(view -> {
-            Intent intent = new Intent(this, AddToCartActivity.class);
+            Intent intent = new Intent(this, CartActivity.class);
             startActivity(intent);
         });
 
+
+        Objects.requireNonNull(getSupportActionBar()).setTitle("בית");
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home,
-                R.id.nav_attractions,
-                R.id.nav_shows,
-                R.id.nav_restaurants,
-                R.id.nav_spa,
-                R.id.nav_sport,
-                R.id.nav_shopping
-        )
-                .setOpenableLayout(drawer)
-                .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        NavigationUI.setupWithNavController(binding.appBarMain.toolbar, navController, new AppBarConfiguration.Builder(navController.getGraph()).setOpenableLayout(drawer).build());
 
-
+//         Set up a listener for the navigation view's menu items
+        navigationView.setNavigationItemSelectedListener(menuItem -> {
+            boolean isInNavHome = Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.nav_home;
+            long categoryId = -1L;
+            String categoryName = "";
+            switch (menuItem.getItemId()) {
+                case R.id.nav_home:
+                    if (isInNavHome) {
+                        navController.navigate(R.id.action_nav_home_self);
+                    }
+                    else{
+                        navController.navigate(R.id.action_nav_category_to_nav_home2);
+                    }
+                    drawer.close();
+                    return true;
+                case R.id.nav_attractions:
+                    categoryId = 4L;
+                    categoryName = "אטרקציות";
+                    break;
+                case R.id.nav_shows:
+                    categoryId = 3L;
+                    categoryName = "הופעות";
+                    break;
+                case R.id.nav_restaurants:
+                    categoryId = 5L;
+                    categoryName = "מסעדות";
+                    break;
+                case R.id.nav_spa:
+                    categoryId = 1L;
+                    categoryName = "ספא";
+                    break;
+                case R.id.nav_sport:
+                    categoryId = 6L;
+                    categoryName = "ספורט";
+                    break;
+                case R.id.nav_shopping:
+                    categoryId = 2L;
+                    categoryName = "שופינג";
+                    break;
+            }
+            Bundle bundle = new Bundle();
+            bundle.putLong("categoryId", categoryId);
+            bundle.putString("categoryName", categoryName);
+            if (isInNavHome) {
+                navController.navigate(R.id.action_nav_home_to_nav_category, bundle);
+            }
+            else {
+                navController.navigate(R.id.action_nav_category_self, bundle);
+            }
+//            Close the drawer
+            drawer.closeDrawers();
+            return true;
+        });
     }
 
 
@@ -79,4 +127,5 @@ public class CustomerActivity extends AppCompatActivity {
             }
         }
     }
+
 }
