@@ -12,8 +12,12 @@ import com.example.myapplication.repository.CompanyCouponRepository;
 import com.example.myapplication.repository.CouponRepository;
 
 /**
- * This class is the ViewModel for the EditCouponFragment.
- * It contains the coupon that is displayed in the EditCouponFragment.
+ * This code is for a ViewModel class in an Android app that is used to edit a coupon.
+ * The ViewModel contains information about the coupon and the company that owns it,
+ * as well as objects for interacting with a database to retrieve and update the coupon.
+ * It has methods for retrieving the coupon, setting the company's ID,
+ * and updating the coupon with new details.
+ * It also has a method for setting the coupon's image.
  */
 public class EditCouponViewModel extends AndroidViewModel {
 
@@ -27,7 +31,7 @@ public class EditCouponViewModel extends AndroidViewModel {
     Long couponCategoryId;
     String couponPrice;
     String couponAmount;
-    String couponImage;
+    byte[] couponImage;
     String couponStartDate;
     String couponEndDate;
     CouponRepository couponRepository;
@@ -41,7 +45,7 @@ public class EditCouponViewModel extends AndroidViewModel {
         couponCategoryId = null;
         couponPrice = "";
         couponAmount = "";
-        couponImage = "";
+        couponImage = null;
         couponStartDate = null;
         couponEndDate = null;
         couponRepository = new CouponRepository();
@@ -82,9 +86,12 @@ public class EditCouponViewModel extends AndroidViewModel {
         couponDescription = args[1];
         couponPrice = args[2];
         couponAmount = args[3];
-        couponImage = args[4];
-        couponStartDate = args[5];
-        couponEndDate = args[6];
+//        couponImage = args[4];
+        couponStartDate = args[4];
+        couponEndDate = args[5];
+    }
+    public void setCouponImage(byte[] couponImage) {
+        this.couponImage = couponImage;
     }
 
 }

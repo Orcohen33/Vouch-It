@@ -1,5 +1,7 @@
 package com.example.myapplication.fragments.company.add_coupon;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.myapplication.databinding.FragmentAddCouponBinding;
 import com.example.myapplication.utils.CategoriesNames;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.Objects;
 
 /**
@@ -59,6 +63,13 @@ public class AddCouponFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.companyCouponImageButtonInput.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            startActivityForResult(intent, 1);
+        });
+
+
         binding.companyCouponAddButton.setOnClickListener(v -> {
             boolean validFields = checkAllFields();
             if (validFields) {
@@ -73,7 +84,6 @@ public class AddCouponFragment extends Fragment {
                         Objects.requireNonNull(binding.companyCouponDescriptionInput.getText()).toString(),
                         Objects.requireNonNull(binding.companyCouponPriceInput.getText()).toString(),
                         Objects.requireNonNull(binding.companyCouponAmountInput.getText()).toString(),
-                        " ",
                         (binding.companyCouponStartDateInput.getYear() + "-" +
                                 (startDateMonth < 10 ? "0" + startDateMonth : startDateMonth) + "-" +
                                 binding.companyCouponStartDateInput.getDayOfMonth()),
@@ -83,8 +93,37 @@ public class AddCouponFragment extends Fragment {
                         );
                 mViewModel.addCoupon();
             }
-
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == -1) {
+            assert data != null;
+            Uri selectedImage = data.getData();
+            assert selectedImage != null;
+            InputStream imageStream = null;
+            try {
+                imageStream = requireActivity().getContentResolver().openInputStream(selectedImage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            assert imageStream != null;
+            byte[] buffer = new byte[1024];
+            int len;
+            try {
+                while ((len = imageStream.read(buffer)) != -1) {
+                    baos.write(buffer, 0, len);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            byte[] bytes = baos.toByteArray();
+            mViewModel.setCouponImage(bytes);
+        }
+        System.out.println("[ON_ACTIVITY_RESULT]"+mViewModel.couponImage);
     }
 
     @Override

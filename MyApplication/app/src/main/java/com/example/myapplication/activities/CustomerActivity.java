@@ -15,7 +15,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityCustomerBinding;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 public class CustomerActivity extends AppCompatActivity {
 
@@ -34,7 +33,7 @@ public class CustomerActivity extends AppCompatActivity {
             Intent intent = new Intent(this, AddToCartActivity.class);
             startActivity(intent);
         });
-        ;
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
@@ -42,9 +41,12 @@ public class CustomerActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home,
-                R.id.nav_spa,
+                R.id.nav_attractions,
                 R.id.nav_shows,
-                R.id.nav_restaurants
+                R.id.nav_restaurants,
+                R.id.nav_spa,
+                R.id.nav_sport,
+                R.id.nav_shopping
         )
                 .setOpenableLayout(drawer)
                 .build();

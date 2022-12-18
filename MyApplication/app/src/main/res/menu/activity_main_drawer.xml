@@ -9,9 +9,9 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_spa"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_spa" />
+            android:id="@+id/nav_attractions"
+            android:icon="@drawable/ic_menu_camera"
+            android:title= "@string/menu_attractions" />
         <item
             android:id="@+id/nav_shows"
             android:icon="@drawable/ic_menu_slideshow"
@@ -20,5 +20,18 @@
             android:id="@+id/nav_restaurants"
             android:icon="@drawable/ic_restaurant"
             android:title="@string/menu_restaurants" />
+        <item
+            android:id="@+id/nav_spa"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/menu_spa" />
+        <item
+            android:id="@+id/nav_sport"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_sport" />
+        <item
+            android:id="@+id/nav_shopping"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_shopping" />
+
     </group>
 </menu>

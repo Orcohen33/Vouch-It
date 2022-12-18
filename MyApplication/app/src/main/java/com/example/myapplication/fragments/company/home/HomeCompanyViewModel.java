@@ -16,8 +16,17 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * This class is the ViewModel for the HomeCompanyFragment.
- * It contains the list of coupons that are displayed in the HomeCompanyFragment.
+ * This code is for a ViewModel class in an Android app that is used in the HomeCompanyFragment.
+ * The ViewModel contains information about a company, including its ID, name, and email, as well
+ * as lists of coupon titles and coupon IDs.
+ * It also has a reference to a CompanyCouponRepository object and a LiveData object containing
+ * a list of CouponResponse objects.
+ * The ViewModel has a method called "init" that initializes the companyCouponRepository
+ * and sets the LiveData object to contain the coupons belonging to the company with the specified ID.
+ * It also has a method called "getCouponResponsesLiveData" that returns the LiveData object,
+ * but first sorts the CouponResponse objects contained in it by title.
+ * Finally, it has a method called "deleteCouponById" that uses the companyCouponRepository
+ * to delete a coupon with the specified ID.
  */
 public class HomeCompanyViewModel extends AndroidViewModel {
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.customer.restaurants.RestaurantsFragment">
+    tools:context=".fragments.customer.attractions.AttractionsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/coupons_customer_list"

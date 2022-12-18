@@ -27,7 +27,7 @@ public class AddCouponViewModel extends AndroidViewModel {
     Long couponCategoryId;
     String couponPrice;
     String couponAmount;
-    String couponImage;
+    byte[] couponImage;
     String couponStartDate;
     String couponEndDate;
     CompanyCouponRepository companyCouponRepository;
@@ -55,7 +55,7 @@ public class AddCouponViewModel extends AndroidViewModel {
         couponCategoryId = null;
         couponPrice = "";
         couponAmount = "";
-        couponImage = "";
+        couponImage = null;
         couponStartDate = null;
         couponEndDate = null;
         companyCouponRepository = new CompanyCouponRepository();
@@ -75,6 +75,9 @@ public class AddCouponViewModel extends AndroidViewModel {
         companyCouponRepository.createCoupon(coupon);
     }
 
+    public void setCouponImage(byte[] couponImage) {
+        this.couponImage = couponImage;
+    }
     public void setArgs(String... args) {
 //        companyId = Long.valueOf(args[0]);
         couponTitle = args[0];
@@ -82,33 +85,10 @@ public class AddCouponViewModel extends AndroidViewModel {
 //        couponCategoryId = Long.valueOf(args[3]);
         couponPrice = args[2];
         couponAmount = args[3];
-        couponImage = args[4];
-        couponStartDate = args[5];
-        couponEndDate = args[6];
+//        couponImage = args[4];
+        couponStartDate = args[4];
+        couponEndDate = args[5];
     }
-
-//    public void initializeAllFields(FragmentAddCouponBinding binding) {
-//        couponTitle = Objects.requireNonNull(binding.companyCouponNameInput.getText()).toString();
-//        couponDescription = Objects.requireNonNull(binding.companyCouponDescriptionInput.getText()).toString();
-//        couponCategoryId = 3L;
-//        couponPrice = Objects.requireNonNull(binding.companyCouponPriceInput.getText()).toString();
-//        couponAmount = Objects.requireNonNull(binding.companyCouponAmountInput.getText()).toString();
-//        couponImage = null;
-//        binding.companyCouponNameInput.setError("Title is required");
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            int startDateMonth = binding.companyCouponStartDateInput.getMonth() + 1;
-//            int endDateMonth = binding.companyCouponEndDateInput.getMonth() + 1;
-//            couponStartDate =
-//                    binding.companyCouponStartDateInput.getYear()+"-" +
-//                    (startDateMonth < 10 ? "0"+startDateMonth: startDateMonth)+"-" +
-//                    binding.companyCouponStartDateInput.getDayOfMonth();
-//
-//            couponEndDate = binding.companyCouponEndDateInput.getYear()+"-" +
-//                              (endDateMonth < 10 ? "0"+endDateMonth: endDateMonth)+"-" +
-//                              binding.companyCouponEndDateInput.getDayOfMonth();
-//        }
-//        System.out.println("Initializing all fields");
-//    }
 
     @Override
     public String toString() {

@@ -24,7 +24,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Coupon name"
+                    android:text="Coupon name:"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="Coupon description"
+                    android:text="Coupon description:"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +83,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="240dp"
-                    android:text="Coupon category"
+                    android:text="Coupon category:"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +110,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="274dp"
-                    android:text="Coupon price"
+                    android:text="Coupon price:"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -139,7 +139,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="274dp"
-                    android:text="Coupon amount"
+                    android:text="Coupon amount:"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -170,7 +170,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="274dp"
-                    android:text="Coupon start date"
+                    android:text="Coupon start date:"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -200,7 +200,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="274dp"
-                    android:text="Coupon end date"
+                    android:text="Coupon end date:"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -223,28 +223,41 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/company_coupon_end_date" />
 
+
                 <TextView
                     android:id="@+id/company_coupon_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
-                    android:layout_marginEnd="274dp"
-                    android:text="Coupon image"
+                    android:layout_marginEnd="22dp"
+                    android:text="Coupon image: "
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintEnd_toStartOf="@+id/company_coupon_image_button_input"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/company_coupon_end_date_input" />
 
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/company_coupon_image_button_input"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="130dp"
+                    android:layout_marginBottom="50dp"
+                    android:text="Add photo"
+                    app:cornerRadius="12dp"
+                    app:layout_constraintBottom_toTopOf="@+id/company_coupon_add_button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/company_coupon_end_date_input" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/company_coupon_add_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="115dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="35dp"
                     android:layout_marginEnd="115dp"
                     android:layout_marginBottom="16dp"
                     android:text="Add coupon"
@@ -254,7 +267,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.51"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/company_coupon_image" />
+                    app:layout_constraintTop_toBottomOf="@+id/company_coupon_image_button_input" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

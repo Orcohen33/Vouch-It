@@ -18,7 +18,13 @@ import com.example.myapplication.utils.CategoriesNames;
 import java.util.Objects;
 
 /**
- * This class is the fragment that is shown when the user is in the edit coupon page of the company.
+ * This code is for a fragment in an Android app that allows a company to edit a coupon.
+ * The fragment contains a ViewModel object that is used to retrieve and update the coupon's information.
+ * It also has input fields for the coupon's details and buttons for updating and deleting the coupon.
+ * When the update button is clicked, the fragment checks that all the input fields are filled
+ * out and then saves the changes to the coupon.
+ * When the delete button is clicked, the fragment deletes the coupon.
+ * Both buttons also navigate the user back to the previous fragment when clicked.
  */
 public class EditCouponFragment extends Fragment {
 
@@ -55,8 +61,8 @@ public class EditCouponFragment extends Fragment {
         return binding.getRoot();
 
     }
-
     private void getCouponDetails() {
+        System.out.println("get coupon details");
         mViewModel.getCouponResponse().observe(getViewLifecycleOwner(), coupon -> {
             binding.editCompanyCouponNameInput.setText(coupon.getTitle());
             binding.editCompanyCouponDescriptionInput.setText(coupon.getDescription());
@@ -77,27 +83,26 @@ public class EditCouponFragment extends Fragment {
         // Update coupon button
         binding.companyCouponUpdateButton.setOnClickListener(view1 ->
                 {
-                    // TODO: ADD UPDATE COUPON FUNCTIONALITY
+                    if(checkAllFields()) {
+                        int startDateMonth = binding.editCompanyCouponStartDateInput.getMonth() + 1;
+                        int endDateMonth = binding.editCompanyCouponEndDateInput.getMonth() + 1;
 
-                    int startDateMonth = binding.editCompanyCouponStartDateInput.getMonth() + 1;
-                    int endDateMonth = binding.editCompanyCouponEndDateInput.getMonth() + 1;
-
-                    mViewModel.setArgs(
-                            Objects.requireNonNull(binding.editCompanyCouponNameInput.getText()).toString(),
-                            Objects.requireNonNull(binding.editCompanyCouponDescriptionInput.getText()).toString(),
-                            Objects.requireNonNull(binding.editCompanyCouponPriceInput.getText()).toString(),
-                            Objects.requireNonNull(binding.editCompanyCouponAmountInput.getText()).toString(),
-                            "",
-                            (binding.editCompanyCouponStartDateInput.getYear() + "-" +
-                                    (startDateMonth < 10 ? "0" + startDateMonth : startDateMonth) + "-" +
-                                    binding.editCompanyCouponStartDateInput.getDayOfMonth()),
-                            (binding.editCompanyCouponEndDateInput.getYear() + "-" +
-                                    (endDateMonth < 10 ? "0" + endDateMonth : endDateMonth) + "-" +
-                                    binding.editCompanyCouponEndDateInput.getDayOfMonth())
-                    );
-                    mViewModel.updateCoupon(couponId);
-                    NavHostFragment.findNavController(EditCouponFragment.this)
-                            .navigateUp();
+                        mViewModel.setArgs(
+                                Objects.requireNonNull(binding.editCompanyCouponNameInput.getText()).toString(),
+                                Objects.requireNonNull(binding.editCompanyCouponDescriptionInput.getText()).toString(),
+                                Objects.requireNonNull(binding.editCompanyCouponPriceInput.getText()).toString(),
+                                Objects.requireNonNull(binding.editCompanyCouponAmountInput.getText()).toString(),
+                                (binding.editCompanyCouponStartDateInput.getYear() + "-" +
+                                        (startDateMonth < 10 ? "0" + startDateMonth : startDateMonth) + "-" +
+                                        binding.editCompanyCouponStartDateInput.getDayOfMonth()),
+                                (binding.editCompanyCouponEndDateInput.getYear() + "-" +
+                                        (endDateMonth < 10 ? "0" + endDateMonth : endDateMonth) + "-" +
+                                        binding.editCompanyCouponEndDateInput.getDayOfMonth())
+                        );
+                        mViewModel.updateCoupon(couponId);
+                        NavHostFragment.findNavController(EditCouponFragment.this)
+                                .navigateUp();
+                    }
                 }
         );
     }
@@ -106,6 +111,49 @@ public class EditCouponFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private boolean checkAllFields() {
+
+        boolean validFields = true;
+        // check title
+        if (Objects.requireNonNull(binding.editCompanyCouponNameInput.getText()).toString().isEmpty()) {
+            binding.editCompanyCouponNameInput.setError("Please enter a title");
+            validFields = false;
+        }
+        // check description
+        if (Objects.requireNonNull(binding.editCompanyCouponDescriptionInput.getText()).toString().isEmpty()) {
+            binding.editCompanyCouponDescriptionInput.setError("Please enter a description");
+            validFields = false;
+        }
+        // check category
+        if (binding.spinner != null && binding.spinner.getSelectedItem().toString().isEmpty()) {
+        }
+        // check price
+        if (Objects.requireNonNull(binding.editCompanyCouponPriceInput.getText()).toString().isEmpty()) {
+            binding.editCompanyCouponPriceInput.setError("Please enter a price");
+            validFields = false;
+        }
+        // check amount
+        if (Objects.requireNonNull(binding.editCompanyCouponAmountInput.getText()).toString().isEmpty()) {
+            binding.editCompanyCouponAmountInput.setError("Please enter an image");
+            validFields = false;
+        }
+        // check image
+//        if (Objects.requireNonNull(binding.companyCouponImageInput.getText()).toString().isEmpty()) {
+//            binding.companyCouponImageInput.setError("Please enter an image");
+//        }
+        // check start date
+        if ((binding.editCompanyCouponStartDateInput.getYear() < 2021)) {
+            binding.companyCouponStartDate.setError("Please enter a valid date");
+            validFields = false;
+        }
+        // check end date
+        if (binding.editCompanyCouponEndDateInput.getYear() < 2021 || binding.editCompanyCouponEndDateInput.getYear() < binding.editCompanyCouponStartDateInput.getYear()) {
+            binding.companyCouponEndDate.setError("Please enter a valid date");
+            validFields = false;
+        }
+        return validFields;
     }
 
 }

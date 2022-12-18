@@ -2,12 +2,7 @@ package com.example.myapplication.models.coupon;
 
 import androidx.annotation.Size;
 
-import com.example.myapplication.models.category.CategoryRequest;
-import com.example.myapplication.models.company.CompanyRequest;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.time.LocalDate;
+import java.util.Arrays;
 
 public class CouponRequest {
 
@@ -20,7 +15,7 @@ public class CouponRequest {
     private String endDate;
     private Integer amount;
     private Double price;
-    private String image;
+    private byte[] image;
 
     private Long companyId;
     private Long categoryId;
@@ -89,11 +84,11 @@ public class CouponRequest {
         this.price = price;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
@@ -106,7 +101,7 @@ public class CouponRequest {
                 ", endDate=" + endDate + '\n' +
                 ", amount=" + amount + '\n' +
                 ", price=" + price + '\n' +
-                ", image='" + image + '\n' +
+                ", image='" + Arrays.toString(image) + '\n' +
                 ", companyId=" + companyId + '\n' +
                 ", categoryId=" + categoryId + '\n' +
                 '}';

@@ -41,14 +41,16 @@ public class LoginActivity extends AppCompatActivity {
         signUpButton();
         login();
     }
-    void signUpButton(){
-        MaterialButton signupButton =findViewById( R.id.signup_transfer_button);
 
-        signupButton.setOnClickListener(v ->{
+    void signUpButton() {
+        MaterialButton signupButton = findViewById(R.id.signup_transfer_button);
+
+        signupButton.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
             startActivity(intent);
         });
     }
+
     void login() {
         TextInputEditText email = findViewById(R.id.text_email_address_login);
         TextInputEditText password = findViewById(R.id.text_password_login);
@@ -56,75 +58,61 @@ public class LoginActivity extends AppCompatActivity {
         MaterialButton signInAsCompany = findViewById(R.id.signin_company_button);
 
 
-
-
         signInAsCustomer.setOnClickListener(v -> {
-            CustomerApi customerApi = RetrofitService
-                    .getInstance()
-                    .getRetrofit()
-                    .create(CustomerApi.class);
-            CustomerSignin customerSignin = new CustomerSignin(
-                    Objects.requireNonNull(email.getText()).toString(),
-                    Objects.requireNonNull(password.getText()).toString());
+            CustomerApi customerApi = RetrofitService.getInstance().getRetrofit().create(CustomerApi.class);
+            CustomerSignin customerSignin = new CustomerSignin(Objects.requireNonNull(email.getText()).toString(), Objects.requireNonNull(password.getText()).toString());
 
-            customerApi.login(customerSignin)
-                    .enqueue(new Callback<Customer>() {
-                        @Override
-                        public void onResponse(@NonNull Call<Customer> call, @NonNull Response<Customer> response) {
-                            if (response.isSuccessful()) {
-                                Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
-                                // Extract the details from response to variables
-                                Customer customer = response.body();
-                                Intent intent = new Intent(LoginActivity.this, CustomerActivity.class);
-                                assert customer != null;
-                                intent.putExtra("name", customer.getFirstName());
-                                intent.putExtra("email", customer.getEmail());
-                                startActivity(intent);
-                            }
-                        }
+            customerApi.login(customerSignin).enqueue(new Callback<Customer>() {
+                @Override
+                public void onResponse(@NonNull Call<Customer> call, @NonNull Response<Customer> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
+                        // Extract the details from response to variables
+                        Customer customer = response.body();
+                        Intent intent = new Intent(LoginActivity.this, CustomerActivity.class);
+                        assert customer != null;
+                        intent.putExtra("name", customer.getFirstName());
+                        intent.putExtra("email", customer.getEmail());
+                        startActivity(intent);
+                    }
+                }
 
-                        @Override
-                        public void onFailure(@NonNull Call<Customer> call, @NonNull Throwable t) {
-                            System.out.println(t.getMessage());
-                            System.out.println(Arrays.toString(t.getStackTrace()));
-                            Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                @Override
+                public void onFailure(@NonNull Call<Customer> call, @NonNull Throwable t) {
+                    System.out.println(t.getMessage());
+                    System.out.println(Arrays.toString(t.getStackTrace()));
+                    Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
 
         signInAsCompany.setOnClickListener(v -> {
-            CompanyApi companyApi = RetrofitService
-                    .getInstance()
-                    .getRetrofit()
-                    .create(CompanyApi.class);
-            CompanySignIn companySignIn = new CompanySignIn(
-                    Objects.requireNonNull(email.getText()).toString(),
-                    Objects.requireNonNull(password.getText()).toString());
+            CompanyApi companyApi = RetrofitService.getInstance().getRetrofit().create(CompanyApi.class);
+            CompanySignIn companySignIn = new CompanySignIn(Objects.requireNonNull(email.getText()).toString(), Objects.requireNonNull(password.getText()).toString());
 
-            companyApi.login(companySignIn)
-                    .enqueue(new Callback<com.example.myapplication.models.company.Company>() {
-                        @Override
-                        public void onResponse(@NonNull Call<Company> call, @NonNull Response<Company> response) {
-                            if (response.isSuccessful()) {
-                                Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
-                                // Extract the details from response to variables
-                                Company company = response.body();
-                                Intent intent = new Intent(LoginActivity.this, CompanyActivity.class);
-                                assert company != null;
-                                intent.putExtra("companyId", company.getId());
-                                intent.putExtra("companyName", company.getName());
-                                intent.putExtra("companyEmail", company.getEmail());
-                                startActivity(intent);
-                            }
-                        }
+            companyApi.login(companySignIn).enqueue(new Callback<com.example.myapplication.models.company.Company>() {
+                @Override
+                public void onResponse(@NonNull Call<Company> call, @NonNull Response<Company> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
+                        // Extract the details from response to variables
+                        Company company = response.body();
+                        Intent intent = new Intent(LoginActivity.this, CompanyActivity.class);
+                        assert company != null;
+                        intent.putExtra("companyId", company.getId());
+                        intent.putExtra("companyName", company.getName());
+                        intent.putExtra("companyEmail", company.getEmail());
+                        startActivity(intent);
+                    }
+                }
 
-                        @Override
-                        public void onFailure(@NonNull Call<com.example.myapplication.models.company.Company> call, @NonNull Throwable t) {
-                            System.out.println(t.getMessage());
-                            System.out.println(Arrays.toString(t.getStackTrace()));
-                            Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                @Override
+                public void onFailure(@NonNull Call<com.example.myapplication.models.company.Company> call, @NonNull Throwable t) {
+                    System.out.println(t.getMessage());
+                    System.out.println(Arrays.toString(t.getStackTrace()));
+                    Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
     }
 }

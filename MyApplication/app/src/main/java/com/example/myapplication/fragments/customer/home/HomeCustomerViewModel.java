@@ -22,17 +22,19 @@ public class HomeCustomerViewModel extends ViewModel {
         categoriesImages = new ArrayList<>();
 
         // TODO: Change the categories and images to your own
-        categoriesNames.add("ספא");
-        categoriesNames.add("שופינג");
-        categoriesNames.add("הופעות");
         categoriesNames.add("אטרקציות");
+        categoriesNames.add("הופעות");
         categoriesNames.add("מסעדות");
+        categoriesNames.add("ספא");
+        categoriesNames.add("ספורט");
+        categoriesNames.add("שופינג");
 
-        categoriesImages.add(R.drawable.spa_icon);
-        categoriesImages.add(R.drawable.shopping_bag_icon);
-        categoriesImages.add(R.drawable.shows_icon);
         categoriesImages.add(R.drawable.atractions_icon);
+        categoriesImages.add(R.drawable.shows_icon);
         categoriesImages.add(R.drawable.restaurant_icon);
+        categoriesImages.add(R.drawable.spa_icon);
+        categoriesImages.add(R.drawable.sport_icon);
+        categoriesImages.add(R.drawable.shopping_bag_icon);
 
     }
 

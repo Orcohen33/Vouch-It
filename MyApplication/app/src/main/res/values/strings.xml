@@ -10,12 +10,16 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="action_search">searchTest</string>
-
-    <string name="menu_home">Home</string>
-    <string name="menu_spa">Spa</string>
-    <string name="menu_shows">Shows</string>
+    <!-- Menu names -->
+    <string name="menu_home">בית</string>
+    <string name="menu_attractions">אטרקציות</string>
+    <string name="menu_shows">הופעות</string>
+    <string name="menu_restaurants">מסעדות</string>
+    <string name="menu_spa">ספא</string>
+    <string name="menu_sport">ספורט</string>
+    <string name="menu_shopping">שופינג</string>
+    <!-- End Menu names -->
     <string name="title_activity_main">MainActivity</string>
-    <string name="menu_restaurants">Restaurants</string>
     <string name="title_activity_company">CompanyActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="company_home_fragment_label">My coupons</string>

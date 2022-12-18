@@ -23,7 +23,13 @@ import com.example.myapplication.databinding.FragmentHomeCompanyBinding;
 import java.util.Objects;
 
 /**
- * This class is the fragment that is shown when the user is in the home page of the company.
+ * This code is for a fragment in an Android application that displays a list of coupons for a company.
+ * The fragment first sets up a recycler view to display the coupons and creates an adapter
+ * to bind the coupon data to the recycler view.
+ * It then retrieves the company's ID, name, and email from the arguments passed to the fragment and uses them to initialize a HomeCompanyViewModel object.
+ * When the fragment is resumed, it initializes the HomeCompanyViewModel and retrieves the company's coupons from the view model.
+ * If the company has coupons, they are displayed in the recycler view, and if not, a message indicating that there are no coupons is shown to the user.
+ * The fragment also has a method that allows the user to click on a coupon in the list and navigate to a new fragment to view more details about the coupon.
  */
 public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewAdapter.ItemClickListener {
 

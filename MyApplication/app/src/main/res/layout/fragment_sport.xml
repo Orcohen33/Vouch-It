@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.customer.restaurants.RestaurantsFragment">
+    tools:context=".fragments.customer.sport.SportFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/coupons_customer_list"
@@ -22,4 +22,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

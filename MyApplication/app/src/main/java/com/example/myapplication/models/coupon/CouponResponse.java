@@ -12,8 +12,8 @@ public class CouponResponse {
     private String title;
     @SerializedName("description")
     private String description;
-    @SerializedName("image")
-    private String image;
+//    @SerializedName("image")
+    private byte[] imagee;
     @SerializedName("amount")
     private Integer amount;
     @SerializedName("price")
@@ -27,12 +27,15 @@ public class CouponResponse {
     @SerializedName("company")
     private CompanyResponse company;
 
+    public CouponResponse() {
+    }
+
     public String getTitle() {
         return title;
     }
 
-    public String getImage() {
-        return image;
+    public byte[] getImagee() {
+        return imagee;
     }
 
     public Double getPrice() {
@@ -67,13 +70,53 @@ public class CouponResponse {
         return company;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setImagee(byte[] imagee) {
+        this.imagee = imagee;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setCategory(CategoryResponse category) {
+        this.category = category;
+    }
+
+    public void setCompany(CompanyResponse company) {
+        this.company = company;
+    }
+
     @Override
     public String toString() {
         return "CouponResponse{" +
                 "id=" + id +
                 ", title='" + title + '\n' +
                 ", description='" + description + '\n' +
-                ", image='" + image + '\n' +
+                ", image='" + imagee + '\n' +
                 ", amount=" + amount + '\n' +
                 ", price=" + price + '\n' +
                 ", startDate='" + startDate+ '\n' +
