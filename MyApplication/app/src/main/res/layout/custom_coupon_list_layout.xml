@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -21,11 +22,11 @@
                 android:id="@+id/delete_coupon_button"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="26dp"
-                android:layout_marginEnd="15dp"
                 android:layout_marginBottom="26dp"
                 android:background="@drawable/delete_coupon_btn"
+                android:contentDescription="Delete Coupon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/edit_coupon_button"
                 app:layout_constraintStart_toStartOf="parent"
@@ -40,27 +41,33 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="26dp"
+                android:layout_marginEnd="25dp"
                 android:layout_marginBottom="26dp"
                 android:background="@drawable/edit_coupon_btn"
+                android:contentDescription="Edit coupon"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/title_coupon_text_view"
                 app:layout_constraintStart_toEndOf="@+id/delete_coupon_button"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/title_coupon_text_view"
-                android:layout_width="252dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="6dp"
+                android:layout_width="237dp"
+                android:layout_height="67dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="17dp"
                 android:layout_marginBottom="26dp"
+                android:maxWidth="25dp"
+                android:maxLength="120"
                 android:text="TextView"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/edit_coupon_button"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

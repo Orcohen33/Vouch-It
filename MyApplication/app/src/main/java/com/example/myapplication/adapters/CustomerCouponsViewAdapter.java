@@ -54,7 +54,7 @@ public class CustomerCouponsViewAdapter extends RecyclerView.Adapter<CustomerCou
         String price = couponsPrices.get(position);
         holder.image.setImageResource(image);
         holder.title.setText(title);
-        holder.price.setText(price);
+        holder.price.setText(price + "₪");
 
 //        holder.addToCart.setOnClickListener(v -> itemClickListener.onAddToCartClick(v, position));
 

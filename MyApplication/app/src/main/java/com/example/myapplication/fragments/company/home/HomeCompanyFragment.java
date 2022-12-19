@@ -54,7 +54,6 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
         homeCompanyViewModel = new ViewModelProvider(this).get(HomeCompanyViewModel.class);
         binding = FragmentHomeCompanyBinding.inflate(inflater, container, false);
 
-
         recyclerView = binding.couponCompanyList;
         adapter = new CompanyCouponsViewAdapter(
                 homeCompanyViewModel.couponsTitles,
@@ -62,7 +61,7 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
                 getContext()
         );
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1, GridLayoutManager.VERTICAL, false));
-        recyclerView.setHasFixedSize(true);
+//        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
         if (this.getArguments() != null) {
