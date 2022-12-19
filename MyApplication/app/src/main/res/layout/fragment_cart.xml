@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:theme="@style/AppTheme">
+    android:theme="@style/AppTheme"
+    android:layoutDirection="ltr">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cartListItems"
@@ -14,39 +15,29 @@
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
+        android:background="@color/white"
         android:paddingTop="?android:actionBarSize"
         android:scrollbarSize="5dp"
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical"
-        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <View
-        android:id="@+id/Uprectangle"
-        android:layout_width="match_parent"
-        android:layout_height="81dp"
-        android:background="@color/green_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <ImageView
-        android:id="@+id/cart"
+        android:id="@+id/noCartCoupons"
         android:layout_width="143dp"
         android:layout_height="182dp"
+        android:layout_marginTop="240dp"
+        android:layout_marginBottom="308dp"
+        android:alpha="0.5"
+        android:background="@drawable/shoppingcart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Uprectangle"
-        app:layout_constraintVertical_bias="0.431"
-        android:background="@drawable/shoppingcart"
-        android:alpha="0.5" />
+        app:layout_constraintTop_toTopOf="@+id/cartListItems" />
 
     <View
         android:id="@+id/downRectangle"
@@ -57,7 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cart"
+        app:layout_constraintTop_toBottomOf="@+id/noCartCoupons"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
@@ -91,34 +82,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/downRectangle" />
 
-    <TextView
-        android:id="@+id/buy"
-        android:layout_width="218dp"
-        android:layout_height="49dp"
-        android:backgroundTint="#000000"
-        android:shadowColor="#070707"
-        android:text="My Vouch-It cart"
-        android:textSize="28sp"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="@+id/Uprectangle"
-        app:layout_constraintEnd_toEndOf="@+id/Uprectangle"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/my_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onBackCartImageClick"
-        android:src="@drawable/backbutton"
-        app:layout_constraintBottom_toTopOf="@+id/price"
-        app:layout_constraintEnd_toEndOf="@+id/Uprectangle"
-        app:layout_constraintHorizontal_bias="0.833"
-        app:layout_constraintStart_toEndOf="@+id/buy"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.02" />
-
-    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

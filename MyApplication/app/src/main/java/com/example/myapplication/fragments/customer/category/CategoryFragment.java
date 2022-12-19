@@ -16,21 +16,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.CustomerCouponsViewAdapter;
 import com.example.myapplication.databinding.FragmentCategoryBinding;
+import com.example.myapplication.fragments.customer.SharedViewModel;
+import com.example.myapplication.models.coupon.CouponShared;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+//import androidx.lifecycle.ViewModelProviders;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class CategoryFragment extends Fragment {
+public class CategoryFragment extends Fragment implements CustomerCouponsViewAdapter.ItemClickListener{
 
     private final Long DEFAULT_CATEGORY_ID = -1L;
     private Long mCategoryId = DEFAULT_CATEGORY_ID;
     private final String DEFAULT_CATEGORY_NAME = "בית";
     private String mCategoryName = DEFAULT_CATEGORY_NAME;
     private FragmentCategoryBinding binding;
-    private CouponsByCategoryViewModel mViewModel;
+    private CategoryViewModel mViewModel;
+    private SharedViewModel model;
     private CustomerCouponsViewAdapter adapter;
     private RecyclerView recyclerView;
 
@@ -41,22 +50,24 @@ public class CategoryFragment extends Fragment {
             mCategoryId = getArguments().getLong("categoryId", DEFAULT_CATEGORY_ID);
             mCategoryName = getArguments().getString("categoryName", DEFAULT_CATEGORY_NAME);
         }
+        model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mViewModel = new ViewModelProvider(this).get(CouponsByCategoryViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
         binding = FragmentCategoryBinding.inflate(inflater, container, false);
+        model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         recyclerView = binding.couponsCustomerList;
         adapter = new CustomerCouponsViewAdapter(
                 mViewModel.getCouponsImages(),
                 mViewModel.getCouponsTitles(),
                 mViewModel.getCouponsPrices(),
-                mViewModel,
+                this,
                 getContext()
         );
-
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1, GridLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
@@ -82,9 +93,34 @@ public class CategoryFragment extends Fragment {
                     mViewModel.getCouponsImages().add(R.drawable.microphone);
                     mViewModel.getCouponsTitles().add(coupons.get(i).getTitle());
                     mViewModel.getCouponsPrices().add(String.valueOf(coupons.get(i).getPrice()));
+                    mViewModel.getCouponsIds().add(coupons.get(i).getId());
                 }
                 adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // set the cart button to be visible
+        FloatingActionButton cartButton = getActivity().findViewById(R.id.fab);
+        cartButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onAddToCartClick(View view, int position) {
+        List<CouponShared> coupons = model.getCoupons().getValue();
+        if (coupons == null) {
+            Toast.makeText(getContext(), "נוצר רשימת קניות חדשה", Toast.LENGTH_SHORT).show();
+            coupons = new ArrayList<>();
+        }
+        coupons.add(new CouponShared(
+                mViewModel.couponsIds.get(position),
+                mViewModel.couponsTitles.get(position),
+                mViewModel.couponsPrices.get(position)
+        ));
+        model.setCoupons(coupons);
+        Toast.makeText(getContext(), "הקופון נוסף לעגלה", Toast.LENGTH_SHORT).show();
     }
 }

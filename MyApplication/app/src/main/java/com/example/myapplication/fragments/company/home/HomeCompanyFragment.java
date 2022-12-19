@@ -54,6 +54,7 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
         homeCompanyViewModel = new ViewModelProvider(this).get(HomeCompanyViewModel.class);
         binding = FragmentHomeCompanyBinding.inflate(inflater, container, false);
 
+
         recyclerView = binding.couponCompanyList;
         adapter = new CompanyCouponsViewAdapter(
                 homeCompanyViewModel.couponsTitles,

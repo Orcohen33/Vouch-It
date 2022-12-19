@@ -11,14 +11,14 @@ import com.example.myapplication.models.coupon.CouponShared;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartViewModel extends ViewModel implements CustomerCartViewAdapter.ItemClickListener{
+public class CartViewModel extends ViewModel{
 
     List<String> couponsTitles;
 
     List<String> couponsPrices;
     List<Long> couponsIds;
 
-    private List<CouponShared> mDetails;
+    List<CouponShared> mDetails;
 
     public CartViewModel() {
         couponsTitles = new ArrayList<>();
@@ -33,28 +33,29 @@ public class CartViewModel extends ViewModel implements CustomerCartViewAdapter.
     public List<String> getCouponsPrices() {
         return couponsPrices;
     }
-    public void setSharedViewModel(SharedViewModel mSharedViewModel) {
-        mSharedViewModel.getCoupons().observeForever(couponShareds -> {
-            mDetails = couponShareds;
-            couponsTitles.clear();
-            couponsPrices.clear();
-            couponsIds.clear();
-            for (CouponShared couponShared : couponShareds) {
-                couponsTitles.add(couponShared.getTitle());
-                couponsPrices.add(couponShared.getPrice().toString());
-                couponsIds.add(couponShared.getId());
-            }
-        });
+
+    public void setCouponShareds(List<CouponShared> couponShareds) {
+        this.mDetails = couponShareds;
+        for (CouponShared couponShared : couponShareds) {
+            couponsTitles.add(couponShared.getTitle());
+            couponsPrices.add(couponShared.getPrice() + "");
+            couponsIds.add(couponShared.getId());
+        }
     }
 
-    @Override
-    public void onDeleteClick(View view, int position) {
 
+    public String getTotalPrice() {
+        int totalPrice = 0;
+        for (CouponShared couponShared : mDetails) {
+            totalPrice += Double.parseDouble(couponShared.getPrice());
+        }
+        return "סה\"כ: "+totalPrice + "₪";
     }
 
-    @Override
-    public void onAddToCartClick(View view, int position) {
-
+    public void updateTotalPrice() {
+        int totalPrice = 0;
+        for (CouponShared couponShared : mDetails) {
+            totalPrice += Double.parseDouble(couponShared.getPrice());
+        }
     }
-
 }

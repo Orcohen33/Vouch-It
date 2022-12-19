@@ -1,11 +1,8 @@
 package com.example.myapplication.fragments.customer.category;
 
 import android.view.View;
-import android.widget.Toast;
 
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import com.example.myapplication.adapters.CustomerCouponsViewAdapter;
@@ -16,7 +13,7 @@ import com.example.myapplication.repository.CategoryCouponRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CouponsByCategoryViewModel extends ViewModel implements CustomerCouponsViewAdapter.ItemClickListener {
+public class CategoryViewModel extends ViewModel  {
 
     List<Integer> couponsImages;
     List<String> couponsTitles;
@@ -24,16 +21,19 @@ public class CouponsByCategoryViewModel extends ViewModel implements CustomerCou
     List<String> couponsPrices;
     List<Long> couponsIds;
 
+    List<CouponShared> coupons;
+
 
     private CategoryCouponRepository categoryCouponRepository;
     private LiveData<List<CouponResponse>> categoryCoupons;
 
 
-    public CouponsByCategoryViewModel() {
+    public CategoryViewModel() {
         couponsImages = new ArrayList<>();
         couponsTitles = new ArrayList<>();
         couponsPrices = new ArrayList<>();
         couponsIds = new ArrayList<>();
+        coupons = new ArrayList<>();
     }
 
     public void init(Long id) {
@@ -81,12 +81,7 @@ public class CouponsByCategoryViewModel extends ViewModel implements CustomerCou
     }
 
 
-    @Override
-    public void onAddToCartClick(View view, int position) {
 
-        System.out.println("couponId: " + couponsIds.get(position));
-        Toast.makeText(view.getContext(), "Added to cart", Toast.LENGTH_SHORT).show();
-    }
 
 
 }

@@ -1,15 +1,10 @@
 package com.example.myapplication.activities;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -19,14 +14,18 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityCustomerBinding;
+import com.example.myapplication.models.coupon.CouponShared;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.List;
 import java.util.Objects;
 
 public class CustomerActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityCustomerBinding binding;
+
+    private List<CouponShared> coupons;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -37,10 +36,6 @@ public class CustomerActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(view -> {
-            Intent intent = new Intent(this, CartActivity.class);
-            startActivity(intent);
-        });
 
 
         Objects.requireNonNull(getSupportActionBar()).setTitle("בית");
@@ -102,6 +97,14 @@ public class CustomerActivity extends AppCompatActivity {
 //            Close the drawer
             drawer.closeDrawers();
             return true;
+        });
+        binding.appBarMain.fab.setOnClickListener(view -> {
+            boolean isInNavHome = Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.nav_home;
+            if (isInNavHome)
+                navController.navigate(R.id.action_nav_home_to_cartFragment2);
+            else
+                navController.navigate(R.id.action_nav_category_to_cartFragment);
+            binding.appBarMain.fab.setVisibility(View.GONE);
         });
     }
 

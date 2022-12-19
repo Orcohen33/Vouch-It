@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.models.coupon.CouponShared;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class CustomerCartViewAdapter extends RecyclerView.Adapter<CustomerCartVi
 
     List<String> couponsTitles;
     List<String> couponsPrices;
+    List<CouponShared> coupons;
     ItemClickListener itemClickListener;
     LayoutInflater inflater;
 
@@ -26,10 +28,6 @@ public class CustomerCartViewAdapter extends RecyclerView.Adapter<CustomerCartVi
         this.couponsPrices = couponsPrices;
         this.itemClickListener = itemClickListener;
         this.inflater = LayoutInflater.from(ctx);
-    }
-
-    public void setItemClickListener(ItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -43,16 +41,18 @@ public class CustomerCartViewAdapter extends RecyclerView.Adapter<CustomerCartVi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String title = couponsTitles.get(position);
         String price = couponsPrices.get(position);
-
         holder.title.setText(title);
         holder.price.setText(price);
-
-
+        holder.delete.setOnClickListener(v -> itemClickListener.onDeleteClick(position));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return couponsTitles.size();
+    }
+
+    public void setCouponShareds(List<CouponShared> couponShareds) {
+        this.coupons = couponShareds;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -69,7 +69,6 @@ public class CustomerCartViewAdapter extends RecyclerView.Adapter<CustomerCartVi
     }
 
     public interface ItemClickListener {
-        void onDeleteClick(View view, int position);
-        void onAddToCartClick(View view, int position);
+        void onDeleteClick( int position);
     }
 }

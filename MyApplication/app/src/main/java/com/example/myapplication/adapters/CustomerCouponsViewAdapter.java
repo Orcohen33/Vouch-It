@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.models.coupon.CouponShared;
 
 import java.util.List;
 
@@ -26,6 +27,8 @@ public class CustomerCouponsViewAdapter extends RecyclerView.Adapter<CustomerCou
     List<String> couponsTitles;
     List<String> couponsPrices;
     LayoutInflater inflater;
+
+    List<CouponShared> coupons;
 
     static ItemClickListener itemClickListener;
 
@@ -74,12 +77,9 @@ public class CustomerCouponsViewAdapter extends RecyclerView.Adapter<CustomerCou
             title = itemView.findViewById(R.id.coupon_title_text_view);
             price = itemView.findViewById(R.id.coupon_price_text_view);
             addToCart = itemView.findViewById(R.id.add_to_cart_coupon_grid_layout);
-            addToCart.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (itemClickListener != null) {
-                        itemClickListener.onAddToCartClick(v, getAdapterPosition());
-                    }
+            addToCart.setOnClickListener(v -> {
+                if (itemClickListener != null) {
+                    itemClickListener.onAddToCartClick(v, getAdapterPosition());
                 }
             });
         }

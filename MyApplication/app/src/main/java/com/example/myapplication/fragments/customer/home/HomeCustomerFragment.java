@@ -12,8 +12,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.R;
 import com.example.myapplication.adapters.CategoryViewAdapter;
 import com.example.myapplication.databinding.FragmentHomeCustomerBinding;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeCustomerFragment extends Fragment {
 
@@ -30,7 +33,8 @@ public class HomeCustomerFragment extends Fragment {
         binding = FragmentHomeCustomerBinding.inflate(inflater, container, false);
 
         recyclerView = binding.categoryList;
-        adapter = new CategoryViewAdapter(homeCustomerViewModel.categoriesNames,
+        adapter = new CategoryViewAdapter(
+                homeCustomerViewModel.categoriesNames,
                 homeCustomerViewModel.categoriesImages,
                 getContext()
         );
@@ -51,9 +55,13 @@ public class HomeCustomerFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-//        adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // set the cart button to be visible
+        FloatingActionButton cartButton = getActivity().findViewById(R.id.fab);
+        cartButton.setVisibility(View.VISIBLE);
+    }
 }

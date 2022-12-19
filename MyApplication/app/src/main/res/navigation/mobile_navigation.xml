@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_nav_home_self"
             app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_nav_home_to_cartFragment2"
+            app:destination="@id/cartFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_category"
@@ -27,8 +30,22 @@
         <action
             android:id="@+id/action_nav_category_to_nav_home2"
             app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_nav_category_to_cartFragment"
+            app:destination="@id/cartFragment" />
     </fragment>
-<!--    <fragment-->
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.myapplication.fragments.customer.cart.CartFragment"
+        android:label="CartFragment" >
+        <action
+            android:id="@+id/action_cartFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_cartFragment_to_nav_category"
+            app:destination="@id/nav_category" />
+    </fragment>
+    <!--    <fragment-->
 <!--        android:id="@+id/nav_attractions"-->
 <!--        android:name="com.example.myapplication.fragments.customer.attractions.AttractionsFragment"-->
 <!--        android:label="@string/menu_attractions"-->

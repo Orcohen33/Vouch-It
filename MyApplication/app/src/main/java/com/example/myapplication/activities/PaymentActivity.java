@@ -8,6 +8,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.example.myapplication.fragments.customer.cart.CartFragment;
 
 import java.util.Calendar;
 
@@ -85,7 +86,7 @@ public class PaymentActivity extends AppCompatActivity {
         cvv.setOnFocusChangeListener(onFocusChangeListenerCvv);
     }
     public void onBackPaymentImageClick(View view) {
-        Intent intent = new Intent(this, CartActivity.class);
+        Intent intent = new Intent(this, CartFragment.class);
         startActivity(intent);
     }
 }

@@ -31,16 +31,15 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login); // set the content view to the activity_login layout
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.hide();
         }
-
-
         signUpButton();
         login();
     }
+
 
     void signUpButton() {
         MaterialButton signupButton = findViewById(R.id.signup_transfer_button);
@@ -59,8 +58,16 @@ public class LoginActivity extends AppCompatActivity {
 
 
         signInAsCustomer.setOnClickListener(v -> {
-            CustomerApi customerApi = RetrofitService.getInstance().getRetrofit().create(CustomerApi.class);
-            CustomerSignin customerSignin = new CustomerSignin(Objects.requireNonNull(email.getText()).toString(), Objects.requireNonNull(password.getText()).toString());
+            // object of the customer sign in api
+            CustomerApi customerApi = RetrofitService
+                    .getInstance()
+                    .getRetrofit()
+                    .create(CustomerApi.class);
+            // object of the customer sign in
+            CustomerSignin customerSignin = new CustomerSignin(
+                    Objects.requireNonNull(email.getText()).toString(),
+                    Objects.requireNonNull(password.getText()).toString()
+            );
 
             customerApi.login(customerSignin).enqueue(new Callback<Customer>() {
                 @Override
