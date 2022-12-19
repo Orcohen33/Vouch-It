@@ -1,32 +1,65 @@
-package com.example.myapplication.activities;
+package com.example.myapplication.fragments.customer.payment;
 
-import android.content.Intent;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.myapplication.R;
-import com.example.myapplication.fragments.customer.cart.CartFragment;
+import com.example.myapplication.databinding.FragmentPaymentBinding;
 
 import java.util.Calendar;
+import java.util.Objects;
 
-public class PaymentActivity extends AppCompatActivity {
+public class PaymentFragment extends Fragment {
+
+    private FragmentPaymentBinding binding;
+    private PaymentViewModel mViewModel;
+
+
+    public static PaymentFragment newInstance() {
+        return new PaymentFragment();
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.paymentpage);
-        pay();
-
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        mViewModel = new ViewModelProvider(this).get(PaymentViewModel.class);
+        binding = FragmentPaymentBinding.inflate(inflater, container, false);
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        Objects.requireNonNull(actionBar).setTitle("תשלום");
+        return binding.getRoot();
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        pay();
+        binding.submitPaymentButton.setOnClickListener(v -> {
+           // navigate to the next fragment
+            NavController nav = Navigation.findNavController(view);
+            nav.navigate(R.id.action_paymentFragment_to_receiptFragment);
+        });
+    }
+
     public void pay(){
-        EditText cardNumber = findViewById(R.id.credit_card_number);
-        EditText cardHolderName = findViewById(R.id.card_holder_name);
-        EditText expiryMonth = findViewById(R.id.expiration_month);
-        EditText expiryYear = findViewById(R.id.expiration_year);
-        EditText cvv = findViewById(R.id.cvv);
+        EditText cardNumber = binding.creditCardNumber;
+        EditText cardHolderName = binding.cardHolderName;
+        EditText expiryMonth = binding.expirationMonth;
+        EditText expiryYear = binding.expirationYear;
+        EditText cvv = binding.cvv;
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
 
@@ -57,7 +90,7 @@ public class PaymentActivity extends AppCompatActivity {
                 EditText editText = (EditText) v;
                 if (editText.getText().toString().isEmpty() || (editText.getText().length() != 2 ||
                         (Integer.parseInt(editText.getText().toString()) > 12 ||
-                        Integer.parseInt(editText.getText().toString()) < 1))) {
+                                Integer.parseInt(editText.getText().toString()) < 1))) {
                     editText.setError("- Expiry month must be 2 digits\n- Expiry month must be between 1 and 12");
                 }
             }
@@ -85,9 +118,4 @@ public class PaymentActivity extends AppCompatActivity {
         };
         cvv.setOnFocusChangeListener(onFocusChangeListenerCvv);
     }
-    public void onBackPaymentImageClick(View view) {
-        Intent intent = new Intent(this, CartFragment.class);
-        startActivity(intent);
-    }
 }
-

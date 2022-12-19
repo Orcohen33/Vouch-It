@@ -60,7 +60,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:backgroundTint="#BFF6FA"
-        android:onClick="onButtonClick"
         android:text="Payment"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/downRectangle"

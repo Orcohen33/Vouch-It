@@ -44,6 +44,26 @@
         <action
             android:id="@+id/action_cartFragment_to_nav_category"
             app:destination="@id/nav_category" />
+        <action
+            android:id="@+id/action_cartFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.example.myapplication.fragments.customer.payment.PaymentFragment"
+        android:label="PaymentFragment" >
+        <action
+            android:id="@+id/action_paymentFragment_to_receiptFragment"
+            app:destination="@id/receiptFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/receiptFragment"
+        android:name="com.example.myapplication.fragments.customer.receipt.ReceiptFragment"
+        android:label="fragment_receipt"
+        tools:layout="@layout/fragment_receipt" >
+        <action
+            android:id="@+id/action_receiptFragment_to_nav_home"
+            app:destination="@id/nav_home" />
     </fragment>
     <!--    <fragment-->
 <!--        android:id="@+id/nav_attractions"-->

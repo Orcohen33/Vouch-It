@@ -16,10 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.activities.PaymentActivity;
+import com.example.myapplication.R;
 import com.example.myapplication.adapters.CustomerCartViewAdapter;
 import com.example.myapplication.databinding.FragmentCartBinding;
 import com.example.myapplication.fragments.customer.SharedViewModel;
@@ -66,6 +68,12 @@ public class CartFragment extends Fragment implements CustomerCartViewAdapter.It
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         observeCouponsData();
 
+        // when the user clicks on the pay button, the user is redirected to the payment page
+        binding.paymentButton.setOnClickListener(v -> {
+//            navigateToPaymentFragment();
+             NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.action_cartFragment_to_paymentFragment);
+        });
         return binding.getRoot();
     }
 

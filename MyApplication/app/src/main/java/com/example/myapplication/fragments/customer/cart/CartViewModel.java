@@ -13,9 +13,9 @@ import java.util.List;
 
 public class CartViewModel extends ViewModel{
 
-    List<String> couponsTitles;
 
     List<String> couponsPrices;
+    List<String> couponsTitles;
     List<Long> couponsIds;
 
     List<CouponShared> mDetails;

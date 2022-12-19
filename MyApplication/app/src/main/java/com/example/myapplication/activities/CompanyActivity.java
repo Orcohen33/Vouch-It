@@ -32,7 +32,7 @@ public class CompanyActivity extends AppCompatActivity {
                 this,
                 R.id.nav_host_fragment_content_company);
         // new - pass the company name and email to the HomeCompanyFragment
-        navController.setGraph(R.navigation.nav_graph, getIntent().getExtras());
+        navController.setGraph(R.navigation.company_nav_graph, getIntent().getExtras());
 
         // hide actionbar
         Objects.requireNonNull(getSupportActionBar()).hide();
@@ -47,7 +47,7 @@ public class CompanyActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_company);
         // new - pass the bundle
-        navController.setGraph(R.navigation.nav_graph, getIntent().getExtras());
+        navController.setGraph(R.navigation.company_nav_graph, getIntent().getExtras());
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }
