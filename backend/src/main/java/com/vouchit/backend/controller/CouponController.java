@@ -1,6 +1,7 @@
 package com.vouchit.backend.controller;
 
 import com.vouchit.backend.model.request.CouponRequest;
+import com.vouchit.backend.model.response.CompanyCouponResponse;
 import com.vouchit.backend.model.response.CouponResponse;
 import com.vouchit.backend.service.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.transaction.Transactional;
 import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1")
 public class CouponController {
-// api/v1/company/2/coupon
     private final CouponService couponService;
 
     @Autowired
@@ -26,14 +26,14 @@ public class CouponController {
     This endpoint will return all coupons for a given company
      */
     @GetMapping("/company/{companyId}/coupon")
-    public ResponseEntity<Set<CouponResponse>> getAllCouponsByCompanyId(@PathVariable(name = "companyId") Long companyId) {
+    public ResponseEntity<Set<CompanyCouponResponse>> getAllCouponsByCompanyId(@PathVariable(name = "companyId") Long companyId) {
         System.out.println("CouponController: getAllCouponsByCompanyId: companyId: " + companyId);
         return ResponseEntity.ok(couponService.getAllCouponsByCompanyId(companyId));
     }
 
     @GetMapping("/coupon/category/{id}")
-    public ResponseEntity<Set<CouponResponse>> getCouponsByCategory(@PathVariable(name = "id") Long id) {
-        return ResponseEntity.ok(couponService.getCouponsByCategory(id));
+    public ResponseEntity<Set<CouponResponse>> getAllCouponsByCategoryId(@PathVariable(name = "id") Long id) {
+        return ResponseEntity.ok(couponService.getAllCouponsByCategoryId(id));
     }
 
     @GetMapping("/coupon")
@@ -48,7 +48,9 @@ public class CouponController {
 
     @PostMapping("/coupon")
     @ResponseStatus(HttpStatus.CREATED)
+    @Transactional
     public ResponseEntity<CouponResponse> createCoupon(@RequestBody CouponRequest couponRequest) {
+
         return ResponseEntity.ok(couponService.createCoupon(couponRequest));
     }
 

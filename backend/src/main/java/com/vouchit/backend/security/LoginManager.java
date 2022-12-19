@@ -6,6 +6,7 @@ import com.vouchit.backend.service.client.ClientService;
 import com.vouchit.backend.service.client.CustomerServiceImpl;
 import com.vouchit.backend.service.impl.CompanyServiceImpl;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -51,4 +52,6 @@ public class LoginManager {
         }
 
     }
+
+    // bean of password encoder
 }

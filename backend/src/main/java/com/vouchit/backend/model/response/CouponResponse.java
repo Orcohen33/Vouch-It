@@ -17,6 +17,6 @@ public class CouponResponse {
     private String image;
     private LocalDate startDate;
     private LocalDate endDate;
-    private CompanyResponse company;
+//    private CompanyResponse company;
     private CategoryResponse category;
 }

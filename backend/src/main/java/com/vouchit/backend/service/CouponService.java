@@ -1,14 +1,17 @@
 package com.vouchit.backend.service;
 
 import com.vouchit.backend.model.request.CouponRequest;
+import com.vouchit.backend.model.response.CompanyCouponResponse;
 import com.vouchit.backend.model.response.CouponResponse;
 
-import java.util.List;
 import java.util.Set;
 
 public interface CouponService {
 
-    Set<CouponResponse> getCouponsByCategory(Long categoryId);      // TODO: Check if this is the right way to do it
+    Set<CouponResponse> getAllCouponsByCategoryId(Long categoryId);      // TODO: Check if this is the right way to do it
+
+    Set<CompanyCouponResponse> getAllCouponsByCompanyId(Long companyId);
+
 
     /**
      * Create a new coupon
@@ -44,6 +47,4 @@ public interface CouponService {
      */
     String deleteCoupon(Long couponId);
 
-
-    Set<CouponResponse> getAllCouponsByCompanyId(Long companyId);
 }

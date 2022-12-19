@@ -3,9 +3,11 @@ package com.vouchit.backend.service;
 import com.vouchit.backend.model.entity.Company;
 import com.vouchit.backend.model.request.company.CompanyRequest;
 import com.vouchit.backend.model.request.CouponRequest;
+import com.vouchit.backend.model.response.CompanyCouponResponse;
 import com.vouchit.backend.model.response.CompanyResponse;
 import com.vouchit.backend.model.response.CouponResponse;
 
+import java.util.Optional;
 import java.util.Set;
 
 public interface CompanyService {
@@ -19,7 +21,7 @@ public interface CompanyService {
     CompanyResponse createCompany(CompanyRequest companyRequest);
     // Read
     Set<CompanyResponse> getAllCompanies();
-    CompanyResponse getCompanyById(Long companyId);
+    Optional<CompanyResponse> getCompanyById(Long companyId);
     // Update
     CompanyResponse updateCompany(Long companyId, CompanyRequest companyRequest);
     // Delete
@@ -34,7 +36,7 @@ public interface CompanyService {
 
     CouponResponse deleteCoupon(Long companyId, CouponRequest couponRequest);
 
-    Set<CouponResponse> getAllCouponsById(Long companyId);
+    Set<CompanyCouponResponse> getAllCouponsByCompanyId(Long companyId);
 
     CouponResponse getCouponByIdAndCategory(Long companyId, Long categoryId, Long couponId);
 
@@ -42,4 +44,6 @@ public interface CompanyService {
 
     CompanyResponse mapCompanyToCompanyResponse(Company company);
     Company mapCompanyRequestToCompany(CompanyRequest companyRequest);
+
+    Company mapCompanyResponseToCompany(CompanyResponse companyResponse);
 }

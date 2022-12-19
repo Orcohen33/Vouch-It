@@ -2,6 +2,7 @@ package com.vouchit.backend.controller;
 
 import com.vouchit.backend.model.request.company.CompanyRequest;
 import com.vouchit.backend.model.request.company.CompanySignInRequest;
+import com.vouchit.backend.model.response.CompanyCouponResponse;
 import com.vouchit.backend.model.response.CompanyResponse;
 import com.vouchit.backend.service.CompanyService;
 import lombok.extern.slf4j.Slf4j;
@@ -42,19 +43,6 @@ public class CompanyController {
         return ResponseEntity.status(HttpStatus.CREATED).body(companyService.createCompany(companyRequest));
     }
 
-    // Get company by id
-
-//    public ResponseEntity<CompanyResponse> signUp(@RequestBody CompanySignUpRequest companySignUpRequest) {
-//        log.info("CompanyController: signUp");
-//        log.info("CompanyController: signUp: logInRequest: {}", companySignUpRequest);
-//        CompanyResponse companyResponse = companyService.signUp(companySignUpRequest.fullName(),
-//                companySignUpRequest.email(),
-//                companySignUpRequest.password());
-//        return ResponseEntity.status(HttpStatus.CREATED).body(companyResponse);
-
-//    }
-
-
     // Get all companies
     @GetMapping
     public ResponseEntity<Set<CompanyResponse>> getAllCompanies() {
@@ -63,11 +51,13 @@ public class CompanyController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CompanyResponse> getCompanyById(@PathVariable(name = "id") Long id) {
-        return ResponseEntity.ok(companyService.getCompanyById(id));
+        return ResponseEntity.ok(companyService.getCompanyById(id)
+                .orElseThrow(() -> new RuntimeException("Company not found")));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCompany(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok(companyService.deleteCompany(id));
     }
+
 }

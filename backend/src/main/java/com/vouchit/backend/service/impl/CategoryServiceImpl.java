@@ -38,10 +38,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryResponse getCategoryById(Long id) {
-        return categoryRepository.findById(id)
-                .map(this::mapCategoryToCategoryResponse)
-                .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + id));
+    public Optional<CategoryResponse> getCategoryById(Long id) {
+        var category = categoryRepository.findById(id);
+        return category.map(this::mapCategoryToCategoryResponse);
     }
 
     @Override

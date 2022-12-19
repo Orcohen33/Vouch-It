@@ -1,5 +1,6 @@
 package com.vouchit.backend.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,7 +21,7 @@ public class Company {
     private String email;
     private String password;
 
-    @OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "company",cascade = {CascadeType.REMOVE,CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Set<Coupon> coupons;
 
 

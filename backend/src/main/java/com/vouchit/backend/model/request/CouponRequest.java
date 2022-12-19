@@ -1,19 +1,17 @@
 package com.vouchit.backend.model.request;
 
-import com.vouchit.backend.model.request.company.CouponCompanyRequest;
 import lombok.*;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = {"company"})
+@ToString
 public class CouponRequest {
 
     @NotBlank(message = "Title is required")
@@ -22,18 +20,20 @@ public class CouponRequest {
     @NotBlank(message = "Description is required")
     @Size(min = 3, max = 255, message = "Description must be between 3 and 255 characters")
     private String description;
+
     @NotNull(message = "start date is required")
-    private LocalDate startDate;
+    private String startDate;
+
     @NotNull(message = "end date is required")
-    private LocalDate endDate;
+    private String endDate;
     @Min(1)
     private Integer amount;
     @Min(1)
     private Double price;
-    private String image;
+    private Byte[] image;
     @NotNull(message = "Company is required")
-    private CouponCompanyRequest company;
+    private Long companyId;
     @NotNull(message = "category is required")
-    private CategoryRequest category;
+    private Long categoryId;
 
 }

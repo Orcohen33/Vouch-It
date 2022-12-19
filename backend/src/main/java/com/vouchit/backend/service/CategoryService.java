@@ -6,13 +6,14 @@ import com.vouchit.backend.model.request.CategoryRequest;
 import com.vouchit.backend.model.response.CategoryResponse;
 import com.vouchit.backend.model.response.CouponResponse;
 
+import java.util.Optional;
 import java.util.Set;
 
 public interface CategoryService {
 
     CategoryResponse createCategory(CategoryRequest categoryRequest);
 
-    CategoryResponse getCategoryById(Long id);
+    Optional<CategoryResponse> getCategoryById(Long id);
 
     Set<CategoryResponse> getAllCategories();
 

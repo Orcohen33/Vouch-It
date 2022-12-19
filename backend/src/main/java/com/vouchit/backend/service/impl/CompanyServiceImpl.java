@@ -3,6 +3,7 @@ package com.vouchit.backend.service.impl;
 import com.vouchit.backend.model.entity.Company;
 import com.vouchit.backend.model.request.company.CompanyRequest;
 import com.vouchit.backend.model.request.CouponRequest;
+import com.vouchit.backend.model.response.CompanyCouponResponse;
 import com.vouchit.backend.model.response.CompanyResponse;
 import com.vouchit.backend.model.response.CouponResponse;
 import com.vouchit.backend.repository.CompanyRepository;
@@ -11,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -67,10 +69,9 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public CompanyResponse getCompanyById(Long companyId) {
-        return companyRepository.findById(companyId)
-                .map(this::mapCompanyToCompanyResponse)
-                .orElseThrow(() -> new RuntimeException("Company not found"));
+    public Optional<CompanyResponse> getCompanyById(Long companyId) {
+        var company = companyRepository.findById(companyId);
+        return company.map(this::mapCompanyToCompanyResponse);
     }
 
     @Override
@@ -101,8 +102,22 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public Set<CouponResponse> getAllCouponsById(Long companyId) {
-        return null;
+    public Set<CompanyCouponResponse> getAllCouponsByCompanyId(Long companyId) {
+        return companyRepository.findById(companyId)
+                .map(Company::getCoupons)
+                .map(coupons -> coupons.stream()
+                        .map(coupon -> CompanyCouponResponse.builder()
+                                .id(coupon.getId())
+                                .title(coupon.getTitle())
+                                .description(coupon.getDescription())
+                                .price(coupon.getPrice())
+                                .amount(coupon.getAmount())
+                                .image(coupon.getImage())
+                                .startDate(coupon.getStartDate())
+                                .endDate(coupon.getEndDate())
+                                .build())
+                        .collect(Collectors.toSet()))
+                .orElse(null);
     }
 
     @Override
@@ -118,10 +133,17 @@ public class CompanyServiceImpl implements CompanyService {
 
     //  ================================= PRIVATE METHODS =================================
     public CompanyResponse mapCompanyToCompanyResponse(Company company) {
-        return modelMapper.map(company, CompanyResponse.class);
+        var companyResponse = modelMapper.map(company, CompanyResponse.class);
+        System.out.println("[mapCompanyToCompanyResponse]"+companyResponse);
+        return companyResponse;
     }
 
     public Company mapCompanyRequestToCompany(CompanyRequest companyRequest) {
         return modelMapper.map(companyRequest, Company.class);
+    }
+
+    @Override
+    public Company mapCompanyResponseToCompany(CompanyResponse companyResponse) {
+        return modelMapper.map(companyResponse, Company.class);
     }
 }
