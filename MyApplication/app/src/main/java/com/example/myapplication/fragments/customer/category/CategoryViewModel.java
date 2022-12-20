@@ -20,6 +20,7 @@ public class CategoryViewModel extends ViewModel  {
 
     List<String> couponsPrices;
     List<Long> couponsIds;
+    List<String> couponsDescriptions;
 
     List<CouponShared> coupons;
 
@@ -28,12 +29,21 @@ public class CategoryViewModel extends ViewModel  {
     private LiveData<List<CouponResponse>> categoryCoupons;
 
 
+    public List<String> getCouponsDescriptions() {
+        return couponsDescriptions;
+    }
+
+    public void setCouponsDescriptions(List<String> couponsDescriptions) {
+        this.couponsDescriptions = couponsDescriptions;
+    }
+
     public CategoryViewModel() {
         couponsImages = new ArrayList<>();
         couponsTitles = new ArrayList<>();
         couponsPrices = new ArrayList<>();
         couponsIds = new ArrayList<>();
         coupons = new ArrayList<>();
+        couponsDescriptions = new ArrayList<>();
     }
 
     public void init(Long id) {

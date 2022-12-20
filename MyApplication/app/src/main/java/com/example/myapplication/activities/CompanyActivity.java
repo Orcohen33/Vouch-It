@@ -34,8 +34,6 @@ public class CompanyActivity extends AppCompatActivity {
         // new - pass the company name and email to the HomeCompanyFragment
         navController.setGraph(R.navigation.company_nav_graph, getIntent().getExtras());
 
-        // hide actionbar
-        Objects.requireNonNull(getSupportActionBar()).hide();
         appBarConfiguration = new AppBarConfiguration
                 .Builder(navController.getGraph())
                 .build();

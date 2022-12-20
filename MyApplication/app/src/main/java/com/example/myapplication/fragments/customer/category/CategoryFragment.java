@@ -65,6 +65,7 @@ public class CategoryFragment extends Fragment implements CustomerCouponsViewAda
                 mViewModel.getCouponsImages(),
                 mViewModel.getCouponsTitles(),
                 mViewModel.getCouponsPrices(),
+                mViewModel.getCouponsDescriptions(),
                 this,
                 getContext()
         );
@@ -94,6 +95,7 @@ public class CategoryFragment extends Fragment implements CustomerCouponsViewAda
                     mViewModel.getCouponsTitles().add(coupons.get(i).getTitle());
                     mViewModel.getCouponsPrices().add(String.valueOf(coupons.get(i).getPrice()));
                     mViewModel.getCouponsIds().add(coupons.get(i).getId());
+                    mViewModel.getCouponsDescriptions().add(coupons.get(i).getDescription());
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -122,5 +124,15 @@ public class CategoryFragment extends Fragment implements CustomerCouponsViewAda
         ));
         model.setCoupons(coupons);
         Toast.makeText(getContext(), "הקופון נוסף לעגלה", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onImageClick(View view, int position) {
+        List<CouponShared> coupons = model.getCoupons().getValue();
+        coupons.add(new CouponShared(
+                mViewModel.couponsIds.get(position),
+                mViewModel.couponsTitles.get(position),
+                mViewModel.couponsDescriptions.get(position)
+        ));
     }
 }

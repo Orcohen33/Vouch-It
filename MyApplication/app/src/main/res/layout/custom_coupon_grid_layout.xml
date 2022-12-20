@@ -26,12 +26,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="204dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="146dp"
                 android:text="TextView"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/coupon_title_text_view" />
 
@@ -49,8 +50,8 @@
 
             <TextView
                 android:id="@+id/coupon_title_text_view"
-                android:layout_width="164dp"
-                android:layout_height="66dp"
+                android:layout_width="174dp"
+                android:layout_height="73dp"
                 android:layout_marginStart="96dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="21dp"
@@ -61,6 +62,7 @@
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/coupon_price_text_view"
                 app:layout_constraintEnd_toStartOf="@+id/coupon_image_view"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
