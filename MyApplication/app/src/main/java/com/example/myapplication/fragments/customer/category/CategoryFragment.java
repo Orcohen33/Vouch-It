@@ -1,22 +1,21 @@
 package com.example.myapplication.fragments.customer.category;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.CustomerCouponsViewAdapter;
@@ -25,13 +24,11 @@ import com.example.myapplication.fragments.customer.SharedViewModel;
 import com.example.myapplication.models.coupon.CouponShared;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-//import androidx.lifecycle.ViewModelProviders;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class CategoryFragment extends Fragment implements CustomerCouponsViewAdapter.ItemClickListener{
+public class CategoryFragment extends Fragment implements CustomerCouponsViewAdapter.ItemClickListener {
 
     private final Long DEFAULT_CATEGORY_ID = -1L;
     private Long mCategoryId = DEFAULT_CATEGORY_ID;
@@ -42,6 +39,7 @@ public class CategoryFragment extends Fragment implements CustomerCouponsViewAda
     private SharedViewModel model;
     private CustomerCouponsViewAdapter adapter;
     private RecyclerView recyclerView;
+    private SearchView searchView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,23 +60,35 @@ public class CategoryFragment extends Fragment implements CustomerCouponsViewAda
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         recyclerView = binding.couponsCustomerList;
         adapter = new CustomerCouponsViewAdapter(
-                mViewModel.getCouponsImages(),
-                mViewModel.getCouponsTitles(),
-                mViewModel.getCouponsPrices(),
-                mViewModel.getCouponsDescriptions(),
+                mViewModel.originalList,
                 this,
                 getContext()
         );
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1, GridLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+        // Here you choose which category to show
         mViewModel.init(mCategoryId);
         getCategoryCoupons();
+
         // change the title of the action bar
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         Objects.requireNonNull(actionBar).setTitle(mCategoryName);
+        // Start of SearchView
+        searchView = requireActivity().findViewById(R.id.search_view);
+        searchView.setVisibility(View.VISIBLE);
+        getOnQueryTextListener(searchView);
+        searchView.setOnCloseListener(this::onClose);
+        searchView.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                searchView.setQuery("", false);
+                searchView.clearFocus();
+            }
+        });
+        // End of search view
         return binding.getRoot();
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -91,11 +101,15 @@ public class CategoryFragment extends Fragment implements CustomerCouponsViewAda
         mViewModel.getCategoryCouponsResponseLiveData().observe(getViewLifecycleOwner(), coupons -> {
             if (coupons != null && coupons.size() > 0) {
                 for (int i = 0; i < coupons.size(); i++) {
-                    mViewModel.getCouponsImages().add(R.drawable.microphone);
-                    mViewModel.getCouponsTitles().add(coupons.get(i).getTitle());
-                    mViewModel.getCouponsPrices().add(String.valueOf(coupons.get(i).getPrice()));
-                    mViewModel.getCouponsIds().add(coupons.get(i).getId());
-                    mViewModel.getCouponsDescriptions().add(coupons.get(i).getDescription());
+                    mViewModel.getOriginalList().add(
+                            new CategoryViewModel.ItemInCategory(
+                                    R.drawable.microphone,
+                                    coupons.get(i).getTitle(),
+                                    coupons.get(i).getPrice().toString(),
+                                    coupons.get(i).getId(),
+                                    coupons.get(i).getDescription()
+                            )
+                    );
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -118,9 +132,9 @@ public class CategoryFragment extends Fragment implements CustomerCouponsViewAda
             coupons = new ArrayList<>();
         }
         coupons.add(new CouponShared(
-                mViewModel.couponsIds.get(position),
-                mViewModel.couponsTitles.get(position),
-                mViewModel.couponsPrices.get(position)
+                mViewModel.originalList.get(position).getId(),
+                mViewModel.originalList.get(position).getTitle(),
+                mViewModel.originalList.get(position).getPrice()
         ));
         model.setCoupons(coupons);
         Toast.makeText(getContext(), "הקופון נוסף לעגלה", Toast.LENGTH_SHORT).show();
@@ -130,9 +144,45 @@ public class CategoryFragment extends Fragment implements CustomerCouponsViewAda
     public void onImageClick(View view, int position) {
         List<CouponShared> coupons = model.getCoupons().getValue();
         coupons.add(new CouponShared(
-                mViewModel.couponsIds.get(position),
-                mViewModel.couponsTitles.get(position),
-                mViewModel.couponsDescriptions.get(position)
+                mViewModel.originalList.get(position).getId(),
+                mViewModel.originalList.get(position).getTitle(),
+                mViewModel.originalList.get(position).getDescription()
         ));
     }
+
+    // ----------------- Search View -----------------
+
+    private void getOnQueryTextListener(SearchView searchView) {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchCoupons(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchCoupons(newText);
+                return true;
+            }
+
+
+        });
+    }
+
+    private void searchCoupons(String query) {
+        mViewModel.filteredList.clear();
+        for (CategoryViewModel.ItemInCategory coupon : mViewModel.originalList) {
+            if (coupon.getTitle().toLowerCase().contains(query.toLowerCase())) {
+                mViewModel.filteredList.add(coupon);
+            }
+        }
+        adapter.filterList(mViewModel.filteredList);
+    }
+
+    private boolean onClose() {
+        adapter.updateList(mViewModel.originalList);
+        return false;
+    }
+    // -----------------------------------------
 }

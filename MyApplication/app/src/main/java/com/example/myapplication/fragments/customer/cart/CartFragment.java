@@ -2,7 +2,6 @@ package com.example.myapplication.fragments.customer.cart;
 
 import static android.content.ContentValues.TAG;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -25,10 +23,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.adapters.CustomerCartViewAdapter;
 import com.example.myapplication.databinding.FragmentCartBinding;
 import com.example.myapplication.fragments.customer.SharedViewModel;
-import com.example.myapplication.fragments.customer.cart.CartViewModel;
-import com.example.myapplication.models.coupon.CouponShared;
 
-import java.util.List;
 import java.util.Objects;
 
 public class CartFragment extends Fragment implements CustomerCartViewAdapter.ItemClickListener {
@@ -66,7 +61,6 @@ public class CartFragment extends Fragment implements CustomerCartViewAdapter.It
 
         // this is the shared view model
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
-        observeCouponsData();
 
         // when the user clicks on the pay button, the user is redirected to the payment page
         binding.paymentButton.setOnClickListener(v -> {
@@ -74,6 +68,7 @@ public class CartFragment extends Fragment implements CustomerCartViewAdapter.It
              NavController navController = Navigation.findNavController(v);
                 navController.navigate(R.id.action_cartFragment_to_paymentFragment);
         });
+
         return binding.getRoot();
     }
 
@@ -93,6 +88,13 @@ public class CartFragment extends Fragment implements CustomerCartViewAdapter.It
             }
         });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        observeCouponsData();
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

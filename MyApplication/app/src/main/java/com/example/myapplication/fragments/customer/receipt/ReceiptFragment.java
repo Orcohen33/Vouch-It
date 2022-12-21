@@ -2,31 +2,26 @@ package com.example.myapplication.fragments.customer.receipt;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.myapplication.R;
-import com.example.myapplication.adapters.CustomerCartViewAdapter;
 import com.example.myapplication.adapters.ReceiptViewAdapter;
-import com.example.myapplication.databinding.FragmentCartBinding;
 import com.example.myapplication.databinding.FragmentReceiptBinding;
 import com.example.myapplication.fragments.customer.SharedViewModel;
-import com.example.myapplication.fragments.customer.cart.CartViewModel;
 
 import java.util.Objects;
 
@@ -77,5 +72,6 @@ public class ReceiptFragment extends Fragment {
             }
         });
     }
+
 
 }

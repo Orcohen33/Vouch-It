@@ -15,6 +15,10 @@ import com.example.myapplication.models.coupon.CouponShared;
 
 import java.util.List;
 
+/*
+    * Adapter for the recycler view in the cart fragment
+    * It is used to display the coupons in the cart
+    *  */
 public class CustomerCartViewAdapter extends RecyclerView.Adapter<CustomerCartViewAdapter.ViewHolder> {
 
     List<String> couponsTitles;

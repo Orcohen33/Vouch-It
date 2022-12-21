@@ -1,11 +1,7 @@
 package com.example.myapplication.fragments.customer.cart;
 
-import android.view.View;
-
 import androidx.lifecycle.ViewModel;
 
-import com.example.myapplication.adapters.CustomerCartViewAdapter;
-import com.example.myapplication.fragments.customer.SharedViewModel;
 import com.example.myapplication.models.coupon.CouponShared;
 
 import java.util.ArrayList;
@@ -36,6 +32,9 @@ public class CartViewModel extends ViewModel{
 
     public void setCouponShareds(List<CouponShared> couponShareds) {
         this.mDetails = couponShareds;
+        couponsTitles.clear();
+        couponsPrices.clear();
+        couponsIds.clear();
         for (CouponShared couponShared : couponShareds) {
             couponsTitles.add(couponShared.getTitle());
             couponsPrices.add(couponShared.getPrice() + "");

@@ -1,11 +1,7 @@
 package com.example.myapplication.adapters;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.Notification;
 import android.content.Context;
-import android.content.res.Resources;
-import android.text.style.TextAppearanceSpan;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.StyleRes;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.fragments.customer.category.CategoryViewModel;
 import com.example.myapplication.models.coupon.CouponShared;
-import com.google.mlkit.nl.smartreply.TextMessage;
 
 import java.util.List;
 
@@ -31,23 +26,16 @@ import java.util.List;
  * with a title and a subtitle and image.
  */
 public class CustomerCouponsViewAdapter extends RecyclerView.Adapter<CustomerCouponsViewAdapter.ViewHolder> {
-    List<Integer> couponsImages;
-    List<String> couponsTitles;
-    List<String> couponsPrices;
     LayoutInflater inflater;
-    List<String> couponsDescriptions;
 
     List<CouponShared> coupons;
 
+    List<CategoryViewModel.ItemInCategory> items;
     static ItemClickListener itemClickListener;
 
-    //couponsDescriptions = new ArrayList<>();
-    public CustomerCouponsViewAdapter(List<Integer> couponsImages, List<String> couponsTitles, List<String> couponsPrices, List<String> couponsDescriptions,ItemClickListener itemClickListener, Context ctx) {
-        this.couponsImages = couponsImages;
-        this.couponsTitles = couponsTitles;
-        this.couponsPrices = couponsPrices;
+    public CustomerCouponsViewAdapter(List<CategoryViewModel.ItemInCategory> coupons,ItemClickListener itemClickListener, Context ctx){
+        this.items = coupons;
         this.itemClickListener = itemClickListener;
-        this.couponsDescriptions = couponsDescriptions;
         this.inflater = LayoutInflater.from(ctx);
     }
 
@@ -61,34 +49,62 @@ public class CustomerCouponsViewAdapter extends RecyclerView.Adapter<CustomerCou
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Integer image = couponsImages.get(position);
-        String title = couponsTitles.get(position);
-        String price = couponsPrices.get(position);
-        String description = couponsDescriptions.get(position);
-        holder.image.setImageResource(image);
-        holder.title.setText(title);
-        holder.price.setText(price + "₪");
+        CategoryViewModel.ItemInCategory item = items.get(position);
+        holder.image.setImageResource(item.getImage());
+        holder.title.setText(item.getTitle());
+        holder.price.setText(item.getPrice() + "₪");
 
         // When the image button is clicked, show the description of the coupon.
         holder.image.setOnClickListener(v -> dialogForImageAction(position));
     }
 
     private void dialogForImageAction(int position) {
-       // AlertDialog.Builder builder = new AlertDialog.Builder(inflater.getContext());
-        //builder.setTextAppearance(this, R.style.TextAppearance_Large_Bold);
-      //  resolveDialogTheme ;
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(inflater.getContext(), android.R.style.Theme_Light_Panel));
-        builder.setTitle(couponsTitles.get(position));
-        builder.setMessage(couponsDescriptions.get(position));
-        builder.setIcon(couponsImages.get(position));
-
-
+        builder.setTitle(items.get(position).getTitle());
+        builder.setMessage(items.get(position).getDescription());
+        builder.setIcon(items.get(position).getImage());
         builder.show();
     }
 
     @Override
     public int getItemCount() {
-        return couponsImages.size();
+        return items.size();
+    }
+
+//    public void filterList(List<String> couponTitles, List<Integer> couponsImages, List<String> couponsPrices, String query) {
+//        // filter the list of titles, images and prices according to the query
+//        for (int i = 0; i < couponTitles.size(); i++) {
+//            if (!couponTitles.get(i).toLowerCase().contains(query.toLowerCase())) {
+//                couponTitles.remove(i);
+//                couponsImages.remove(i);
+//                couponsPrices.remove(i);
+//                notifyItemRemoved(i);
+//                notifyItemRangeChanged(i, couponTitles.size());
+//            }
+//        }
+//    }
+//
+//    public void filterList(Map<Long, String> map, String query) {
+//        List<String> filteredTitles = new ArrayList<>();
+//        List<Long> filteredIds = new ArrayList<>();
+//        for (Map.Entry<Long, String> entry : map.entrySet()) {
+//            if (entry.getValue().toLowerCase().contains(query.toLowerCase())) {
+//                filteredTitles.add(entry.getValue());
+//                filteredIds.add(entry.getKey());
+//            }
+//        }
+//        notifyDataSetChanged();
+//        notifyItemRangeChanged(0, filteredTitles.size());
+//    }
+
+    public void filterList(List<CategoryViewModel.ItemInCategory> filteredList) {
+        items = filteredList;
+        notifyDataSetChanged();
+    }
+
+    public void updateList(List<CategoryViewModel.ItemInCategory> items) {
+        this.items = items;
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -96,7 +112,6 @@ public class CustomerCouponsViewAdapter extends RecyclerView.Adapter<CustomerCou
         TextView title;
         TextView price;
         ImageButton addToCart;
-        String description;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

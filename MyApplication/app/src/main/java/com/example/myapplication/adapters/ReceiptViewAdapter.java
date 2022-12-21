@@ -14,6 +14,10 @@ import com.example.myapplication.models.coupon.CouponShared;
 
 import java.util.List;
 
+/*
+    * Adapter for the recycler view in the receipt fragment
+    * It is used to display the coupons that the customer bought
+ */
 public class ReceiptViewAdapter extends RecyclerView.Adapter<ReceiptViewAdapter.ViewHolder>{
     List<String> couponsTitles;
     List<CouponShared> coupons;

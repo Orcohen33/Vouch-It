@@ -52,6 +52,7 @@ public class PaymentFragment extends Fragment {
             NavController nav = Navigation.findNavController(view);
             nav.navigate(R.id.action_paymentFragment_to_receiptFragment);
         });
+
     }
 
     public void pay(){

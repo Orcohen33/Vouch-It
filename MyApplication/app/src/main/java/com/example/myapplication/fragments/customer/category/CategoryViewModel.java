@@ -1,11 +1,8 @@
 package com.example.myapplication.fragments.customer.category;
 
-import android.view.View;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.myapplication.adapters.CustomerCouponsViewAdapter;
 import com.example.myapplication.models.coupon.CouponResponse;
 import com.example.myapplication.models.coupon.CouponShared;
 import com.example.myapplication.repository.CategoryCouponRepository;
@@ -15,35 +12,20 @@ import java.util.List;
 
 public class CategoryViewModel extends ViewModel  {
 
-    List<Integer> couponsImages;
-    List<String> couponsTitles;
+    List<ItemInCategory> originalList;
+    List<ItemInCategory> filteredList;
 
-    List<String> couponsPrices;
-    List<Long> couponsIds;
-    List<String> couponsDescriptions;
-
+    // This is the data that we will fetch asynchronously.
     List<CouponShared> coupons;
 
-
     private CategoryCouponRepository categoryCouponRepository;
+
     private LiveData<List<CouponResponse>> categoryCoupons;
 
-
-    public List<String> getCouponsDescriptions() {
-        return couponsDescriptions;
-    }
-
-    public void setCouponsDescriptions(List<String> couponsDescriptions) {
-        this.couponsDescriptions = couponsDescriptions;
-    }
-
     public CategoryViewModel() {
-        couponsImages = new ArrayList<>();
-        couponsTitles = new ArrayList<>();
-        couponsPrices = new ArrayList<>();
-        couponsIds = new ArrayList<>();
+        originalList = new ArrayList<>();
+        filteredList = new ArrayList<>();
         coupons = new ArrayList<>();
-        couponsDescriptions = new ArrayList<>();
     }
 
     public void init(Long id) {
@@ -58,40 +40,70 @@ public class CategoryViewModel extends ViewModel  {
     }
 
 
-    public List<Integer> getCouponsImages() {
-        return couponsImages;
+    public List<ItemInCategory> getOriginalList() {
+        return originalList;
     }
 
-    public void setCouponsImages(List<Integer> couponsImages) {
-        this.couponsImages = couponsImages;
-    }
-
-    public List<String> getCouponsTitles() {
-        return couponsTitles;
-    }
-
-    public void setCouponsTitles(List<String> couponsTitles) {
-        this.couponsTitles = couponsTitles;
-    }
-
-    public List<String> getCouponsPrices() {
-        return couponsPrices;
-    }
-
-    public void setCouponsPrices(List<String> couponsPrices) {
-        this.couponsPrices = couponsPrices;
-    }
-
-    public List<Long> getCouponsIds() {
-        return couponsIds;
-    }
-
-    public void setCouponsIds(List<Long> couponsIds) {
-        this.couponsIds = couponsIds;
+    public void setOriginalList(List<ItemInCategory> originalList) {
+        this.originalList = originalList;
     }
 
 
 
+    public static class ItemInCategory {
+        private Integer image;
+        private String title;
+        private String price;
+        private Long id;
+        private String description;
 
+        public ItemInCategory(Integer image, String title, String price, Long id, String description) {
+            this.image = image;
+            this.title = title;
+            this.price = price;
+            this.id = id;
+            this.description = description;
+        }
+
+        public Integer getImage() {
+            return image;
+        }
+
+        public void setImage(Integer image) {
+            this.image = image;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getPrice() {
+            return price;
+        }
+
+        public void setPrice(String price) {
+            this.price = price;
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+    }
 
 }

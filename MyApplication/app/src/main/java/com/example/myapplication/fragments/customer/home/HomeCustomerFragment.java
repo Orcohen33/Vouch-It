@@ -2,6 +2,9 @@ package com.example.myapplication.fragments.customer.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,9 +16,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.activities.CustomerActivity;
 import com.example.myapplication.adapters.CategoryViewAdapter;
 import com.example.myapplication.databinding.FragmentHomeCustomerBinding;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeCustomerFragment extends Fragment {
@@ -25,6 +28,7 @@ public class HomeCustomerFragment extends Fragment {
     RecyclerView recyclerView;
     CategoryViewAdapter adapter;
 
+    CustomerActivity customerActivity;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +47,7 @@ public class HomeCustomerFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
+
         return binding.getRoot();
     }
 
@@ -50,6 +55,12 @@ public class HomeCustomerFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
     }
 
     @Override

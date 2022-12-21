@@ -27,6 +27,8 @@ public class CustomerActivity extends AppCompatActivity {
 
     private List<CouponShared> coupons;
 
+    public boolean showSearchView;
+
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +37,10 @@ public class CustomerActivity extends AppCompatActivity {
         binding = ActivityCustomerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Set a Toolbar to replace the ActionBar.
         setSupportActionBar(binding.appBarMain.toolbar);
-
+        // Set the search view be GONE by default
+        binding.appBarMain.searchView.setVisibility(View.GONE);
 
         Objects.requireNonNull(getSupportActionBar()).setTitle("בית");
         DrawerLayout drawer = binding.drawerLayout;

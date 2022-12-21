@@ -18,6 +18,10 @@ import com.example.myapplication.R;
 
 import java.util.List;
 
+/*
+    * Adapter for the recycler view in the home fragment
+    * It represents the categories in the home fragment
+ */
 public class CategoryViewAdapter extends RecyclerView.Adapter<CategoryViewAdapter.ViewHolder> {
     List<String> categoriesNames;
     List<Integer> categoriesImages;

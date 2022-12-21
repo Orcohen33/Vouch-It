@@ -34,9 +34,6 @@ public class AddCouponFragment extends Fragment {
     private String companyName;
     private String companyEmail;
 
-    public static AddCouponFragment newInstance() {
-        return new AddCouponFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
