@@ -53,49 +53,20 @@ public class CustomerCouponsViewAdapter extends RecyclerView.Adapter<CustomerCou
         holder.image.setImageResource(item.getImage());
         holder.title.setText(item.getTitle());
         holder.price.setText(item.getPrice() + "₪");
-
-        // When the image button is clicked, show the description of the coupon.
-        holder.image.setOnClickListener(v -> dialogForImageAction(position));
     }
 
-    private void dialogForImageAction(int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(inflater.getContext(), android.R.style.Theme_Light_Panel));
-        builder.setTitle(items.get(position).getTitle());
-        builder.setMessage(items.get(position).getDescription());
-        builder.setIcon(items.get(position).getImage());
-        builder.show();
-    }
+//    private void dialogForImageAction(int position) {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(inflater.getContext(), android.R.style.Theme_Light_Panel));
+//        builder.setTitle(items.get(position).getTitle());
+//        builder.setMessage(items.get(position).getDescription());
+//        builder.setIcon(items.get(position).getImage());
+//        builder.show();
+//    }
 
     @Override
     public int getItemCount() {
         return items.size();
     }
-
-//    public void filterList(List<String> couponTitles, List<Integer> couponsImages, List<String> couponsPrices, String query) {
-//        // filter the list of titles, images and prices according to the query
-//        for (int i = 0; i < couponTitles.size(); i++) {
-//            if (!couponTitles.get(i).toLowerCase().contains(query.toLowerCase())) {
-//                couponTitles.remove(i);
-//                couponsImages.remove(i);
-//                couponsPrices.remove(i);
-//                notifyItemRemoved(i);
-//                notifyItemRangeChanged(i, couponTitles.size());
-//            }
-//        }
-//    }
-//
-//    public void filterList(Map<Long, String> map, String query) {
-//        List<String> filteredTitles = new ArrayList<>();
-//        List<Long> filteredIds = new ArrayList<>();
-//        for (Map.Entry<Long, String> entry : map.entrySet()) {
-//            if (entry.getValue().toLowerCase().contains(query.toLowerCase())) {
-//                filteredTitles.add(entry.getValue());
-//                filteredIds.add(entry.getKey());
-//            }
-//        }
-//        notifyDataSetChanged();
-//        notifyItemRangeChanged(0, filteredTitles.size());
-//    }
 
     public void filterList(List<CategoryViewModel.ItemInCategory> filteredList) {
         items = filteredList;
@@ -122,6 +93,11 @@ public class CustomerCouponsViewAdapter extends RecyclerView.Adapter<CustomerCou
             addToCart.setOnClickListener(v -> {
                 if (itemClickListener != null) {
                     itemClickListener.onAddToCartClick(v, getAdapterPosition());
+                }
+            });
+            image.setOnClickListener(v -> {
+                if (itemClickListener != null) {
+                    itemClickListener.onImageClick(v, getAdapterPosition());
                 }
             });
         }

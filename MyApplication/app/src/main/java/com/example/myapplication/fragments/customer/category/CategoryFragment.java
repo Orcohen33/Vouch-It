@@ -1,10 +1,14 @@
 package com.example.myapplication.fragments.customer.category;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,6 +31,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class CategoryFragment extends Fragment implements CustomerCouponsViewAdapter.ItemClickListener {
 
@@ -60,7 +65,7 @@ public class CategoryFragment extends Fragment implements CustomerCouponsViewAda
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         recyclerView = binding.couponsCustomerList;
         adapter = new CustomerCouponsViewAdapter(
-                mViewModel.originalList,
+                mViewModel.filteredList,
                 this,
                 getContext()
         );
@@ -111,6 +116,7 @@ public class CategoryFragment extends Fragment implements CustomerCouponsViewAda
                             )
                     );
                 }
+                mViewModel.filteredList.addAll(mViewModel.getOriginalList());
                 adapter.notifyDataSetChanged();
             }
         });
@@ -142,12 +148,43 @@ public class CategoryFragment extends Fragment implements CustomerCouponsViewAda
 
     @Override
     public void onImageClick(View view, int position) {
-        List<CouponShared> coupons = model.getCoupons().getValue();
-        coupons.add(new CouponShared(
-                mViewModel.originalList.get(position).getId(),
-                mViewModel.originalList.get(position).getTitle(),
-                mViewModel.originalList.get(position).getDescription()
-        ));
+        // get the coupon id
+        Long couponId = mViewModel.filteredList.get(position).getId();
+        AtomicReference<String> title = new AtomicReference<>("");
+        AtomicReference<String> description = new AtomicReference<>("");
+        AtomicReference<String> price = new AtomicReference<>("");
+        AtomicReference<String> startDate = new AtomicReference<>("");
+        AtomicReference<String> endDate = new AtomicReference<>("");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            mViewModel.getCategoryCouponsResponseLiveData().getValue().stream().filter(coupon -> coupon.getId().equals(couponId)).findFirst().ifPresent(coupon -> {
+                title.set(coupon.getTitle());
+                description.set(coupon.getDescription());
+                price.set(coupon.getPrice().toString());
+                startDate.set(coupon.getStartDate());
+                endDate.set(coupon.getEndDate());
+            });
+        }
+
+        // create the dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), android.R.style.Theme_Material_Light_Dialog));
+        // get the layout inflater of the dialog
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_coupon_details, null);
+
+        // set the dialog view
+        TextView couponTitle = dialogView.findViewById(R.id.dialog_title);
+        TextView couponDescription = dialogView.findViewById(R.id.dialog_description);
+//        TextView couponPrice = dialogView.findViewById(R.id.dialog_price);
+//        TextView couponStartDate = dialogView.findViewById(R.id.dialog_start_date);
+//        TextView couponEndDate = dialogView.findViewById(R.id.dialog_end_date);
+
+        couponTitle.setText(mViewModel.filteredList.get(position).getTitle());
+        couponDescription.setText(mViewModel.filteredList.get(position).getDescription());
+//        couponPrice.setText(mViewModel.filteredList.get(position).getPrice());
+//        couponStartDate.setText(mViewModel.filteredList.get(position).getStartDate());
+//        couponEndDate.setText(mViewModel.filteredList.get(position).getEndDate());
+        builder.setView(dialogView);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     // ----------------- Search View -----------------
