@@ -8,8 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -44,6 +48,20 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
     String companyName;
     String companyEmail;
 
+    private Animation rotateOpen;
+    private Animation rotateClose;
+    private Animation fromBottom;
+    private Animation toBottom;
+    private boolean clicked = false;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        rotateOpen = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_open_anim);
+        rotateClose = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_close_anim);
+        fromBottom = AnimationUtils.loadAnimation(getContext(), R.anim.from_bottom_anim);
+        toBottom = AnimationUtils.loadAnimation(getContext(), R.anim.to_bottom_anim);
+    }
 
     @Override
     public View onCreateView(
@@ -71,9 +89,16 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
             homeCompanyViewModel.setId(companyId);
             homeCompanyViewModel.setName(companyName);
             homeCompanyViewModel.setEmail(companyEmail);
-
         }
-        // sort the coupons by name and then show it to user
+        
+        binding.floatingButtonCompany.setOnClickListener(v ->
+                onAddButtonClicked());
+        binding.floatingAddOrEditCouponButton.setOnClickListener(v ->
+                NavHostFragment.findNavController(HomeCompanyFragment.this)
+                        .navigate(R.id.action_HomeCompanyFragment_to_AddCouponFragment, this.getArguments()));
+        binding.floatingAnalysisButton.setOnClickListener(v ->
+                NavHostFragment.findNavController(HomeCompanyFragment.this)
+                        .navigate(R.id.action_HomeCompanyFragment_to_analysisFragment, this.getArguments()));
         return binding.getRoot();
     }
 
@@ -104,15 +129,8 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
         }
     }
 
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        // Move to the add coupon fragment
-        binding.addNewCoupon.setOnClickListener(view1 ->
-                NavHostFragment.findNavController(HomeCompanyFragment.this)
-                        .navigate(R.id.action_HomeCompanyFragment_to_AddCouponFragment, this.getArguments()));
-
-    }
+//        NavHostFragment.findNavController(HomeCompanyFragment.this)
+//                        .navigate(R.id.action_HomeCompanyFragment_to_AddCouponFragment, this.getArguments());
 
     @Override
     public void onDestroyView() {
@@ -121,20 +139,21 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
         homeCompanyViewModel.couponsTitles.clear();
         homeCompanyViewModel.couponsIds.clear();
     }
-
     @Override
     public void onEditClick(View view, int position) {
         Bundle bundle = new Bundle();
         bundle.putLong("companyId", companyId);
-        bundle.putString("name", companyName);
-        bundle.putString("email", companyEmail);
+        bundle.putString("companyName", companyName);
+        bundle.putString("companyEmail", companyEmail);
         bundle.putString("couponTitle", homeCompanyViewModel.couponsTitles.get(position));
         bundle.putLong("couponId",homeCompanyViewModel.couponsIds.get(position));
+        bundle.putBoolean("isEdit", true);
         NavHostFragment.findNavController(HomeCompanyFragment.this)
-                .navigate(R.id.action_HomeCompanyFragment_to_EditCouponFragment, bundle);
+                .navigate(R.id.action_HomeCompanyFragment_to_AddCouponFragment, bundle);
     }
 
 //    @SuppressLint("NotifyDataSetChanged")
+
     @Override
     public void onDeleteClick( int position) {
         Log.d(TAG, "onDeleteClick: " + homeCompanyViewModel.couponsIds.get(position));
@@ -143,9 +162,36 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
         homeCompanyViewModel.couponsIds.remove(position);
         Objects.requireNonNull(recyclerView.getAdapter()).notifyItemRemoved(position);
         Objects.requireNonNull(recyclerView.getAdapter()).notifyItemRangeChanged(position, homeCompanyViewModel.couponsTitles.size());
-//        adapter.notifyDataSetChanged();
+            }
+    private void onAddButtonClicked() {
+        setVisibility(clicked);
+        setAnimation(clicked);
+        clicked = !clicked;
+    }
 
-//        adapter.notifyDataSetChanged();
-        // test@test.com
+    private void setVisibility(boolean clicked) {
+        if (!clicked){
+            binding.floatingAddOrEditCouponButton.setVisibility(View.VISIBLE);
+            binding.floatingAddOrEditCouponButton.setClickable(true);
+            binding.floatingAnalysisButton.setVisibility(View.VISIBLE);
+            binding.floatingAnalysisButton.setClickable(true);
+        }else{
+            binding.floatingAddOrEditCouponButton.setVisibility(View.INVISIBLE);
+            binding.floatingAddOrEditCouponButton.setClickable(false);
+            binding.floatingAnalysisButton.setVisibility(View.INVISIBLE);
+            binding.floatingAnalysisButton.setClickable(false);
+        }
+    }
+
+    private void setAnimation(boolean clicked) {
+        if (!clicked){
+            binding.floatingAddOrEditCouponButton.startAnimation(fromBottom);
+            binding.floatingAnalysisButton.startAnimation(fromBottom);
+            binding.floatingButtonCompany.startAnimation(rotateOpen);
+        }else{
+            binding.floatingAddOrEditCouponButton.startAnimation(toBottom);
+            binding.floatingAnalysisButton.startAnimation(toBottom);
+            binding.floatingButtonCompany.startAnimation(rotateClose);
+        }
     }
 }

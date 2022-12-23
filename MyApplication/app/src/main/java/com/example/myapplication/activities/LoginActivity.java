@@ -78,8 +78,9 @@ public class LoginActivity extends AppCompatActivity {
                         Customer customer = response.body();
                         Intent intent = new Intent(LoginActivity.this, CustomerActivity.class);
                         assert customer != null;
-                        intent.putExtra("name", customer.getFirstName());
-                        intent.putExtra("email", customer.getEmail());
+                        intent.putExtra("customerId", customer.getId());
+                        intent.putExtra("customerName", customer.getFirstName());
+                        intent.putExtra("customerEmail", customer.getEmail());
                         startActivity(intent);
                     }
                 }
@@ -110,6 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                         intent.putExtra("companyName", company.getName());
                         intent.putExtra("companyEmail", company.getEmail());
                         startActivity(intent);
+//                        overridePendingTransition(R.anim.fade_in, R.anim.slide_out_left);
                     }
                 }
 

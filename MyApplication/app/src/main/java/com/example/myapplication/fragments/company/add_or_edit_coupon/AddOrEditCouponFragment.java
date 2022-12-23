@@ -1,4 +1,4 @@
-package com.example.myapplication.fragments.company.add_coupon;
+package com.example.myapplication.fragments.company.add_or_edit_coupon;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -11,11 +11,13 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.myapplication.databinding.FragmentAddCouponBinding;
+import com.example.myapplication.databinding.FragmentAddOrEditCouponBinding;
 import com.example.myapplication.utils.CategoriesNames;
 
 import java.io.ByteArrayOutputStream;
@@ -25,25 +27,39 @@ import java.util.Objects;
 /**
  * This class is the fragment that is shown when the user is in the add coupon page of the company.
  */
-public class AddCouponFragment extends Fragment {
+public class AddOrEditCouponFragment extends Fragment {
 
-    private FragmentAddCouponBinding binding;
-    private AddCouponViewModel mViewModel;
+    private FragmentAddOrEditCouponBinding binding;
+    private AddOrEditCouponViewModel mViewModel;
 
     private Long companyId;
     private String companyName;
     private String companyEmail;
-
+    private boolean isEditing;
+    private Long couponId = -1L;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        mViewModel = new ViewModelProvider(this).get(AddCouponViewModel.class);
-        binding = FragmentAddCouponBinding.inflate(inflater, container, false);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         assert this.getArguments() != null;
         companyId = this.getArguments().getLong("companyId");
         companyName = this.getArguments().getString("companyName");
         companyEmail = this.getArguments().getString("companyEmail");
+        isEditing = this.getArguments().getBoolean("isEdit");
+        if (isEditing) {
+            couponId = this.getArguments().getLong("couponId");
+        }
+
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        Objects.requireNonNull(actionBar).setTitle(isEditing? "Edit Coupon" : "Add Coupon");
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        mViewModel = new ViewModelProvider(this).get(AddOrEditCouponViewModel.class);
+        binding = FragmentAddOrEditCouponBinding.inflate(inflater, container, false);
+
         mViewModel.setCompanyName(companyName);
         mViewModel.setCompanyEmail(companyEmail);
         mViewModel.setCompanyId(companyId);
@@ -53,9 +69,16 @@ public class AddCouponFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AddCouponSpinnerListener(mViewModel));
+
+        // if the user is editing a coupon, set the fields to the coupon's values
+        if (isEditing) {
+            mViewModel.getCouponById(couponId);
+            mViewModel.setCompanyId(companyId);
+            getCouponDetails();
+        }
+
         return binding.getRoot();
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -66,13 +89,15 @@ public class AddCouponFragment extends Fragment {
             startActivityForResult(intent, 1);
         });
 
+        if (isEditing){
+            binding.companyCouponAddButton.setText("Update Coupon");
+        }
 
         binding.companyCouponAddButton.setOnClickListener(v -> {
             boolean validFields = checkAllFields();
             if (validFields) {
-                NavHostFragment.findNavController(AddCouponFragment.this)
+                NavHostFragment.findNavController(AddOrEditCouponFragment.this)
                         .navigateUp();
-
 
                 int startDateMonth = binding.companyCouponStartDateInput.getMonth();
                 int endDateMonth = binding.companyCouponEndDateInput.getMonth();
@@ -88,11 +113,14 @@ public class AddCouponFragment extends Fragment {
                                 (endDateMonth < 10 ? "0"+endDateMonth: endDateMonth)+"-" +
                                 binding.companyCouponEndDateInput.getDayOfMonth())
                         );
-                mViewModel.addCoupon();
+                if (isEditing) {
+                    mViewModel.updateCoupon(couponId);
+                } else {
+                    mViewModel.addCoupon();
+                }
             }
         });
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -127,6 +155,22 @@ public class AddCouponFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void getCouponDetails() {
+        System.out.println("get coupon details");
+        mViewModel.getCouponResponse().observe(getViewLifecycleOwner(), coupon -> {
+            binding.companyCouponTitleInput.setText(coupon.getTitle());
+            binding.companyCouponDescriptionInput.setText(coupon.getDescription());
+            binding.spinner.setSelection(coupon.getCategory().getId().intValue() - 1);
+            mViewModel.setCouponCategoryId(coupon.getCategory().getId());
+            binding.companyCouponPriceInput.setText(String.valueOf(coupon.getPrice()));
+            binding.companyCouponAmountInput.setText(String.valueOf(coupon.getAmount()));
+            String[] startDate = coupon.getStartDate().split("-");
+            String[] endDate = coupon.getEndDate().split("-");
+            binding.companyCouponStartDateInput.updateDate(Integer.parseInt(startDate[0]), Integer.parseInt(startDate[1]), Integer.parseInt(startDate[2]));
+            binding.companyCouponEndDateInput.updateDate(Integer.parseInt(endDate[0]), Integer.parseInt(endDate[1]), Integer.parseInt(endDate[2]));
+        });
     }
 
     private boolean checkAllFields() {

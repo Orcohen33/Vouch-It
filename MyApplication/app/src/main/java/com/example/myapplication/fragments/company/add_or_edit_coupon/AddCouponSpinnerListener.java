@@ -1,11 +1,11 @@
-package com.example.myapplication.fragments.company.add_coupon;
+package com.example.myapplication.fragments.company.add_or_edit_coupon;
 
 import android.view.View;
 import android.widget.AdapterView;
 
 public class AddCouponSpinnerListener implements AdapterView.OnItemSelectedListener {
-    private final AddCouponViewModel mViewModel;
-    public AddCouponSpinnerListener(AddCouponViewModel mViewModel) {
+    private final AddOrEditCouponViewModel mViewModel;
+    public AddCouponSpinnerListener(AddOrEditCouponViewModel mViewModel) {
         this.mViewModel = mViewModel;
     }
 

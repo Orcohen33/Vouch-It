@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.company.add_coupon.AddCouponFragment">
+    tools:context=".fragments.company.add_or_edit_coupon.AddOrEditCouponFragment">
 
     <ScrollView
         android:layout_width="match_parent"

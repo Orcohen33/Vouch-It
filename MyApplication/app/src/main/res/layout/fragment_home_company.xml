@@ -37,15 +37,46 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_new_coupon"
+        android:id="@+id/floating_button_company"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="44dp"
+        android:clickable="true"
+        android:contentDescription="Expandable"
+        android:focusable="true"
+        android:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.921"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/add_new_coupon"
-        />
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_add_or_edit_coupon_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="add or edit coupon"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/floating_button_company"
+        app:layout_constraintEnd_toEndOf="@+id/floating_button_company"
+        app:srcCompat="@drawable/baseline_post_add_24" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_analysis_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="analysis"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/floating_add_or_edit_coupon_button"
+        app:layout_constraintEnd_toEndOf="@+id/floating_add_or_edit_coupon_button"
+        app:srcCompat="@drawable/baseline_bar_chart_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>

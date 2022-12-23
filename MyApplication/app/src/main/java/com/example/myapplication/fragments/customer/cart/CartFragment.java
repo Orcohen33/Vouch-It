@@ -2,6 +2,7 @@ package com.example.myapplication.fragments.customer.cart;
 
 import static android.content.ContentValues.TAG;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.adapters.CustomerCartViewAdapter;
 import com.example.myapplication.databinding.FragmentCartBinding;
 import com.example.myapplication.fragments.customer.SharedViewModel;
+import com.example.myapplication.models.purchase.PurchaseDto;
 
 import java.util.Objects;
 
@@ -33,10 +35,13 @@ public class CartFragment extends Fragment implements CustomerCartViewAdapter.It
     private SharedViewModel model; // shared view model for the fragment
     CustomerCartViewAdapter adapter; // adapter for the recycler view
     RecyclerView recyclerView; // recycler view for the fragment
+    Long customerId; // customer id
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -61,12 +66,19 @@ public class CartFragment extends Fragment implements CustomerCartViewAdapter.It
 
         // this is the shared view model
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
-
+        if(getArguments() != null){
+            customerId = getArguments().getLong("customerId");
+        }
         // when the user clicks on the pay button, the user is redirected to the payment page
         binding.paymentButton.setOnClickListener(v -> {
 //            navigateToPaymentFragment();
-             NavController navController = Navigation.findNavController(v);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                mViewModel.purchaseCoupons(new PurchaseDto(customerId,mViewModel.getCouponsIds(), mViewModel.getTotalPrice()));
+            }
+            NavController navController = Navigation.findNavController(v);
                 navController.navigate(R.id.action_cartFragment_to_paymentFragment);
+
+
         });
 
         return binding.getRoot();
@@ -80,7 +92,7 @@ public class CartFragment extends Fragment implements CustomerCartViewAdapter.It
                 adapter.setCouponShareds(couponShareds);
                 mViewModel.setCouponShareds(couponShareds);
                 adapter.notifyDataSetChanged();
-                binding.price.setText(mViewModel.getTotalPrice());
+                binding.price.setText(mViewModel.getTotalPriceFormat());
             }
             else{
                 binding.noCartCoupons.setVisibility(View.VISIBLE);
@@ -109,7 +121,7 @@ public class CartFragment extends Fragment implements CustomerCartViewAdapter.It
         mViewModel.couponsIds.remove(position);
         mViewModel.mDetails.remove(position);
         mViewModel.updateTotalPrice();
-        binding.price.setText(mViewModel.getTotalPrice());
+        binding.price.setText(mViewModel.getTotalPriceFormat());
         Objects.requireNonNull(recyclerView.getAdapter()).notifyItemRemoved(position);
         Objects.requireNonNull(recyclerView.getAdapter()).notifyItemRangeChanged(position, mViewModel.couponsTitles.size());
     }

@@ -33,9 +33,6 @@ public interface CouponApi {
     @PUT("/api/v1/coupon/{id}")
     Call<CouponResponse> updateCoupon(@Path("id") Long id, @Body CouponRequest couponRequest);
 
-//    @DELETE("/api/v1/coupon/{id}")
-//    Call<String> deleteCouponById(Long id);
-
     @DELETE("/api/v1/coupon/{id}")
     Call<Void> deleteCouponById(@Path("id") Long id);
 }

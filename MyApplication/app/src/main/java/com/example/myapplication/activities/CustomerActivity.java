@@ -89,7 +89,7 @@ public class CustomerActivity extends AppCompatActivity {
                     categoryName = "שופינג";
                     break;
             }
-            Bundle bundle = new Bundle();
+            Bundle bundle = getIntent().getExtras();
             bundle.putLong("categoryId", categoryId);
             bundle.putString("categoryName", categoryName);
             if (isInNavHome) {
@@ -104,10 +104,11 @@ public class CustomerActivity extends AppCompatActivity {
         });
         binding.appBarMain.fab.setOnClickListener(view -> {
             boolean isInNavHome = Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.nav_home;
+            Bundle bundle = getIntent().getExtras();
             if (isInNavHome)
-                navController.navigate(R.id.action_nav_home_to_cartFragment2);
+                navController.navigate(R.id.action_nav_home_to_cartFragment2, bundle);
             else
-                navController.navigate(R.id.action_nav_category_to_cartFragment);
+                navController.navigate(R.id.action_nav_category_to_cartFragment, bundle);
             binding.appBarMain.fab.setVisibility(View.GONE);
         });
     }
@@ -126,8 +127,8 @@ public class CustomerActivity extends AppCompatActivity {
         binding.appBarMain.fab.setVisibility(View.VISIBLE);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            String name = bundle.getString("name");
-            String email = bundle.getString("email");
+            String name = bundle.getString("customerName");
+            String email = bundle.getString("customerEmail");
             if (name != null && email != null) {
                 ((TextView) binding.navView.getHeaderView(0).findViewById(R.id.nav_header_name)).setText(name);
                 ((TextView) binding.navView.getHeaderView(0).findViewById(R.id.nav_header_email)).setText(email);
