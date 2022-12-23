@@ -45,8 +45,8 @@ public class CouponServiceImpl implements CouponService {
 //        return couponRepository.getAllByCategoryId(categoryId)
 //                .stream().map(this::mapCouponToCouponResponse)
 //                .collect(Collectors.toSet());
-//    }
 
+//    }
     @Override
     public Set<CouponResponse> getAllCouponsByCategoryId(Long categoryId) {
         return couponRepository.findCouponsByCategoryId(categoryId)
@@ -59,6 +59,11 @@ public class CouponServiceImpl implements CouponService {
         return couponRepository.getAllByCompanyId(companyId)
                 .stream().map(this::mapCouponToCompanyCouponResponse)
                 .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<Coupon> getAllCouponsByIdIn(Set<Long> ids) {
+        return couponRepository.getCouponsByIdIn(ids);
     }
 
     @Override
@@ -84,9 +89,8 @@ public class CouponServiceImpl implements CouponService {
     }
 
     @Override
-    public CouponResponse getCouponById(Long couponId) {
+    public Coupon getCouponById(Long couponId) {
         return couponRepository.findById(couponId)
-                .map(this::mapCouponToCouponResponse)
                 .orElseThrow(() -> new RuntimeException("Coupon not found"));
     }
 

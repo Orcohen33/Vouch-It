@@ -4,6 +4,7 @@ import com.vouchit.backend.model.entity.Customer;
 import com.vouchit.backend.model.request.CategoryRequest;
 import com.vouchit.backend.model.request.customer.CustomerSignInRequest;
 import com.vouchit.backend.model.request.customer.CustomerSignupRequest;
+import com.vouchit.backend.model.response.CustomerSignInResponse;
 import com.vouchit.backend.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +29,10 @@ public class CustomerController {
 
     @Transactional
     @PostMapping("/login")
-    public ResponseEntity<Customer> login(@RequestBody CustomerSignInRequest customerSignInRequest) {
+    public ResponseEntity<?> login(@RequestBody CustomerSignInRequest customerSignInRequest) {
         log.info("CustomerController: login: logInRequest: {}", customerSignInRequest);
 
-        Customer customer = customerService.login(customerSignInRequest.email(), customerSignInRequest.password());
+        CustomerSignInResponse customer = customerService.login(customerSignInRequest.email(), customerSignInRequest.password());
         return ResponseEntity.status(HttpStatus.OK).body(customer);
     }
 
@@ -66,8 +67,8 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.getCustomerCouponsByMaxPrice(maxPrice));
     }
 
-    @GetMapping("/details")
-    public ResponseEntity<?> getCustomerDetails() {
-        return ResponseEntity.ok(customerService.getCustomerDetails());
+    @GetMapping("/details/{customerId}")
+    public ResponseEntity<?> getCustomerDetails(@PathVariable("customerId") Long customerId) {
+        return ResponseEntity.ok(customerService.getCustomerDetails(customerId));
     }
 }

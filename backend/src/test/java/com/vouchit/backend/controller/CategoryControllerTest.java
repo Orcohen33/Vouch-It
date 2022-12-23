@@ -14,6 +14,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -54,7 +55,7 @@ class CategoryControllerTest {
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
         request.setRequestURI("/api/v1/category/1");
 
-        when(categoryService.getCategoryById(any(Long.class))).thenReturn(categoryResponse);
+        when(categoryService.getCategoryById(any(Long.class))).thenReturn(Optional.of(categoryResponse));
 
         ResponseEntity<?> responseEntity = categoryController.getCategoryById(1L);
 

@@ -13,11 +13,9 @@ import java.util.Set;
 @Builder
 public class PurchaseRequest {
 
+    @NotNull(message = "Customer is required")
+    private Long customerId;
+    private Set<Long> couponIds;
     @Min(1)
     private Double totalPrice;
-    @NotNull(message = "Date is required")
-    private LocalDateTime date;
-    @NotNull(message = "Customer is required")
-    private CustomerRequest customer;
-    private Set<CouponRequest> coupons;
 }

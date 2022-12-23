@@ -1,5 +1,6 @@
 package com.vouchit.backend.controller;
 
+import com.vouchit.backend.model.entity.Coupon;
 import com.vouchit.backend.model.request.CouponRequest;
 import com.vouchit.backend.model.response.CompanyCouponResponse;
 import com.vouchit.backend.model.response.CouponResponse;
@@ -43,7 +44,8 @@ public class CouponController {
 
     @GetMapping("/coupon/{id}")
     public ResponseEntity<CouponResponse> getCouponById(@PathVariable(name = "id") Long id) {
-        return ResponseEntity.ok(couponService.getCouponById(id));
+        Coupon coupon = couponService.getCouponById(id);
+        return ResponseEntity.ok(couponService.mapCouponToCouponResponse(coupon));
     }
 
     @PostMapping("/coupon")

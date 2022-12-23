@@ -8,6 +8,7 @@ import com.vouchit.backend.model.request.CategoryRequest;
 import com.vouchit.backend.model.request.CouponRequest;
 import com.vouchit.backend.model.response.CategoryResponse;
 import com.vouchit.backend.model.response.CouponResponse;
+import com.vouchit.backend.model.response.CustomerSignInResponse;
 import com.vouchit.backend.repository.CompanyRepository;
 import com.vouchit.backend.repository.CouponRepository;
 import com.vouchit.backend.repository.CustomerRepository;
@@ -49,13 +50,18 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer login(String email, String password) {
-        if (customerRepository.existsCustomerByEmailAndPassword(email, password)) {
-            Customer customer = customerRepository.findCustomerByEmailAndPassword(email, password);
-            loginManager.setLoggedIn(true);
-            return customer;
+    public CustomerSignInResponse login(String email, String password) {
+        if (!customerRepository.existsCustomerByEmailAndPassword(email, password)) {
+            return null;
         }
-        return null;
+        Customer customer = customerRepository.findCustomerByEmailAndPassword(email, password);
+//        CustomerSignInResponse customer = customerRepository.findCustomerByEmailAndPassword(email, password);
+        loginManager.setLoggedIn(true);
+        return CustomerSignInResponse.builder()
+                .id(customer.getId())
+                .email(customer.getEmail())
+                .password(customer.getPassword())
+                .build();
     }
 
     @Override
@@ -126,11 +132,16 @@ public class CustomerServiceImpl implements CustomerService {
                 .collect(Collectors.toSet());
     }
 
+    @Override
+    public Customer getCustomerDetails(Long id) {
+        return customerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+    }
 
     @Override
-    public Customer getCustomerDetails() {
-        // return customer details
-        return customerRepository.getOne(customerId);
+    public void updateCustomer(Customer customer) {
+        // update customer details
+        customerRepository.save(customer);
     }
     // =================================== MODEL MAPPER ===================================
 

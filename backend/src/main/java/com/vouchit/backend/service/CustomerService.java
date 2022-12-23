@@ -8,12 +8,13 @@ import com.vouchit.backend.model.request.CategoryRequest;
 import com.vouchit.backend.model.request.CouponRequest;
 import com.vouchit.backend.model.response.CategoryResponse;
 import com.vouchit.backend.model.response.CouponResponse;
+import com.vouchit.backend.model.response.CustomerSignInResponse;
 
 import java.util.Set;
 
 public interface CustomerService {
 
-    Customer login(String email, String password);
+    CustomerSignInResponse login(String email, String password);
 
     Customer signUp(String fullName, String email, String password);
 
@@ -25,7 +26,7 @@ public interface CustomerService {
 
     Set<Coupon> getCustomerCouponsByMaxPrice(double maxPrice);
 
-    Customer getCustomerDetails();
+    Customer getCustomerDetails(Long id);
 
     CouponResponse mapCouponToCouponResponse(Coupon coupon);
 
@@ -35,4 +36,5 @@ public interface CustomerService {
 
     CategoryResponse mapCategoryToCategoryResponse(Category category);
 
+    void updateCustomer(Customer customer);
 }

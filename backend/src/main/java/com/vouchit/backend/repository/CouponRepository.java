@@ -24,4 +24,6 @@ public interface CouponRepository extends JpaRepository<Coupon, Long> {
 
     Optional<Coupon> findCouponByTitleAndCompanyId(String title, Long id);
 
+    Set<Coupon> getCouponsByIdIn(Set<Long> ids);
+
 }

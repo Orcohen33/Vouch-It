@@ -1,5 +1,6 @@
 package com.vouchit.backend.service;
 
+import com.vouchit.backend.model.entity.Coupon;
 import com.vouchit.backend.model.request.CouponRequest;
 import com.vouchit.backend.model.response.CompanyCouponResponse;
 import com.vouchit.backend.model.response.CouponResponse;
@@ -11,6 +12,8 @@ public interface CouponService {
     Set<CouponResponse> getAllCouponsByCategoryId(Long categoryId);      // TODO: Check if this is the right way to do it
 
     Set<CompanyCouponResponse> getAllCouponsByCompanyId(Long companyId);
+
+    Set<Coupon> getAllCouponsByIdIn(Set<Long> ids);
 
 
     /**
@@ -30,7 +33,8 @@ public interface CouponService {
      * @param couponId
      * @return CouponResponse
      */
-    CouponResponse getCouponById(Long couponId);
+    Coupon getCouponById(Long couponId);
+
 
     /**
      * Update an existing coupon
@@ -47,4 +51,6 @@ public interface CouponService {
      */
     String deleteCoupon(Long couponId);
 
+
+    CouponResponse mapCouponToCouponResponse(Coupon coupon);
 }
