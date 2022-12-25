@@ -39,6 +39,12 @@
 
     <!--  START HOME_COMPANY_FRAGMENT  -->
     <string name="progress_bar_empty_coupons">You have no coupons</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="name_of_card">Name Of Card</string>
+    <string name="cvv">Cvv</string>
+    <string name="xxxx_xxxx_xxxx_xxxx">XXXX XXXX XXXX XXXX</string>
+    <string name="payment_amount">Payment Amount</string>
+    <string name="card_number">Card Number</string>
     <!--  END HOME_COMPANY_FRAGMENT  -->
 
 </resources>

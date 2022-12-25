@@ -22,6 +22,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.adapters.ReceiptViewAdapter;
 import com.example.myapplication.databinding.FragmentReceiptBinding;
 import com.example.myapplication.fragments.customer.SharedViewModel;
+import com.example.myapplication.fragments.customer.cart.CartFragment;
 
 import java.util.Objects;
 
@@ -44,12 +45,13 @@ public class ReceiptFragment extends Fragment {
         binding = FragmentReceiptBinding.inflate(inflater, container, false);
         recyclerView = binding.cartListItems;
         adapter = new ReceiptViewAdapter(
-                mViewModel.couponsTitles,
+                CartFragment.couponsTitle,
                 getContext()
         );
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1, GridLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+
 
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         Objects.requireNonNull(actionBar).setTitle("קבלה");
@@ -63,10 +65,12 @@ public class ReceiptFragment extends Fragment {
     private void observeCouponsData() {
         model.getCoupons().observe(getViewLifecycleOwner(), couponShareds -> {
             Log.d(TAG, "onChanged: " + couponShareds.size());
+
             if (couponShareds.size() > 0) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     couponShareds.forEach(couponShared -> {
                         mViewModel.couponsTitles.add(couponShared.getTitle());
+
                     });
                 }
             }

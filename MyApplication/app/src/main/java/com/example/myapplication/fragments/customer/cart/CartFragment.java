@@ -26,10 +26,13 @@ import com.example.myapplication.databinding.FragmentCartBinding;
 import com.example.myapplication.fragments.customer.SharedViewModel;
 import com.example.myapplication.models.purchase.PurchaseDto;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class CartFragment extends Fragment implements CustomerCartViewAdapter.ItemClickListener {
-
+    public static String total;
+    public static ArrayList <String> couponsTitle = new ArrayList <>();
     private FragmentCartBinding binding; // binding for the fragment
     private CartViewModel mViewModel; // view model for the fragment
     private SharedViewModel model; // shared view model for the fragment
@@ -72,15 +75,16 @@ public class CartFragment extends Fragment implements CustomerCartViewAdapter.It
         // when the user clicks on the pay button, the user is redirected to the payment page
         binding.paymentButton.setOnClickListener(v -> {
 //            navigateToPaymentFragment();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                mViewModel.purchaseCoupons(new PurchaseDto(customerId,mViewModel.getCouponsIds(), mViewModel.getTotalPrice()));
-            }
+
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                mViewModel.purchaseCoupons(new PurchaseDto(customerId,mViewModel.getCouponsIds(), mViewModel.getTotalPrice()));
+//            }
             NavController navController = Navigation.findNavController(v);
-                navController.navigate(R.id.action_cartFragment_to_paymentFragment);
+                navController.navigate(R.id.action_cartFragment_to_paymentTestFragment);
 
 
         });
-
+        couponsTitle = (ArrayList<String>) mViewModel.getCouponsTitles();
         return binding.getRoot();
     }
 
@@ -93,6 +97,7 @@ public class CartFragment extends Fragment implements CustomerCartViewAdapter.It
                 mViewModel.setCouponShareds(couponShareds);
                 adapter.notifyDataSetChanged();
                 binding.price.setText(mViewModel.getTotalPriceFormat());
+                total = mViewModel.getTotalPriceFormat();
             }
             else{
                 binding.noCartCoupons.setVisibility(View.VISIBLE);
