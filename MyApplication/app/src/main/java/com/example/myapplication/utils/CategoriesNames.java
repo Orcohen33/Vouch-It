@@ -1,7 +1,7 @@
 package com.example.myapplication.utils;
 
 public class CategoriesNames {
-    public static String[] categories = {"ספא", "שופינג", "הופעות", "אטרקציות", "מסעדות", };
+    public static String[] categories = {"ספא", "שופינג", "הופעות", "אטרקציות", "מסעדות", "ספורט"};
 
     public static String[] getCategories() {
         return categories;

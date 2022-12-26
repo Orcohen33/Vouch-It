@@ -51,7 +51,7 @@ public class AddOrEditCouponFragment extends Fragment {
         }
 
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        Objects.requireNonNull(actionBar).setTitle(isEditing? "Edit Coupon" : "Add Coupon");
+        Objects.requireNonNull(actionBar).setTitle(isEditing? "עריכת קופון" : "הוספת קופון חדש");
     }
 
     @Override
@@ -90,7 +90,7 @@ public class AddOrEditCouponFragment extends Fragment {
         });
 
         if (isEditing){
-            binding.companyCouponAddButton.setText("Update Coupon");
+            binding.companyCouponAddButton.setText("עדכון הקופון");
         }
 
         binding.companyCouponAddButton.setOnClickListener(v -> {
@@ -205,12 +205,12 @@ public class AddOrEditCouponFragment extends Fragment {
 //            binding.companyCouponImageInput.setError("Please enter an image");
 //        }
         // check start date
-        if ((binding.companyCouponStartDateInput.getYear() < 2021)) {
+        if ((binding.companyCouponStartDateInput.getYear() < 2022)) {
             binding.companyCouponStartDate.setError("Please enter a valid date");
             validFields = false;
         }
         // check end date
-        if (binding.companyCouponEndDateInput.getYear() < 2021 || binding.companyCouponEndDateInput.getYear() < binding.companyCouponStartDateInput.getYear()) {
+        if (binding.companyCouponEndDateInput.getYear() < 2022 || binding.companyCouponEndDateInput.getYear() < binding.companyCouponStartDateInput.getYear()) {
             binding.companyCouponEndDate.setError("Please enter a valid date");
             validFields = false;
         }

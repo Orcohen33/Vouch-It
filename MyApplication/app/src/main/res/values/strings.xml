@@ -47,4 +47,21 @@
     <string name="card_number">Card Number</string>
     <!--  END HOME_COMPANY_FRAGMENT  -->
 
+    <!--  String for add or edit coupon  -->
+    <string name="coupon_title">שם הקופון:</string>
+    <string name="coupon_description">תיאור הקופון:</string>
+    <string name="coupon_category">קטגוריה:</string>
+    <string name="coupon_title_input">שם הקופון</string>
+    <string name="coupon_description_input">תיאור הקופון</string>
+    <string name="coupon_price">מחיר הקופון:</string>
+    <string name="coupon_price_input">מחיר הקופון</string>
+    <string name="coupon_amount">כמות הקופונים:</string>
+    <string name="coupon_amount_input">כמות הקופונים</string>
+    <string name="coupon_start_date">תאריך התחלה:</string>
+    <string name="coupon_end_date">תאריך סיום:</string>
+    <string name="coupon_image">תמונה:</string>
+    <string name="add_photo">הוסף תמונה</string>
+    <string name="add_coupon">הוסף קופון</string>
+    <!--  END String for add or edit coupon  -->
+
 </resources>
