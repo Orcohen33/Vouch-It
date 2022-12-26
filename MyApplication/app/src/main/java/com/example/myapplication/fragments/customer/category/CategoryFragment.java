@@ -8,6 +8,7 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -108,7 +109,7 @@ public class CategoryFragment extends Fragment implements CustomerCouponsViewAda
                 for (int i = 0; i < coupons.size(); i++) {
                     mViewModel.getOriginalList().add(
                             new CategoryViewModel.ItemInCategory(
-                                    R.drawable.microphone,
+                                    R.drawable.no_image_icon,
                                     coupons.get(i).getTitle(),
                                     coupons.get(i).getPrice().toString(),
                                     coupons.get(i).getId(),
@@ -173,12 +174,14 @@ public class CategoryFragment extends Fragment implements CustomerCouponsViewAda
         // set the dialog view
         TextView couponTitle = dialogView.findViewById(R.id.dialog_title);
         TextView couponDescription = dialogView.findViewById(R.id.dialog_description);
+        ImageView image = dialogView.findViewById(R.id.coupon_image_view);
 //        TextView couponPrice = dialogView.findViewById(R.id.dialog_price);
 //        TextView couponStartDate = dialogView.findViewById(R.id.dialog_start_date);
 //        TextView couponEndDate = dialogView.findViewById(R.id.dialog_end_date);
 
         couponTitle.setText(mViewModel.filteredList.get(position).getTitle());
         couponDescription.setText(mViewModel.filteredList.get(position).getDescription());
+        image.setImageResource(mViewModel.filteredList.get(position).getImage());
 //        couponPrice.setText(mViewModel.filteredList.get(position).getPrice());
 //        couponStartDate.setText(mViewModel.filteredList.get(position).getStartDate());
 //        couponEndDate.setText(mViewModel.filteredList.get(position).getEndDate());
