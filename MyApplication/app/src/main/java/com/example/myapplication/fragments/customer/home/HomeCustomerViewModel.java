@@ -2,15 +2,14 @@ package com.example.myapplication.fragments.customer.home;
 
 import androidx.lifecycle.ViewModel;
 
-import com.example.myapplication.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeCustomerViewModel extends ViewModel {
 
     List<String> categoriesNames;
-    List<Integer> categoriesImages;
+    // list of animations that receive the animation view from json files
+    List<String> categoriesAnimations;
 
     public HomeCustomerViewModel() {
         initializeViews();
@@ -19,7 +18,7 @@ public class HomeCustomerViewModel extends ViewModel {
 
     private void initializeViews() {
         categoriesNames = new ArrayList<>();
-        categoriesImages = new ArrayList<>();
+        categoriesAnimations = new ArrayList<>();
 
         // TODO: Change the categories and images to your own
         categoriesNames.add("אטרקציות");
@@ -29,13 +28,12 @@ public class HomeCustomerViewModel extends ViewModel {
         categoriesNames.add("ספורט");
         categoriesNames.add("שופינג");
 
-        categoriesImages.add(R.drawable.atractions_icon);
-        categoriesImages.add(R.drawable.shows_icon);
-        categoriesImages.add(R.drawable.restaurant_icon);
-        categoriesImages.add(R.drawable.spa_icon);
-        categoriesImages.add(R.drawable.sport_icon);
-        categoriesImages.add(R.drawable.shopping_bag_icon);
-
+        categoriesAnimations.add("restaurant");
+        categoriesAnimations.add("restaurant");
+        categoriesAnimations.add("restaurant");
+        categoriesAnimations.add("restaurant");
+        categoriesAnimations.add("restaurant");
+        categoriesAnimations.add("restaurant");
     }
 
 }

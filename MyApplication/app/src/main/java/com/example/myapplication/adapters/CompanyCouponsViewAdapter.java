@@ -50,6 +50,7 @@ public class CompanyCouponsViewAdapter extends RecyclerView.Adapter<CompanyCoupo
         // When the delete button is clicked, delete the coupon.
         holder.delete.setOnClickListener(v -> dialogForDeleteAction(position));
     }
+
     private void dialogForDeleteAction(int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(inflater.getContext());
         builder.setTitle("Delete coupon");
@@ -66,7 +67,7 @@ public class CompanyCouponsViewAdapter extends RecyclerView.Adapter<CompanyCoupo
         return couponsTitles.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView title;
         ImageButton delete;
@@ -82,6 +83,7 @@ public class CompanyCouponsViewAdapter extends RecyclerView.Adapter<CompanyCoupo
 
     public interface ItemClickListener {
         void onEditClick(View view, int position);
-        void onDeleteClick( int position);
+
+        void onDeleteClick(int position);
     }
 }

@@ -2,14 +2,12 @@ package com.example.myapplication.fragments.customer.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -29,6 +27,12 @@ public class HomeCustomerFragment extends Fragment {
     CategoryViewAdapter adapter;
 
     CustomerActivity customerActivity;
+    SearchView searchView;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -36,10 +40,11 @@ public class HomeCustomerFragment extends Fragment {
                 new ViewModelProvider(this).get(HomeCustomerViewModel.class);
         binding = FragmentHomeCustomerBinding.inflate(inflater, container, false);
 
+
         recyclerView = binding.categoryList;
         adapter = new CategoryViewAdapter(
                 homeCustomerViewModel.categoriesNames,
-                homeCustomerViewModel.categoriesImages,
+                homeCustomerViewModel.categoriesAnimations,
                 getContext()
         );
         // Here you can choose the span count for the grid layout
@@ -58,21 +63,12 @@ public class HomeCustomerFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         // set the cart button to be visible
         FloatingActionButton cartButton = getActivity().findViewById(R.id.fab);
         cartButton.setVisibility(View.VISIBLE);
+        searchView = requireActivity().findViewById(R.id.search_view);
+        searchView.setVisibility(View.GONE);
     }
 }

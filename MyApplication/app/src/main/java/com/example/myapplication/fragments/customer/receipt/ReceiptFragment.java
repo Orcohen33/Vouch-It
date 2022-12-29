@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -59,6 +60,8 @@ public class ReceiptFragment extends Fragment {
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         observeCouponsData();
 
+        SearchView searchView = requireActivity().findViewById(R.id.search_view);
+        searchView.setVisibility(View.GONE);
         return inflater.inflate(R.layout.fragment_receipt, container, false);
     }
 

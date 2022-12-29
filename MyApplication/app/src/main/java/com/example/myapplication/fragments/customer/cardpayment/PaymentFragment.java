@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -45,13 +46,19 @@ public class PaymentFragment extends Fragment {
         return new PaymentFragment();
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentPaymentBinding.inflate(inflater, container, false);
+        SearchView searchView = requireActivity().findViewById(R.id.search_view);
+        searchView.setVisibility(View.GONE);
         return binding.getRoot();
     }
 
@@ -64,6 +71,8 @@ public class PaymentFragment extends Fragment {
             NavController nav = Navigation.findNavController(view);
             nav.navigate(R.id.action_paymentFragment_to_receiptFragment);
         });
+
+
 
     }
     public Card getCard() {

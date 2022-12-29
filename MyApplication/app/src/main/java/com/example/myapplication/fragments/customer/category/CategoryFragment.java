@@ -95,7 +95,6 @@ public class CategoryFragment extends Fragment implements CustomerCouponsViewAda
         return binding.getRoot();
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -213,6 +212,7 @@ public class CategoryFragment extends Fragment implements CustomerCouponsViewAda
     private void searchCoupons(String query) {
         mViewModel.filteredList.clear();
         for (CategoryViewModel.ItemInCategory coupon : mViewModel.originalList) {
+            System.out.println(coupon.getTitle());
             if (coupon.getTitle().toLowerCase().contains(query.toLowerCase())) {
                 mViewModel.filteredList.add(coupon);
             }

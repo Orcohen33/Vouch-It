@@ -23,8 +23,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_14
+        targetCompatibility JavaVersion.VERSION_14
     }
     buildFeatures {
         viewBinding true
@@ -52,6 +52,10 @@ dependencies {
     implementation group: 'com.squareup.retrofit2', name: 'converter-gson', version: '2.9.0'
     // MPAndroidChart library
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    // Lottie library for animations
+    def lottieVersion = "3.4.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 
 }
 

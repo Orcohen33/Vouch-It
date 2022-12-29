@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +13,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.myapplication.R;
 
 import java.util.List;
@@ -24,12 +24,12 @@ import java.util.List;
  */
 public class CategoryViewAdapter extends RecyclerView.Adapter<CategoryViewAdapter.ViewHolder> {
     List<String> categoriesNames;
-    List<Integer> categoriesImages;
+    List<String> categoriesAnimations;
     LayoutInflater inflater;
 
-    public CategoryViewAdapter(List<String> categoriesNames, List<Integer> categoriesImages, Context ctx) {
+    public CategoryViewAdapter(List<String> categoriesNames, List<String> categoriesAnimations, Context ctx) {
         this.categoriesNames = categoriesNames;
-        this.categoriesImages = categoriesImages;
+        this.categoriesAnimations = categoriesAnimations;
         this.inflater = LayoutInflater.from(ctx);
     }
 
@@ -43,9 +43,12 @@ public class CategoryViewAdapter extends RecyclerView.Adapter<CategoryViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String category = categoriesNames.get(position);
-        Integer image = categoriesImages.get(position);
+        String animationView = categoriesAnimations.get(position);
+        int animationId = holder.itemView.getResources().getIdentifier(animationView, "raw", holder.itemView.getContext().getPackageName());
         holder.title.setText(category);
-        holder.image.setImageResource(image);
+        holder.animationView.setAnimation(animationId);
+        holder.animationView.playAnimation();
+
 
         holder.itemView.setOnClickListener(v -> {
             Toast.makeText(v.getContext(), "Clicked on " + category, Toast.LENGTH_SHORT).show();
@@ -89,14 +92,14 @@ public class CategoryViewAdapter extends RecyclerView.Adapter<CategoryViewAdapte
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title;
-        ImageView image;
+        LottieAnimationView animationView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.textView2);
-            image = itemView.findViewById(R.id.imageView2);
+            animationView = itemView.findViewById(R.id.animationView);
         }
     }
 }

@@ -36,7 +36,6 @@ public class CustomerActivity extends AppCompatActivity {
 
         binding = ActivityCustomerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         // Set a Toolbar to replace the ActionBar.
         setSupportActionBar(binding.appBarMain.toolbar);
         // Set the search view be GONE by default
@@ -111,6 +110,8 @@ public class CustomerActivity extends AppCompatActivity {
                 navController.navigate(R.id.action_nav_category_to_cartFragment, bundle);
             binding.appBarMain.fab.setVisibility(View.GONE);
         });
+
+
     }
 
 

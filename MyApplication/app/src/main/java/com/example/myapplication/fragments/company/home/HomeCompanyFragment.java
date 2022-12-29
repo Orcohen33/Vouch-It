@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -68,10 +67,11 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-
+        // Inflate the layout for this fragment
         homeCompanyViewModel = new ViewModelProvider(this).get(HomeCompanyViewModel.class);
         binding = FragmentHomeCompanyBinding.inflate(inflater, container, false);
 
+        // Set up the recycler view to display the coupons
         recyclerView = binding.couponCompanyList;
         adapter = new CompanyCouponsViewAdapter(
                 homeCompanyViewModel.couponsTitles,
@@ -82,6 +82,7 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
 //        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
+        // Get the company's ID, name, and email from the arguments passed to the fragment
         if (this.getArguments() != null) {
             companyId = this.getArguments().getLong("companyId");
             companyName = this.getArguments().getString("companyName");
@@ -90,15 +91,18 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
             homeCompanyViewModel.setName(companyName);
             homeCompanyViewModel.setEmail(companyEmail);
         }
-        
-        binding.floatingButtonCompany.setOnClickListener(v ->
-                onAddButtonClicked());
+        // open menu
+        binding.floatingButtonCompany.setOnClickListener(v -> onAddButtonClicked());
+
+        // Move to add/edit coupon fragment
         binding.floatingAddOrEditCouponButton.setOnClickListener(v ->
                 NavHostFragment.findNavController(HomeCompanyFragment.this)
                         .navigate(R.id.action_HomeCompanyFragment_to_AddCouponFragment, this.getArguments()));
+        // Move to analysis fragment
         binding.floatingAnalysisButton.setOnClickListener(v ->
                 NavHostFragment.findNavController(HomeCompanyFragment.this)
                         .navigate(R.id.action_HomeCompanyFragment_to_analysisFragment, this.getArguments()));
+
         return binding.getRoot();
     }
 
@@ -128,10 +132,6 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
             });
         }
     }
-
-//        NavHostFragment.findNavController(HomeCompanyFragment.this)
-//                        .navigate(R.id.action_HomeCompanyFragment_to_AddCouponFragment, this.getArguments());
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

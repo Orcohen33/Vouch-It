@@ -2,7 +2,6 @@ package com.example.myapplication.fragments.customer.cart;
 
 import static android.content.ContentValues.TAG;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -24,10 +24,8 @@ import com.example.myapplication.R;
 import com.example.myapplication.adapters.CustomerCartViewAdapter;
 import com.example.myapplication.databinding.FragmentCartBinding;
 import com.example.myapplication.fragments.customer.SharedViewModel;
-import com.example.myapplication.models.purchase.PurchaseDto;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class CartFragment extends Fragment implements CustomerCartViewAdapter.ItemClickListener {
@@ -85,6 +83,8 @@ public class CartFragment extends Fragment implements CustomerCartViewAdapter.It
 
         });
         couponsTitle = (ArrayList<String>) mViewModel.getCouponsTitles();
+        SearchView searchView = requireActivity().findViewById(R.id.search_view);
+        searchView.setVisibility(View.GONE);
         return binding.getRoot();
     }
 
