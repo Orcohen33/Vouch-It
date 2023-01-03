@@ -47,6 +47,7 @@ public class CategoryViewAdapter extends RecyclerView.Adapter<CategoryViewAdapte
         int animationId = holder.itemView.getResources().getIdentifier(animationView, "raw", holder.itemView.getContext().getPackageName());
         holder.title.setText(category);
         holder.animationView.setAnimation(animationId);
+        holder.animationView.setSpeed(1.2f);
         holder.animationView.playAnimation();
 
 

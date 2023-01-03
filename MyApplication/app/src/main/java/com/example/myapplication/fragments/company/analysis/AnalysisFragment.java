@@ -118,19 +118,19 @@ public class AnalysisFragment extends Fragment {
         // function to convert month number to month name
         Function<String, String> convertNumberToNameOfMonth = s -> {
             switch (s) {
-                case "1" -> {return "ינואר";}
-                case "2" -> {return "פבואר";}
-                case "3" -> {return "מרץ";}
-                case "4" -> {return "אפריל";}
-                case "5" -> {return "מאי";}
-                case "6" -> {return "יוני";}
-                case "7" -> {return "יולי";}
-                case "8" -> {return "אוגוסט";}
-                case "9" -> {return "ספטמבר";}
-                case "10" -> {return "אוקטובר";}
-                case "11" -> {return "נובמבר";}
-                case "12" -> {return "דצמבר";}
-                default -> {return "לא ידוע";}
+                case "1": {return "ינואר";}
+                case "2": {return "פבואר";}
+                case "3": {return "מרץ";}
+                case "4": {return "אפריל";}
+                case "5": {return "מאי";}
+                case "6": {return "יוני";}
+                case "7": {return "יולי";}
+                case "8": {return "אוגוסט";}
+                case "9": {return "ספטמבר";}
+                case "10": {return "אוקטובר";}
+                case "11": {return "נובמבר";}
+                case "12": {return "דצמבר";}
+                default: {return "לא ידוע";}
             }
         };
         // function to convert total sales per month to percentage
