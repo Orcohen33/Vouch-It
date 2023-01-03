@@ -65,6 +65,11 @@
             android:id="@+id/action_paymentFragment_to_receiptFragment"
             app:destination="@id/receiptFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_my_coupons"
+        android:name="com.example.myapplication.fragments.customer.mycoupons.MyCouponsFragment"
+        android:label="fragment_my_coupons"
+        tools:layout="@layout/fragment_my_coupons" />
 
 
 </navigation>

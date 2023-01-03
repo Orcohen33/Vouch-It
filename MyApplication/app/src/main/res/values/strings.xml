@@ -18,6 +18,7 @@
     <string name="menu_spa">ספא</string>
     <string name="menu_sport">ספורט</string>
     <string name="menu_shopping">שופינג</string>
+    <string name="menu_my_coupons">הקופונים שלי</string>
     <!-- End Menu names -->
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_company">CompanyActivity</string>

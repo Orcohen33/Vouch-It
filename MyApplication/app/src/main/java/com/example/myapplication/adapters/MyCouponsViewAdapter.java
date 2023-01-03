@@ -18,12 +18,12 @@ import java.util.Random;
 public class MyCouponsViewAdapter extends RecyclerView.Adapter<MyCouponsViewAdapter.ViewHolder>{
 
     List<String> couponsTitles;
-    List<Long> couponsCode;
+    List<String> couponsCode;
     List<String> couponsEndDate;
     List<Integer> couponsImage;
     LayoutInflater inflater;
 
-    public MyCouponsViewAdapter(List<String> couponsTitles, List<Long> couponsCode, List<String> couponsEndDate,
+    public MyCouponsViewAdapter(List<String> couponsTitles, List<String> couponsCode, List<String> couponsEndDate,
                                 List<Integer> couponsImage, Context ctx){
         this.couponsTitles = couponsTitles;
         this.couponsCode = couponsCode;
@@ -47,7 +47,7 @@ public class MyCouponsViewAdapter extends RecyclerView.Adapter<MyCouponsViewAdap
         Integer image = couponsImage.get(position);
         Random rand = new Random();
         long n = (long)(rand.nextDouble()*10000000000L) + 1000000000L;
-        String code = n+"";
+        String code = "קוד קופון: "+n;
 
         holder.title.setText(title);
         holder.endDate.setText(endDate);

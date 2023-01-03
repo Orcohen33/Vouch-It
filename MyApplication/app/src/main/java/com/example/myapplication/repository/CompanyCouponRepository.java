@@ -34,7 +34,7 @@ public class CompanyCouponRepository {
                 Call<List<CouponResponse>> call = couponApi.getCouponsByCompanyId(id);
                 Response<List<CouponResponse>> response = call.execute();
                 if(response.isSuccessful()){
-                    Log.d(TAG, "run: " + response.body());
+//                    Log.d(TAG, "run: " + response.body());
                     data.postValue(response.body());
                 }
             } catch (IOException e) {

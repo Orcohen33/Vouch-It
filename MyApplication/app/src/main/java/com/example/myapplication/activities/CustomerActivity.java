@@ -87,6 +87,10 @@ public class CustomerActivity extends AppCompatActivity {
                     categoryId = 2L;
                     categoryName = "שופינג";
                     break;
+                case R.id.nav_my_coupons:
+                    navController.navigate(R.id.nav_my_coupons);
+                    drawer.closeDrawers();
+                    return true;
             }
             Bundle bundle = getIntent().getExtras();
             bundle.putLong("categoryId", categoryId);

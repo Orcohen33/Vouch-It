@@ -1,23 +1,51 @@
 package com.example.myapplication.fragments.customer.mycoupons;
 
+import android.os.Build;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 
+import com.example.myapplication.models.coupon.CouponResponse;
+import com.example.myapplication.repository.CompanyCouponRepository;
+import com.example.myapplication.repository.CouponRepository;
+
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class MyCouponsViewModel extends ViewModel {
 
     List<String> couponsTitles;
-    List<Long> couponsCode;
+    List<String> couponsCode;
     List<Integer> couponsImage;
     List<String> couponsEndDate;
+
+    private CompanyCouponRepository repository;
+    private LiveData<List<CouponResponse>> couponResponsesLiveData;
 
     public MyCouponsViewModel(){
         couponsTitles = new ArrayList<>();
         couponsCode = new ArrayList<>();
         couponsImage = new ArrayList<>();
         couponsEndDate = new ArrayList<>();
+        repository = new CompanyCouponRepository();
+    }
+
+    public void init(){
+        couponResponsesLiveData = repository.g(1L);
+    }
+    public LiveData<List<CouponResponse>> getCouponResponsesLiveData() {
+        System.out.println("HomeCompanyViewModel: getCouponResponsesLiveData");
+        // sort the data before returning it
+        couponResponsesLiveData = Transformations.map(couponResponsesLiveData, couponResponses -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                couponResponses.sort(Comparator.comparing(CouponResponse::getTitle));
+            }
+            return couponResponses;
+        });
+        return couponResponsesLiveData;
     }
 
     public List<String> getCouponsTitles() {
@@ -28,11 +56,11 @@ public class MyCouponsViewModel extends ViewModel {
         this.couponsTitles = couponsTitles;
     }
 
-    public List<Long> getCouponsCode() {
+    public List<String> getCouponsCode() {
         return couponsCode;
     }
 
-    public void setCouponsCode(List<Long> couponsCode) {
+    public void setCouponsCode(List<String> couponsCode) {
         this.couponsCode = couponsCode;
     }
 
