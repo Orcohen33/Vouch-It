@@ -8,14 +8,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/coupons_customer_list"
-        android:layout_width="409dp"
-        android:layout_height="729dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
-        android:paddingTop="?android:actionBarSize"
-        android:paddingBottom="70dp"
+        android:paddingBottom="30dp"
         android:scrollbars="vertical"
         android:scrollbarStyle="outsideOverlay"
         android:scrollbarSize="5dp"
@@ -25,3 +24,5 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--android:paddingTop="?android:actionBarSize"-->

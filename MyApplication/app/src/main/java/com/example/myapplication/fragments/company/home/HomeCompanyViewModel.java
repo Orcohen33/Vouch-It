@@ -50,7 +50,8 @@ public class HomeCompanyViewModel extends AndroidViewModel {
         System.out.println("HomeCompanyViewModel: init");
         if (id != null) {
             companyCouponRepository = new CompanyCouponRepository();
-            couponResponsesLiveData = companyCouponRepository.getCouponsByCompanyId(id);
+//            couponResponsesLiveData = companyCouponRepository.getCouponsByCompanyId(id);
+            couponResponsesLiveData = companyCouponRepository.g(id);
         }
     }
 

@@ -11,6 +11,7 @@ import com.example.myapplication.models.coupon.CouponRequest;
 import com.example.myapplication.models.coupon.CouponResponse;
 import com.example.myapplication.network.RetrofitService;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -25,6 +26,23 @@ public class CompanyCouponRepository {
         this.couponApi = RetrofitService.getInstance().getRetrofit().create(CouponApi.class);
     }
 
+
+    public LiveData<List<CouponResponse>> g(Long id){
+        final MutableLiveData<List<CouponResponse>> data = new MutableLiveData<>();
+        new Thread(() -> {
+            try{
+                Call<List<CouponResponse>> call = couponApi.getCouponsByCompanyId(id);
+                Response<List<CouponResponse>> response = call.execute();
+                if(response.isSuccessful()){
+                    Log.d(TAG, "run: " + response.body());
+                    data.postValue(response.body());
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+        return data;
+    }
     public LiveData<List<CouponResponse>> getCouponsByCompanyId(Long id) {
         System.out.println("CompanyCouponRepository.getCouponsByCompanyId");
         final MutableLiveData<List<CouponResponse>> data = new MutableLiveData<>();

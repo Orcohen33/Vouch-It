@@ -28,12 +28,12 @@ public class HomeCustomerViewModel extends ViewModel {
         categoriesNames.add("ספורט");
         categoriesNames.add("שופינג");
 
-        categoriesAnimations.add("restaurant");
-        categoriesAnimations.add("restaurant");
-        categoriesAnimations.add("restaurant");
-        categoriesAnimations.add("restaurant");
-        categoriesAnimations.add("restaurant");
-        categoriesAnimations.add("restaurant");
+        categoriesAnimations.add("attraction");
+        categoriesAnimations.add("shows");
+        categoriesAnimations.add("restaurants");
+        categoriesAnimations.add("spa2");
+        categoriesAnimations.add("sport");
+        categoriesAnimations.add("shopping");
     }
 
 }
