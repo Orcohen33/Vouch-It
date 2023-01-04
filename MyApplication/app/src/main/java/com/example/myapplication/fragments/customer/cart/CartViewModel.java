@@ -67,6 +67,13 @@ public class CartViewModel extends ViewModel{
         }
         return "סה\"כ: "+totalPrice + "₪";
     }
+    public String getTotalPriceFormatAfterPayment() {
+        int totalPrice = 0;
+        for (CouponShared couponShared : mDetails) {
+            totalPrice += Double.parseDouble(couponShared.getPrice());
+        }
+        return "סה\"כ שולם: "+totalPrice + "₪";
+    }
 
     public void updateTotalPrice() {
         int totalPrice = 0;

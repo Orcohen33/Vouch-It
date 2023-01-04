@@ -20,18 +20,20 @@ import java.util.List;
  */
 public class ReceiptViewAdapter extends RecyclerView.Adapter<ReceiptViewAdapter.ViewHolder>{
     List<String> couponsTitles;
+    List<String> couponsPrices;
     List<CouponShared> coupons;
     LayoutInflater inflater;
 
-    public ReceiptViewAdapter(List<String> couponsTitles, Context ctx) {
+    public ReceiptViewAdapter(List<String> couponsTitles, List<String> couponsPrices, Context ctx) {
         this.couponsTitles = couponsTitles;
-        this.inflater = LayoutInflater.from(ctx);
+        this.couponsPrices = couponsPrices;
+        //this.inflater = LayoutInflater.from(ctx);
     }
 
     @NonNull
     @Override
     public ReceiptViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.custom_coupon_receipt_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_coupon_receipt_layout, parent, false);
         return new ViewHolder(view);
     }
 
@@ -39,21 +41,26 @@ public class ReceiptViewAdapter extends RecyclerView.Adapter<ReceiptViewAdapter.
     public void onBindViewHolder(@NonNull ReceiptViewAdapter.ViewHolder holder, int position) {
         String title = couponsTitles.get(position);
         holder.title.setText(title);
+        String price = couponsPrices.get(position);
+        holder.price.setText(price);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return coupons.size();
     }
 
     public void setCouponShareds(List<CouponShared> couponShareds) {
         this.coupons = couponShareds;
     }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView title;
+        TextView price;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.coupon_receipt_title_text_view);
+            price = itemView.findViewById(R.id.coupon_receipt_price_text_view);
         }
     }
 }

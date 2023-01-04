@@ -25,12 +25,11 @@ import com.example.myapplication.adapters.CustomerCartViewAdapter;
 import com.example.myapplication.databinding.FragmentCartBinding;
 import com.example.myapplication.fragments.customer.SharedViewModel;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class CartFragment extends Fragment implements CustomerCartViewAdapter.ItemClickListener {
-    public static String total;
-    public static ArrayList <String> couponsTitle = new ArrayList <>();
+    public static String totalCart;
+    public static String totalPayment;
     private FragmentCartBinding binding; // binding for the fragment
     private CartViewModel mViewModel; // view model for the fragment
     private SharedViewModel model; // shared view model for the fragment
@@ -82,7 +81,6 @@ public class CartFragment extends Fragment implements CustomerCartViewAdapter.It
 
 
         });
-        couponsTitle = (ArrayList<String>) mViewModel.getCouponsTitles();
         SearchView searchView = requireActivity().findViewById(R.id.search_view);
         searchView.setVisibility(View.GONE);
         return binding.getRoot();
@@ -97,7 +95,8 @@ public class CartFragment extends Fragment implements CustomerCartViewAdapter.It
                 mViewModel.setCouponShareds(couponShareds);
                 adapter.notifyDataSetChanged();
                 binding.price.setText(mViewModel.getTotalPriceFormat());
-                total = mViewModel.getTotalPriceFormat();
+                totalCart = mViewModel.getTotalPriceFormat();
+                totalPayment = mViewModel.getTotalPriceFormatAfterPayment();
             }
             else{
                 binding.noCartCoupons.setVisibility(View.VISIBLE);

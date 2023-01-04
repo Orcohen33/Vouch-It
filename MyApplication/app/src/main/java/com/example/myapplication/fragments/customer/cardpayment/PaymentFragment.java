@@ -134,7 +134,7 @@ public class PaymentFragment extends Fragment {
 
        Button btnPay = binding.btnPay;
 
-        paymentAmount.setText(CartFragment.total); // take the amount from the previous fragment
+        paymentAmount.setText(CartFragment.totalCart); // take the amount from the previous fragment
 
 
         btnPay.setOnClickListener(new View.OnClickListener() {
