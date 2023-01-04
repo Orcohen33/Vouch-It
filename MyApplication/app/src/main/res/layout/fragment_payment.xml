@@ -157,7 +157,7 @@
             <EditText
                 android:id="@+id/card_name"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="48dp"
                 android:layout_below="@+id/payment_amount_layout"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/background_edit_btn"
@@ -170,7 +170,7 @@
             <EditText
                 android:id="@+id/card_number"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="48dp"
                 android:layout_below="@+id/card_name"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/background_edit_btn"
@@ -192,7 +192,7 @@
                 <EditText
                     android:id="@+id/expiry_date"
                     android:layout_width="0dp"
-                    android:layout_height="45dp"
+                    android:layout_height="48dp"
                     android:layout_below="@+id/card_name"
                     android:layout_weight=".50"
                     android:background="@drawable/background_edit_btn"
@@ -211,7 +211,7 @@
                 <EditText
                     android:id="@+id/cvc"
                     android:layout_width="0dp"
-                    android:layout_height="45dp"
+                    android:layout_height="48dp"
                     android:layout_weight=".45"
                     android:background="@drawable/background_edit_btn"
                     android:hint="CCV"

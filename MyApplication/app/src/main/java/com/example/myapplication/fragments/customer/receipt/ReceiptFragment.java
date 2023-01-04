@@ -57,6 +57,7 @@ public class ReceiptFragment extends Fragment {
         adapter = new ReceiptViewAdapter(
                 mViewModel.getCouponsTitles(),
                 mViewModel.getCouponsPrices(),
+                mViewModel.getCouponsImages(),
                 getContext()
         );
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1, GridLayoutManager.VERTICAL, false));
@@ -66,7 +67,7 @@ public class ReceiptFragment extends Fragment {
 
 
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        Objects.requireNonNull(actionBar).setTitle("Receipt");
+        Objects.requireNonNull(actionBar).setTitle("קבלה");
 
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         observeCouponsData();
@@ -88,6 +89,7 @@ public class ReceiptFragment extends Fragment {
                         mViewModel.couponsTitles.add(couponShared.getTitle());
                         mViewModel.couponsPrices.add(couponShared.getPrice() + "");
                         mViewModel.couponsIds.add(couponShared.getId());
+                        mViewModel.couponsImages.add(R.drawable.no_image_icon);
                         mViewModel.setCouponShareds(couponShareds);
                         adapter.setCouponShareds(couponShareds);
                         adapter.notifyDataSetChanged();
@@ -100,6 +102,7 @@ public class ReceiptFragment extends Fragment {
             }
         });
     }
+
     @Override
     public void onResume() {
         super.onResume();
