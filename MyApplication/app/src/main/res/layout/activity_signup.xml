@@ -14,13 +14,13 @@
         android:layout_marginTop="37dp"
         android:layout_marginEnd="169dp"
         android:layout_marginBottom="22dp"
-        android:buttonTint="@color/white"
         android:text="@string/signup_as_company"
         app:layout_constraintBottom_toTopOf="@+id/signup_request_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_password_confirm_signup" />
 
+<!--        android:buttonTint="@color/white"-->
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/FullNameSignup"
         android:layout_width="269dp"

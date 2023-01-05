@@ -53,10 +53,10 @@ public class CompanyCouponsViewAdapter extends RecyclerView.Adapter<CompanyCoupo
 
     private void dialogForDeleteAction(int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(inflater.getContext());
-        builder.setTitle("Delete coupon");
-        builder.setMessage("Are you sure you want to delete this coupon?");
-        builder.setPositiveButton("Yes", (dialog, which) -> itemClickListener.onDeleteClick(position));
-        builder.setNegativeButton("No", (dialog, which) -> {
+        builder.setTitle("מחק קופון");
+        builder.setMessage("את/ה בטוח/ה שברצונך למחוק את הקופון?");
+        builder.setPositiveButton("כן", (dialog, which) -> itemClickListener.onDeleteClick(position));
+        builder.setNegativeButton("לא", (dialog, which) -> {
             // do nothing
         });
         builder.show();
