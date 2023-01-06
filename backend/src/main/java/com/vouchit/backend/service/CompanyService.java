@@ -20,27 +20,12 @@ public interface CompanyService {
     // Create
     CompanyResponse createCompany(CompanyRequest companyRequest);
     // Read
-    Set<CompanyResponse> getAllCompanies();
     Optional<CompanyResponse> getCompanyById(Long companyId);
     // Update
     CompanyResponse updateCompany(Long companyId, CompanyRequest companyRequest);
     // Delete
     String deleteCompany(Long companyId);
 
-
-    // logic
-
-    CouponResponse createCoupon(Long companyId, CouponRequest couponRequest);
-
-    CouponResponse updateCoupon(Long companyId, CouponRequest couponRequest);
-
-    CouponResponse deleteCoupon(Long companyId, CouponRequest couponRequest);
-
-    Set<CompanyCouponResponse> getAllCouponsByCompanyId(Long companyId);
-
-    CouponResponse getCouponByIdAndCategory(Long companyId, Long categoryId, Long couponId);
-
-    Set<CouponResponse> getCouponsByMaxPrice(Long companyId, Long categoryId);
 
     CompanyResponse mapCompanyToCompanyResponse(Company company);
     Company mapCompanyRequestToCompany(CompanyRequest companyRequest);

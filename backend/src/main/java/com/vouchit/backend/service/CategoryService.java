@@ -21,10 +21,6 @@ public interface CategoryService {
 
     String deleteCategory(CategoryRequest categoryRequest);
 
-    CategoryResponse findCategoryByName(String name);
-
-    CategoryResponse findCategoryById(Long id);
-
     CategoryResponse mapCategoryToCategoryResponse(Category category);
 
     Category mapCategoryRequestToCategory(CategoryRequest categoryRequest);

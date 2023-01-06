@@ -43,11 +43,6 @@ public class CompanyController {
         return ResponseEntity.status(HttpStatus.CREATED).body(companyService.createCompany(companyRequest));
     }
 
-    // Get all companies
-    @GetMapping
-    public ResponseEntity<Set<CompanyResponse>> getAllCompanies() {
-        return ResponseEntity.ok(companyService.getAllCompanies());
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<CompanyResponse> getCompanyById(@PathVariable(name = "id") Long id) {

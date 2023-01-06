@@ -22,5 +22,6 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE, CascadeType.MERGE})
+    @ToString.Exclude
     private Set<Coupon> coupons;
 }

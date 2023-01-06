@@ -40,13 +40,6 @@ public class CouponServiceImpl implements CouponService {
     }
 
 
-//    @Override
-//    public Set<CouponResponse> getAllCouponsByCategoryId(Long categoryId) {
-//        return couponRepository.getAllByCategoryId(categoryId)
-//                .stream().map(this::mapCouponToCouponResponse)
-//                .collect(Collectors.toSet());
-
-//    }
     @Override
     public Set<CouponResponse> getAllCouponsByCategoryId(Long categoryId) {
         return couponRepository.findCouponsByCategoryId(categoryId)
@@ -70,9 +63,7 @@ public class CouponServiceImpl implements CouponService {
     public CouponResponse createCoupon(CouponRequest couponRequest) {
         var companyResponse = companyService.getCompanyById(couponRequest.getCompanyId()).orElseThrow(()
                 -> new RuntimeException("Company " + couponRequest.getCompanyId() + " do not exist"));
-        var categoryResponse = categoryService.getCategoryById(couponRequest.getCategoryId()).orElseThrow(()
-                -> new RuntimeException("Category " + couponRequest.getCategoryId() + " do not exist"));
-        if (couponRepository.findCouponByTitleAndCompanyId(couponRequest.getTitle(), companyResponse.getId()).isPresent())
+        if (couponRepository.findCouponByTitle(couponRequest.getTitle()).isPresent())
             throw new RuntimeException("Coupon with title " + couponRequest.getTitle() + " already exist");
         System.out.println(couponRequest);
         var coupon = mapCouponRequestToCoupon(couponRequest);
@@ -138,7 +129,17 @@ public class CouponServiceImpl implements CouponService {
     }
 
     public CouponResponse mapCouponToCouponResponse(Coupon coupon) {
-        return modelMapper.map(coupon, CouponResponse.class);
+        return CouponResponse.builder()
+                .title(coupon.getTitle())
+                .description(coupon.getDescription())
+                .price(coupon.getPrice())
+                .amount(coupon.getAmount())
+                .startDate(coupon.getStartDate())
+                .endDate(coupon.getEndDate())
+                .category(categoryService.mapCategoryToCategoryResponse(coupon.getCategory()))
+                .id(coupon.getId())
+                .build();
+//        return modelMapper.map(coupon, CouponResponse.class);
     }
 
 

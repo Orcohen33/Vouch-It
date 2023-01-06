@@ -18,15 +18,7 @@ public interface CustomerService {
 
     Customer signUp(String fullName, String email, String password);
 
-    boolean purchaseCoupon(Long customerId, Long couponId);
-
-    Set<Coupon> getCustomerCoupons();
-
-    Set<Coupon> getCustomerCouponsByCategory(CategoryRequest categoryRequest);
-
-    Set<Coupon> getCustomerCouponsByMaxPrice(double maxPrice);
-
-    Customer getCustomerDetails(Long id);
+    Customer getCustomerById(Long id);
 
     CouponResponse mapCouponToCouponResponse(Coupon coupon);
 

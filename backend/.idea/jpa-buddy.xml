@@ -3,5 +3,7 @@
   <component name="JpaBuddyIdeaProjectConfig" ddlActionDbType="mysql">
     <option name="defaultUnitInitialized" value="true" />
     <option name="renamerInitialized" value="true" />
+    <option name="sourceModelValue" value="Default" />
+    <option name="targetDbValue" value="87c941da-7537-45be-bdb4-f1743dbdf5bd" />
   </component>
 </project>

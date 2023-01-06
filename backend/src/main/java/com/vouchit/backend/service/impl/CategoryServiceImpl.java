@@ -74,19 +74,7 @@ public class CategoryServiceImpl implements CategoryService {
                 .orElseThrow(() -> new RuntimeException("Category not found"));
     }
 
-    @Override
-    public CategoryResponse findCategoryByName(String name) {
-        return categoryRepository.findByName(name)
-                .map(this::mapCategoryToCategoryResponse)
-                .orElseThrow(() -> new RuntimeException("Category not found"));
-    }
 
-    @Override
-    public CategoryResponse findCategoryById(Long id) {
-        return categoryRepository.findById(id)
-                .map(this::mapCategoryToCategoryResponse)
-                .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + id));
-    }
 
     //    ================================= PRIVATE METHODS =================================
     public Category mapCategoryRequestToCategory(CategoryRequest categoryRequest) {

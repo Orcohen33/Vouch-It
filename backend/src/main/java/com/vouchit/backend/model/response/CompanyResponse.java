@@ -14,4 +14,6 @@ public class CompanyResponse {
     private String email;
     @JsonIgnore
     private String password;
+
+
 }

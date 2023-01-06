@@ -1,9 +1,7 @@
 package com.vouchit.backend.service.impl;
 
-import com.vouchit.backend.exception.purchase.PurchaseException;
 import com.vouchit.backend.model.entity.Coupon;
 import com.vouchit.backend.model.entity.Purchase;
-import com.vouchit.backend.model.request.PurchaseRequest;
 import com.vouchit.backend.model.response.CouponResponse;
 import com.vouchit.backend.repository.PurchaseRepository;
 import com.vouchit.backend.service.CouponService;
@@ -23,7 +21,8 @@ public class PurchaseServiceImpl implements PurchaseService {
     private final PurchaseRepository purchaseRepository;
 
     @Autowired
-    public PurchaseServiceImpl(CouponService couponService, CustomerService customerService,
+    public PurchaseServiceImpl(CouponService couponService,
+                               CustomerService customerService,
                                PurchaseRepository purchaseRepository) {
         this.couponService = couponService;
         this.customerService = customerService;
@@ -82,13 +81,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public boolean purchaseCoupon(Long customerId, Set<Long> couponIds) {
-        // check if this customer already purchased this coupon
-        var customer = customerService.getCustomerDetails(customerId);
-//        for (Coupon coupon : customer.getCoupons()) {
-//            if (couponIds.contains(coupon.getId())) {
-//                return false;
-//            }
-//        }
+        // TODO: Complete the implementation
+        var customer = customerService.getCustomerById(customerId);
         var coupons = couponService.getAllCouponsByIdIn(couponIds);
         Purchase purchase = new Purchase();
         purchase.setCustomer(customer);
@@ -110,6 +104,13 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
 
+
+//    @Override
+//    public List<Purchase> getAllPurchasesOfCompany(Long companyId) {
+//        return purchaseRepository.getPurchasesByCompanyId(companyId);
+//    }
+
+
     private Coupon mapCouponResponseToCoupon(CouponResponse coupon) {
         return Coupon.builder()
                 .id(coupon.getId())
@@ -120,8 +121,6 @@ public class PurchaseServiceImpl implements PurchaseService {
                 .amount(coupon.getAmount())
                 .price(coupon.getPrice())
                 .image(null)
-//                .category(coupon.getCategory())
-//                .company
                 .build();
     }
 

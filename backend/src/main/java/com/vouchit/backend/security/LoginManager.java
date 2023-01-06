@@ -3,15 +3,9 @@ package com.vouchit.backend.security;
 
 import com.vouchit.backend.model.enums.ClientType;
 import com.vouchit.backend.service.client.ClientService;
-import com.vouchit.backend.service.client.CustomerServiceImpl;
-import com.vouchit.backend.service.impl.CompanyServiceImpl;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
-import static com.vouchit.backend.model.enums.ClientType.COMPANY;
-import static com.vouchit.backend.model.enums.ClientType.CUSTOMER;
 
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)

@@ -26,8 +26,9 @@ public class Purchase {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinTable(name = "purchases_coupons",
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "purchases_coupons2",
             joinColumns = @JoinColumn(name = "purchase_id"),
             inverseJoinColumns = @JoinColumn(name = "coupon_id"))
     private Set<Coupon> coupons;

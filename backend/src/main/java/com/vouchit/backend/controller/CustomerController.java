@@ -4,6 +4,7 @@ import com.vouchit.backend.model.entity.Customer;
 import com.vouchit.backend.model.request.CategoryRequest;
 import com.vouchit.backend.model.request.customer.CustomerSignInRequest;
 import com.vouchit.backend.model.request.customer.CustomerSignupRequest;
+import com.vouchit.backend.model.response.CouponResponse;
 import com.vouchit.backend.model.response.CustomerSignInResponse;
 import com.vouchit.backend.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.List;
 @RestController
 @RequestMapping("/api/v1/customer")
 @CrossOrigin("*")
@@ -47,28 +48,11 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.CREATED).body(customer);
     }
 
-    @PostMapping("/{customerId}/purchase/{couponId}")
-    public ResponseEntity<?> purchase(@PathVariable("customerId") Long customerId, @PathVariable("couponId") Long couponId) {
-        return ResponseEntity.ok(customerService.purchaseCoupon(customerId, couponId));
-    }
 
-    @GetMapping("/coupons")
-    public ResponseEntity<?> getCustomerCoupons() {
-        return ResponseEntity.ok(customerService.getCustomerCoupons());
-    }
-
-    @GetMapping("/coupons/category")
-    public ResponseEntity<?> getCustomerCouponsByCategory(@RequestBody CategoryRequest category) {
-        return ResponseEntity.ok(customerService.getCustomerCouponsByCategory(category));
-    }
-
-    @GetMapping("/coupons/price/{maxPrice}")
-    public ResponseEntity<?> getCustomerCouponsByMaxPrice(@PathVariable double maxPrice) {
-        return ResponseEntity.ok(customerService.getCustomerCouponsByMaxPrice(maxPrice));
-    }
-
-    @GetMapping("/details/{customerId}")
-    public ResponseEntity<?> getCustomerDetails(@PathVariable("customerId") Long customerId) {
-        return ResponseEntity.ok(customerService.getCustomerDetails(customerId));
-    }
+//    @GetMapping("/{id}/coupons")
+//    public ResponseEntity<?> getCoupons(@PathVariable(name = "id") Long id) {
+//        log.info("CustomerController: getCoupons");
+//        List<CouponResponse> coupons = customerService.getCoupons();
+//        return ResponseEntity.status(HttpStatus.OK).body(coupons);
+//    }
 }

@@ -5,22 +5,38 @@ import com.vouchit.backend.model.request.CouponRequest;
 import com.vouchit.backend.model.response.CompanyCouponResponse;
 import com.vouchit.backend.model.response.CouponResponse;
 import com.vouchit.backend.service.CouponService;
+import com.vouchit.backend.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1")
 public class CouponController {
     private final CouponService couponService;
+    private final CustomerService customerService;
 
     @Autowired
-    public CouponController(CouponService couponService) {
+    public CouponController(CouponService couponService, CustomerService customerService) {
         this.couponService = couponService;
+        this.customerService = customerService;
+    }
+
+    @GetMapping("/customer/{customerId}/coupons")
+    public ResponseEntity<?> getAllCouponsOfCustomer(@PathVariable Long customerId) {
+        var customer = customerService.getCustomerById(customerId);
+        var coupons = customer.getCoupons();
+        List<CouponResponse> couponResponses = new ArrayList<>();
+        for (Coupon coupon : coupons) {
+            couponResponses.add(couponService.mapCouponToCouponResponse(coupon));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(couponResponses);
     }
 
     /*

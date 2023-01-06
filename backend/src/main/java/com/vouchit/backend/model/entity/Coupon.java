@@ -8,15 +8,16 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
 
+@Data
 @Entity
-@Table(name = "coupons")
+@Table(name = "coupons", indexes = {
+        @Index(name = "idx_coupon_category_id", columnList = "category_id"),
+        @Index(name = "idx_coupon_company_id", columnList = "company_id")
+})
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
 @EqualsAndHashCode(of = {"id"})
 @Builder
-@ToString
 public class Coupon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,28 +32,27 @@ public class Coupon {
     private Byte[] image;
 
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     @JsonIgnore
+    @ToString.Exclude
     private Company company;
 
-    @ManyToOne(fetch = FetchType.LAZY , cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+
+    @ManyToOne(fetch = FetchType.LAZY )
     @JoinColumn(name = "category_id")
+    @ToString.Exclude
     private Category category;
 
-    @ManyToMany(fetch = FetchType.LAZY ,cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinTable(name = "customers_coupons",
+    @ManyToMany(fetch = FetchType.LAZY )
+    @JoinTable(name = "customers_coupons2",
             joinColumns = @JoinColumn(name = "coupon_id"),
             inverseJoinColumns = @JoinColumn(name = "customer_id"))
-    @JsonIgnore
+    @ToString.Exclude
     private Set<Customer> customers;
 
-    @ManyToMany(fetch = FetchType.LAZY ,cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinTable(name = "purchases_coupons",
-            joinColumns = @JoinColumn(name = "coupon_id"),
-            inverseJoinColumns = @JoinColumn(name = "purchase_id"))
-    @JsonIgnore
+    @ManyToMany(mappedBy = "coupons", fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Set<Purchase> purchases;
 
 }

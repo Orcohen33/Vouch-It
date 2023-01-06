@@ -51,91 +51,38 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerSignInResponse login(String email, String password) {
-        if (!customerRepository.existsCustomerByEmailAndPassword(email, password)) {
-            return null;
-        }
+        // TODO: לבדוק מה האם קיים משתמש כזה
+//        if (!customerRepository.existsCustomerByEmailAndPassword(email, password)) {
+//            return null;
+//        }
         Customer customer = customerRepository.findCustomerByEmailAndPassword(email, password);
 //        CustomerSignInResponse customer = customerRepository.findCustomerByEmailAndPassword(email, password);
         loginManager.setLoggedIn(true);
         return CustomerSignInResponse.builder()
                 .id(customer.getId())
-                .email(customer.getEmail())
-                .password(customer.getPassword())
+//                .email(customer.getEmail())
+//                .password(customer.getPassword())
                 .build();
     }
 
     @Override
     public Customer signUp(String fullName, String email, String password) {
-        if (customerRepository.existsCustomerByEmail(email)) {
-            return null;
-        }
+        // TODO: לבדוק האם קיים לקוח כזה
+//        if (customerRepository.existsCustomerByEmail(email)) {
+//            return null;
+//        }
         Customer customer = Customer.builder()
                 .firstName(fullName)
-                .email(email)
-                .password(password)
+//                .email(email)
+//                .password(password)
                 .build();
         customerRepository.save(customer);
         return customer;
     }
 
     @Override
-    public boolean purchaseCoupon(Long customerId, Long couponId) {
-        // check if this customer already purchased this coupon
-        var coupon = couponRepository.getReferenceById(couponId);
-        if (couponRepository.existsCouponByCustomersIdAndId(customerId, coupon.getId())) {
-            log.info("You already purchased this coupon");
-            return false;
-        }
-        // cant purchase if amount is 0 or less
-        else if (coupon.getAmount() <= 0) {
-            log.info("This coupon is out of stock");
-            return false;
-        }
-        // cant purchase if coupon expired
-        else if (coupon.getEndDate().isBefore(coupon.getStartDate())) {
-            log.info("This coupon is expired");
-            return false;
-        }
-        // after purchase, amount of coupon should be decreased by 1
-        coupon.setAmount(coupon.getAmount() - 1);
-        couponRepository.save(coupon);
-        // add coupon to customer
-        customerRepository.getReferenceById(customerId).getCoupons().add(coupon);
-        customerRepository.save(customerRepository.getReferenceById(customerId));
-        return true;
-    }
-
-    @Override
-    public Set<Coupon> getCustomerCoupons() {
-        // return all coupons of this customer
-        return couponRepository.getAllByCustomersId(customerId);
-    }
-
-    @Override
-    public Set<Coupon> getCustomerCouponsByCategory(CategoryRequest categoryRequest) {
-        // return all coupons of this customer by category
-        var coupons = couponRepository.getAllByCustomersId(customerId);
-        var category = mapCategoryRequestToCategory(categoryRequest);
-        return coupons
-                .stream()
-                .filter(coupon -> coupon.getCategory().equals(category))
-                .collect(Collectors.toSet());
-    }
-
-    @Override
-    public Set<Coupon> getCustomerCouponsByMaxPrice(double maxPrice) {
-        // return all coupons of this customer by max price
-        var coupons = couponRepository.getAllByCustomersId(customerId);
-        return coupons
-                .stream()
-                .filter(coupon -> coupon.getPrice() <= maxPrice)
-                .collect(Collectors.toSet());
-    }
-
-    @Override
-    public Customer getCustomerDetails(Long id) {
-        return customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
+    public Customer getCustomerById(Long id) {
+        return customerRepository.findById(id).orElse(null);
     }
 
     @Override

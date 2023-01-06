@@ -22,6 +22,7 @@ public class Company {
     private String password;
 
     @OneToMany(mappedBy = "company",cascade = {CascadeType.REMOVE,CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Set<Coupon> coupons;
 
 
