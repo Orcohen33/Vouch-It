@@ -58,20 +58,25 @@ public class PaymentFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentPaymentBinding.inflate(inflater, container, false);
         SearchView searchView = requireActivity().findViewById(R.id.search_view);
-        searchView.setVisibility(View.GONE);
+        //searchView.setVisibility(View.GONE);
+
         return binding.getRoot();
     }
+
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        init();
-        binding.btnPay.setOnClickListener(v -> {
-            // navigate to the next fragment
-            NavController nav = Navigation.findNavController(view);
-            nav.navigate(R.id.action_paymentFragment_to_receiptFragment);
-        });
-
+        boolean ans =init();
+        System.out.println(ans + " onViewCreated");
+               binding.btnPay.setOnClickListener(v -> {
+                   // navigate to the next fragment
+                   NavController nav = Navigation.findNavController(view);
+                   if(cardIsvalid())
+                   nav.navigate(R.id.action_paymentFragment_to_receiptFragment);
+               });
 
 
     }
@@ -105,13 +110,14 @@ public class PaymentFragment extends Fragment {
     private String getString(EditText ed) {
         return ed.getText().toString().trim();
     }
-    @SuppressLint("SetTextI18n")
-    private void init() {
 
-        String cardNameError = "Correct Card Name is requierd";
-        String cardNumberError = "Correct Card Number is requierd";
-        String cvcError = "Correct  cvc is requierd";
-        String expiryDateError = "Correct  expiry date is requierd";
+
+    private boolean init() {
+
+        String cardNameError = "Correct Card Name is required init";
+        String cardNumberError = "Correct Card Number is required init";
+        String cvcError = "Correct  cvc is requierd init";
+        String expiryDateError = "Correct  expiry date is requierd init";
         OnPayBtnClickListner onPayBtnClickListner = null;
 
         /* inflate views */
@@ -137,29 +143,15 @@ public class PaymentFragment extends Fragment {
         paymentAmount.setText(CartFragment.totalCart); // take the amount from the previous fragment
 
 
-        btnPay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (TextUtils.isEmpty(getString(cardName))) {
-                    cardName.setError(cardNameError);
-                }
-                if (TextUtils.isEmpty(getString(cardNumber))) {
-                    cardNumber.setError(cardNumberError);
-                }
-
-                if (TextUtils.isEmpty(getString(cvv))) {
-                    cvv.setError(cvcError);
-                }
-                if (TextUtils.isEmpty(getString(expiryDate))) {
-                    expiryDate.setError(expiryDateError);
-
-                }
 
                 if (cardIsvalid()) {
-                    onPayBtnClickListner.onClick(getCard());
-                }
-            }
-        });
+                    System.out.println("card is valid");
+                    //onViewCreated(view, savedInstanceState);
+                    return true;
+
+               // }
+            //}
+        }
 
 
         cardNumber.addTextChangedListener(new TextWatcher() {
@@ -311,6 +303,7 @@ public class PaymentFragment extends Fragment {
                 if (b) showFront();
             }
         });
+        return cardIsvalid();
     }
 
     private boolean cardIsvalid() {
@@ -318,18 +311,26 @@ public class PaymentFragment extends Fragment {
         String cardNumberError = "Correct Card Number is requierd";
         String cvcError = "Correct  cvc is requierd";
         String expiryDateError = "Correct  expiry date is requierd";
+        boolean valid = true;
         Card card = getCard();
         if (!card.validateNumber()) {
             binding.cardNumber.setError(cardNumberError);
+            valid = false;
         }
         if (!card.validateExpiryDate()) {
             binding.expiryDate.setError(expiryDateError);
+            valid = false;
         }
         if (!card.validateCVC()) {
-            binding.cvc.setError(expiryDateError);
+            binding.cvc.setError(cvcError);
+            valid = false;
+        }
+        if(!card.validateName()){
+            binding.cardName.setError(cardNameError);
+            valid = false;
         }
 
-        return card.validateCard();
+        return valid;
     }
 
     private void showBack() {

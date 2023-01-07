@@ -247,6 +247,10 @@ public class Card {
      *
      * @return {@code true} if valid, {@code false} otherwise.
      */
+
+    public boolean validateName(){
+        return name != null && name.length() > 2 && name.contains(" ") ;
+    }
     public boolean validateNumber() {
         if (StripeTextUtils.isBlank(number)) {
             return false;
@@ -254,17 +258,22 @@ public class Card {
 
         String rawNumber = number.trim().replaceAll("\\s+|-", "");
         if (StripeTextUtils.isBlank(rawNumber)
-                || !StripeTextUtils.isWholePositiveNumber(rawNumber)
-                || !isValidLuhnNumber(rawNumber)) {
+                || !StripeTextUtils.isWholePositiveNumber(rawNumber))
+                //|| !isValidLuhnNumber(rawNumber))
+         {
+
             return false;
         }
 
         String updatedType = getBrand();
         if (AMERICAN_EXPRESS.equals(updatedType)) {
+            System.out.println("Card number is not valid amex");
             return rawNumber.length() == MAX_LENGTH_AMERICAN_EXPRESS;
         } else if (DINERS_CLUB.equals(updatedType)) {
+            System.out.println("Card number is not valid diners");
             return rawNumber.length() == MAX_LENGTH_DINERS_CLUB;
         } else {
+            //System.out.println("Card number is not valid other");
             return rawNumber.length() == MAX_LENGTH_STANDARD;
         }
     }
@@ -282,6 +291,8 @@ public class Card {
         if (!validateExpYear()) {
             return false;
         }
+        System.out.println("expMonth: " + expMonth);
+        System.out.println("expYear: " + expYear);
         return !DateUtils.hasMonthPassed(expYear, expMonth);
     }
 
@@ -292,6 +303,7 @@ public class Card {
      */
     public boolean validateCVC() {
         if (StripeTextUtils.isBlank(cvc)) {
+            System.out.println("cvc is blank");
             return false;
         }
         String cvcValue = cvc.trim();
@@ -300,7 +312,8 @@ public class Card {
                 (updatedType == null && cvcValue.length() >= 3 && cvcValue.length() <= 4)
                         || (AMERICAN_EXPRESS.equals(updatedType) && cvcValue.length() == 4)
                         || cvcValue.length() == 3;
-
+        System.out.println("validLength: " + validLength);
+        System.out.println("Positive number "+StripeTextUtils.isWholePositiveNumber(cvcValue));
         return StripeTextUtils.isWholePositiveNumber(cvcValue) && validLength;
     }
 
@@ -310,7 +323,7 @@ public class Card {
      * @return {@code true} if valid, {@code false} otherwise.
      */
     public boolean validateExpMonth() {
-        return expMonth != null && expMonth >= 1 && expMonth <= 12;
+        return (expMonth != null && expMonth >= 1 && expMonth <= 12);
     }
 
     /**
@@ -319,7 +332,7 @@ public class Card {
      * @return {@code true} if valid, {@code false} otherwise.
      */
     public boolean validateExpYear() {
-        return expYear != null && !DateUtils.hasYearPassed(expYear);
+        return (expYear != null && !DateUtils.hasYearPassed(expYear));
     }
 
     /**
@@ -592,31 +605,31 @@ public class Card {
         return country;
     }
 
-    private boolean isValidLuhnNumber(String number) {
-        boolean isOdd = true;
-        int sum = 0;
-
-        for (int index = number.length() - 1; index >= 0; index--) {
-            char c = number.charAt(index);
-            if (!Character.isDigit(c)) {
-                return false;
-            }
-            int digitInteger = Integer.parseInt("" + c);
-            isOdd = !isOdd;
-
-            if (isOdd) {
-                digitInteger *= 2;
-            }
-
-            if (digitInteger > 9) {
-                digitInteger -= 9;
-            }
-
-            sum += digitInteger;
-        }
-
-        return sum % 10 == 0;
-    }
+//    private boolean isValidLuhnNumber(String number) {
+//        boolean isOdd = true;
+//        int sum = 0;
+//
+//        for (int index = number.length() - 1; index >= 0; index--) {
+//            char c = number.charAt(index);
+//            if (!Character.isDigit(c)) {
+//                return false;
+//            }
+//            int digitInteger = Integer.parseInt("" + c);
+//            isOdd = !isOdd;
+//
+//            if (isOdd) {
+//                digitInteger *= 2;
+//            }
+//
+//            if (digitInteger > 9) {
+//                digitInteger -= 9;
+//            }
+//
+//            sum += digitInteger;
+//        }
+//
+//        return sum % 10 == 0;
+//    }
 
     private String normalizeCardNumber(String number) {
         if (number == null) {

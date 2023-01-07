@@ -2,14 +2,15 @@ package com.example.myapplication.fragments.customer.receipt;
 
 import static android.content.ContentValues.TAG;
 
-import static com.example.myapplication.fragments.customer.cart.CartFragment.totalCart;
 import static com.example.myapplication.fragments.customer.cart.CartFragment.totalPayment;
 
-import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -42,16 +43,20 @@ public class ReceiptFragment extends Fragment {
         return new ReceiptFragment();
     }
 
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//    }
+
+    @Override
+   public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mViewModel = new ViewModelProvider(this).get(ReceiptViewModel.class);
+        setHasOptionsMenu(false);
+
         binding = FragmentReceiptBinding.inflate(inflater, container, false);
         recyclerView = binding.receiptListItems;
         adapter = new ReceiptViewAdapter(
@@ -78,6 +83,12 @@ public class ReceiptFragment extends Fragment {
     }
 
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.findItem(R.id.nav_home).setVisible(false);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
     private void observeCouponsData() {
         model.getCoupons().observe(getViewLifecycleOwner(), couponShareds -> {
             Log.d(TAG, "onChanged: " + couponShareds.size());
@@ -102,6 +113,16 @@ public class ReceiptFragment extends Fragment {
             }
         });
     }
+
+
+
+  @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
+
 
     @Override
     public void onResume() {

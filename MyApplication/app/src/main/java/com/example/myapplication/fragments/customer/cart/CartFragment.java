@@ -128,5 +128,7 @@ public class CartFragment extends Fragment implements CustomerCartViewAdapter.It
         binding.price.setText(mViewModel.getTotalPriceFormat());
         Objects.requireNonNull(recyclerView.getAdapter()).notifyItemRemoved(position);
         Objects.requireNonNull(recyclerView.getAdapter()).notifyItemRangeChanged(position, mViewModel.couponsTitles.size());
+        totalCart = mViewModel.getTotalPriceFormat();
+        totalPayment = mViewModel.getTotalPriceFormatAfterPayment();
     }
 }
