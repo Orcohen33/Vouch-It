@@ -6,10 +6,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-
 import com.example.myapplication.models.coupon.CouponResponse;
 import com.example.myapplication.repository.CompanyCouponRepository;
-import com.example.myapplication.repository.CouponRepository;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -30,11 +28,11 @@ public class MyCouponsViewModel extends ViewModel {
         couponsCode = new ArrayList<>();
         couponsImage = new ArrayList<>();
         couponsEndDate = new ArrayList<>();
-        repository = new CompanyCouponRepository();
+//        repository = new CompanyCouponRepository();
     }
 
     public void init(){
-        couponResponsesLiveData = repository.g(1L);
+        couponResponsesLiveData = repository.getCouponsByCompanyId(1L);
     }
     public LiveData<List<CouponResponse>> getCouponResponsesLiveData() {
         System.out.println("HomeCompanyViewModel: getCouponResponsesLiveData");

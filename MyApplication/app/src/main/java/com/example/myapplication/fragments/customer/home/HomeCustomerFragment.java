@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.activities.CustomerActivity;
 import com.example.myapplication.adapters.CategoryViewAdapter;
 import com.example.myapplication.databinding.FragmentHomeCustomerBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,7 +25,6 @@ public class HomeCustomerFragment extends Fragment {
     RecyclerView recyclerView;
     CategoryViewAdapter adapter;
 
-    CustomerActivity customerActivity;
     SearchView searchView;
 
     @Override

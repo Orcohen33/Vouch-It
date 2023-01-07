@@ -92,14 +92,14 @@ public class CustomerActivity extends AppCompatActivity {
                     drawer.closeDrawers();
                     return true;
             }
-            Bundle bundle = getIntent().getExtras();
+            Bundle bundle = new Bundle();
             bundle.putLong("categoryId", categoryId);
             bundle.putString("categoryName", categoryName);
             if (isInNavHome) {
                 navController.navigate(R.id.action_nav_home_to_nav_category, bundle);
             }
             else {
-                navController.navigate(R.id.action_nav_category_self, bundle);
+                navController.navigate(R.id.action_nav_category_self);
             }
 //            Close the drawer
             drawer.closeDrawers();

@@ -2,8 +2,10 @@ package com.example.myapplication.fragments.customer.category;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,7 @@ import com.example.myapplication.adapters.CustomerCouponsViewAdapter;
 import com.example.myapplication.databinding.FragmentCategoryBinding;
 import com.example.myapplication.fragments.customer.SharedViewModel;
 import com.example.myapplication.models.coupon.CouponShared;
+import com.example.myapplication.models.user.UserDetails;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -46,15 +49,25 @@ public class CategoryFragment extends Fragment implements CustomerCouponsViewAda
     private CustomerCouponsViewAdapter adapter;
     private RecyclerView recyclerView;
     private SearchView searchView;
+    private UserDetails user;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mCategoryId = getArguments().getLong("categoryId", DEFAULT_CATEGORY_ID);
-            mCategoryName = getArguments().getString("categoryName", DEFAULT_CATEGORY_NAME);
-        }
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        assert this.getArguments() != null;
+        mCategoryId = this.getArguments().getLong("categoryId", DEFAULT_CATEGORY_ID);
+        mCategoryName = this.getArguments().getString("categoryName", DEFAULT_CATEGORY_NAME);
+        System.out.println("CategoryFragment: " + mCategoryId + " " + mCategoryName);
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+
+        user = new UserDetails(
+                (sharedPreferences.getLong("id", 0)),
+                (sharedPreferences.getString("fullName", "")),
+                (sharedPreferences.getString("email", "")),
+                (sharedPreferences.getString("token", ""))
+        );
+
 
     }
 
@@ -74,9 +87,10 @@ public class CategoryFragment extends Fragment implements CustomerCouponsViewAda
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         // Here you choose which category to show
-        mViewModel.init(mCategoryId);
-        getCategoryCoupons();
-
+        if (user.getToken() != null) {
+            mViewModel.init(mCategoryId);
+            getCategoryCoupons();
+        }
         // change the title of the action bar
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         Objects.requireNonNull(actionBar).setTitle(mCategoryName);

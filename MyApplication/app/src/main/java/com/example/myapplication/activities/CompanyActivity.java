@@ -11,8 +11,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityCompanyBinding;
 
-import java.util.Objects;
-
 public class CompanyActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
@@ -38,6 +36,7 @@ public class CompanyActivity extends AppCompatActivity {
                 .Builder(navController.getGraph())
                 .build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
 
     }
 

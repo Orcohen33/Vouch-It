@@ -1,7 +1,10 @@
 package com.example.myapplication.fragments.customer.category;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.myapplication.models.coupon.CouponResponse;
 import com.example.myapplication.models.coupon.CouponShared;
@@ -10,7 +13,7 @@ import com.example.myapplication.repository.CategoryCouponRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryViewModel extends ViewModel  {
+public class CategoryViewModel extends AndroidViewModel {
 
     List<ItemInCategory> originalList;
     List<ItemInCategory> filteredList;
@@ -22,15 +25,16 @@ public class CategoryViewModel extends ViewModel  {
 
     private LiveData<List<CouponResponse>> categoryCoupons;
 
-    public CategoryViewModel() {
+    public CategoryViewModel(@NonNull Application application) {
+        super(application);
         originalList = new ArrayList<>();
         filteredList = new ArrayList<>();
         coupons = new ArrayList<>();
+        categoryCouponRepository = new CategoryCouponRepository(application);
     }
 
     public void init(Long id) {
         if (categoryCoupons == null && id != null) {
-            categoryCouponRepository = new CategoryCouponRepository();
             categoryCoupons = categoryCouponRepository.getCouponsByCategoryId(id);
         }
     }

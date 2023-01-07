@@ -1,26 +1,24 @@
 package com.example.myapplication.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.ui.AppBarConfiguration;
+
 import com.example.myapplication.R;
-import com.example.myapplication.interfaces.CompanyApi;
-import com.example.myapplication.models.company.Company;
-import com.example.myapplication.models.company.CompanySignup;
-import com.example.myapplication.models.customer.Customer;
-import com.example.myapplication.models.customer.CustomerSignup;
-import com.example.myapplication.interfaces.CustomerApi;
-import com.example.myapplication.network.RetrofitService;
+import com.example.myapplication.apis.LoginApi;
+import com.example.myapplication.models.user.RegisterRequest;
+import com.example.myapplication.models.user.UserDetails;
+import com.example.myapplication.network.RetrofitManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,58 +41,53 @@ public class SignupActivity extends AppCompatActivity {
         CheckBox signupAsCompanyCheckBox = findViewById(R.id.company_signup_checkbox);
         MaterialButton signupButton = findViewById(R.id.signup_request_button);
 
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
         signupButton.setOnClickListener(v -> {
-            String fullName = Objects.requireNonNull(fullNameInput.getText()).toString();
             String email = Objects.requireNonNull(emailInput.getText()).toString();
+            String fullName = Objects.requireNonNull(fullNameInput.getText()).toString();
             String password = Objects.requireNonNull(passwordInput.getText()).toString();
             String confirmPassword = Objects.requireNonNull(confirmPasswordInput.getText()).toString();
-            if (!password.trim().equals(confirmPassword.trim())) {
-                Toast.makeText(this, "Passwords don't match, please try again", Toast.LENGTH_SHORT).show();
+            boolean isCompany = signupAsCompanyCheckBox.isChecked();
+
+            if (email.isEmpty() || fullName.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
+                return;
             }
-            if (!signupAsCompanyCheckBox.isChecked()) {
-                CustomerSignup customerSignup = new CustomerSignup(fullName, email, password);
-                CustomerApi customerApi = RetrofitService.getInstance().getRetrofit().create(CustomerApi.class);
-                customerApi.signup(customerSignup).enqueue(new Callback<Customer>() {
-                    @Override
-                    public void onResponse(@NonNull Call<Customer> call, @NonNull Response<Customer> response) {
-                        if (response.isSuccessful()) {
-                            Toast.makeText(SignupActivity.this, "Signup success", Toast.LENGTH_SHORT).show();
+
+            if (!password.equals(confirmPassword)) {
+                Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            RegisterRequest registerRequest = new RegisterRequest(fullName, email, password, isCompany);
+            System.out.println(registerRequest);
+            LoginApi loginApi = RetrofitManager.getInstance(httpClient.build()).createService(LoginApi.class);
+            Call<UserDetails> call = loginApi.register(registerRequest);
+
+            call.enqueue(new Callback<>() {
+                @Override
+                public void onResponse(Call<UserDetails> call, Response<UserDetails> response) {
+                    if (response.isSuccessful()) {
+                        UserDetails userDetails = response.body();
+                        Toast.makeText(SignupActivity.this, "Signup successful", Toast.LENGTH_SHORT).show();
+                        AppBarConfiguration.OnNavigateUpListener onNavigateUpListener = () -> {
                             Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
                             startActivity(intent);
-                        }
+                            return true;
+                        };
+                        onNavigateUpListener.onNavigateUp();
+                    } else {
+                        Toast.makeText(SignupActivity.this, "Signup failed", Toast.LENGTH_SHORT).show();
                     }
+                }
 
-                    @Override
-                    public void onFailure(@NonNull Call<Customer> call, @NonNull Throwable t) {
-                        Toast.makeText(SignupActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                        System.out.println(t.getMessage());
-                    }
-                });
-            }
-            else{
-                CompanySignup companySignup = new CompanySignup(fullName, email, password);
-                CompanyApi companyApi = RetrofitService.getInstance().getRetrofit().create(CompanyApi.class);
-                companyApi.signup(companySignup)
-                        .enqueue(new Callback<Company>() {
-                    @Override
-                    public void onResponse(@NonNull Call<Company> call, @NonNull Response<Company> response) {
-                        if (response.isSuccessful()) {
-                            Toast.makeText(SignupActivity.this, "Signup success", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                        }
-                    }
+                @Override
+                public void onFailure(Call<UserDetails> call, Throwable t) {
 
-                    @Override
-                    public void onFailure(@NonNull Call<Company> call, @NonNull Throwable t) {
-                        Toast.makeText(SignupActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                        System.out.println(t.getMessage());
-                    }
-                });
-            }
+                }
+            });
         });
-
-
     }
 }
+

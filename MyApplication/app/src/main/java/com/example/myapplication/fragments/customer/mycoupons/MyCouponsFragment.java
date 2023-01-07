@@ -21,7 +21,6 @@ import com.example.myapplication.databinding.FragmentMyCouponsBinding;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.UUID;
 
 public class MyCouponsFragment extends Fragment {
 

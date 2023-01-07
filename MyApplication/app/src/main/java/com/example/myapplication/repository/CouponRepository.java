@@ -6,12 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.myapplication.interfaces.CouponApi;
+import com.example.myapplication.apis.CouponApi;
 import com.example.myapplication.models.category.CategoryResponse;
 import com.example.myapplication.models.company.CompanyResponse;
 import com.example.myapplication.models.coupon.CouponResponse;
-import com.example.myapplication.network.RetrofitService;
+import com.example.myapplication.network.RetrofitManager;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,7 +23,7 @@ public class CouponRepository {
     private final CouponApi couponApi;
 
     public CouponRepository() {
-        this.couponApi = RetrofitService.getInstance().getRetrofit().create(CouponApi.class);
+        this.couponApi = RetrofitManager.getInstance(new OkHttpClient()).getRetrofit().create(CouponApi.class);
     }
 
     public LiveData<CouponResponse> getCouponById(Long id) {

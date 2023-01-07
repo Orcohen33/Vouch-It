@@ -44,7 +44,7 @@ public class AddOrEditCouponViewModel extends AndroidViewModel {
         couponStartDate = null;
         couponEndDate = null;
         couponRepository = new CouponRepository();
-        companyCouponRepository = new CompanyCouponRepository();
+        companyCouponRepository = new CompanyCouponRepository(application);
     }
 
     public void addCoupon() {
@@ -79,7 +79,6 @@ public class AddOrEditCouponViewModel extends AndroidViewModel {
         couponDescription = args[1];
         couponPrice = args[2];
         couponAmount = args[3];
-//        couponImage = args[4];
         couponStartDate = args[4];
         couponEndDate = args[5];
     }

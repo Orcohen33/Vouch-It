@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 
+import com.example.myapplication.models.company.CompanyDetails;
 import com.example.myapplication.models.coupon.CouponResponse;
 import com.example.myapplication.repository.CompanyCouponRepository;
 
@@ -33,7 +34,12 @@ public class HomeCompanyViewModel extends AndroidViewModel {
     private Long id;
     private String name;
     private String email;
+
+    CompanyDetails companyDetails;
     List<String> couponsTitles;
+
+
+
     List<Long> couponsIds;
 
     private CompanyCouponRepository companyCouponRepository;
@@ -43,15 +49,13 @@ public class HomeCompanyViewModel extends AndroidViewModel {
         super(application);
         couponsTitles = new ArrayList<>();
         couponsIds = new ArrayList<>();
-        System.out.println("HomeCompanyViewModel: " + id + ", " + name + ", " + email);
+        companyCouponRepository = new CompanyCouponRepository(application);
     }
 
     void init() {
         System.out.println("HomeCompanyViewModel: init");
-        if (id != null) {
-            companyCouponRepository = new CompanyCouponRepository();
-//            couponResponsesLiveData = companyCouponRepository.getCouponsByCompanyId(id);
-            couponResponsesLiveData = companyCouponRepository.g(id);
+        if (companyDetails.getId() != null && companyDetails.getToken() != null) {
+            couponResponsesLiveData = companyCouponRepository.getCouponsByCompanyId(companyDetails.getId());
         }
     }
 
@@ -68,7 +72,6 @@ public class HomeCompanyViewModel extends AndroidViewModel {
     }
 
     public void deleteCouponById(Long couponId) {
-//        companyCouponRepository.deleteCoupon(couponId);
         companyCouponRepository.deleteCouponById(couponId);
     }
 
@@ -94,5 +97,13 @@ public class HomeCompanyViewModel extends AndroidViewModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public CompanyDetails getCompanyDetails() {
+        return companyDetails;
+    }
+
+    public void setCompanyDetails(CompanyDetails companyDetails) {
+        this.companyDetails = companyDetails;
     }
 }

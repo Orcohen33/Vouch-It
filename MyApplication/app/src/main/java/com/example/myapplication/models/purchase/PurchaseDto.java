@@ -1,6 +1,5 @@
 package com.example.myapplication.models.purchase;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class PurchaseDto {
@@ -9,8 +8,6 @@ public class PurchaseDto {
     private List<Long> couponIds;
     private String totalPrice;
 
-    public PurchaseDto() {
-    }
 
     public PurchaseDto(Long customerId, List<Long> couponIds, String totalPrice) {
         this.customerId = customerId;

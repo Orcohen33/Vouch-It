@@ -1,8 +1,10 @@
 package com.example.myapplication.fragments.company.add_or_edit_coupon;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.myapplication.databinding.FragmentAddOrEditCouponBinding;
+import com.example.myapplication.models.company.CompanyDetails;
 import com.example.myapplication.utils.CategoriesNames;
 
 import java.io.ByteArrayOutputStream;
@@ -32,6 +35,7 @@ public class AddOrEditCouponFragment extends Fragment {
     private FragmentAddOrEditCouponBinding binding;
     private AddOrEditCouponViewModel mViewModel;
 
+    CompanyDetails companyDetails;
     private Long companyId;
     private String companyName;
     private String companyEmail;
@@ -41,14 +45,22 @@ public class AddOrEditCouponFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
+        companyId = sharedPreferences.getLong("companyId", -1L);
+        companyName = sharedPreferences.getString("companyName", "");
+        companyEmail = sharedPreferences.getString("companyEmail", "");
         assert this.getArguments() != null;
-        companyId = this.getArguments().getLong("companyId");
-        companyName = this.getArguments().getString("companyName");
-        companyEmail = this.getArguments().getString("companyEmail");
         isEditing = this.getArguments().getBoolean("isEdit");
         if (isEditing) {
             couponId = this.getArguments().getLong("couponId");
         }
+
+        companyDetails = new CompanyDetails(
+                (sharedPreferences.getLong("id", 0)),
+                (sharedPreferences.getString("fullName", "")),
+                (sharedPreferences.getString("email", "")),
+                (sharedPreferences.getString("token", ""))
+        );
 
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         Objects.requireNonNull(actionBar).setTitle(isEditing? "עריכת קופון" : "הוספת קופון חדש");
@@ -60,9 +72,9 @@ public class AddOrEditCouponFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(AddOrEditCouponViewModel.class);
         binding = FragmentAddOrEditCouponBinding.inflate(inflater, container, false);
 
-        mViewModel.setCompanyName(companyName);
-        mViewModel.setCompanyEmail(companyEmail);
-        mViewModel.setCompanyId(companyId);
+        mViewModel.setCompanyName(companyDetails.getFullName());
+        mViewModel.setCompanyEmail(companyDetails.getEmail());
+        mViewModel.setCompanyId(companyDetails.getId());
 
         Spinner spinner = binding.spinner;
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, CategoriesNames.getCategories());
@@ -99,7 +111,9 @@ public class AddOrEditCouponFragment extends Fragment {
                 NavHostFragment.findNavController(AddOrEditCouponFragment.this)
                         .navigateUp();
 
+                int startDateDay = binding.companyCouponStartDateInput.getDayOfMonth();
                 int startDateMonth = binding.companyCouponStartDateInput.getMonth();
+                int endDateDay = binding.companyCouponEndDateInput.getDayOfMonth();
                 int endDateMonth = binding.companyCouponEndDateInput.getMonth();
                 mViewModel.setArgs(
                         Objects.requireNonNull(binding.companyCouponTitleInput.getText()).toString(),
@@ -107,11 +121,11 @@ public class AddOrEditCouponFragment extends Fragment {
                         Objects.requireNonNull(binding.companyCouponPriceInput.getText()).toString(),
                         Objects.requireNonNull(binding.companyCouponAmountInput.getText()).toString(),
                         (binding.companyCouponStartDateInput.getYear() + "-" +
-                                (startDateMonth < 10 ? "0" + startDateMonth : startDateMonth) + "-" +
-                                binding.companyCouponStartDateInput.getDayOfMonth()),
+                                (startDateMonth < 10 ? "0" + (startDateMonth+1) : (startDateMonth+1)) + "-" +
+                                (startDateDay < 10 ? "0" + startDateDay : startDateDay)),
                         (binding.companyCouponEndDateInput.getYear()+"-" +
-                                (endDateMonth < 10 ? "0"+endDateMonth: endDateMonth)+"-" +
-                                binding.companyCouponEndDateInput.getDayOfMonth())
+                                (endDateMonth < 10 ? "0"+(endDateMonth+1): (endDateMonth+1))+"-" +
+                                (endDateDay < 10 ? "0"+endDateDay: endDateDay))
                         );
                 if (isEditing) {
                     mViewModel.updateCoupon(couponId);

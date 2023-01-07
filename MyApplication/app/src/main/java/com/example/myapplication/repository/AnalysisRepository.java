@@ -3,11 +3,12 @@ package com.example.myapplication.repository;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.myapplication.interfaces.AnalysisApi;
-import com.example.myapplication.network.RetrofitService;
+import com.example.myapplication.apis.AnalysisApi;
+import com.example.myapplication.network.RetrofitManager;
 
 import java.util.HashMap;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,7 +17,7 @@ public class AnalysisRepository {
     AnalysisApi analysisApi;
 
     public AnalysisRepository() {
-        analysisApi = RetrofitService.getInstance().getRetrofit().create(AnalysisApi.class);
+        analysisApi = RetrofitManager.getInstance(new OkHttpClient()).getRetrofit().create(AnalysisApi.class);
     }
 
     public LiveData<HashMap<String, HashMap<String, Long>>> getAnalysisData(Long companyId) {

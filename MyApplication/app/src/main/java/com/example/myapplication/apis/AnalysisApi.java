@@ -1,4 +1,4 @@
-package com.example.myapplication.interfaces;
+package com.example.myapplication.apis;
 
 import java.util.HashMap;
 

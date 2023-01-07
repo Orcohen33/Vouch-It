@@ -1,7 +1,9 @@
 package com.example.myapplication.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -9,25 +11,23 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
-import com.example.myapplication.interfaces.CompanyApi;
-import com.example.myapplication.interfaces.CustomerApi;
-import com.example.myapplication.models.company.Company;
-import com.example.myapplication.models.company.CompanySignIn;
-import com.example.myapplication.models.customer.Customer;
-import com.example.myapplication.models.customer.CustomerSignin;
-import com.example.myapplication.network.RetrofitService;
+import com.example.myapplication.apis.LoginApi;
+import com.example.myapplication.models.user.LoginRequest;
+import com.example.myapplication.models.user.UserDetails;
+import com.example.myapplication.network.AuthManager;
+import com.example.myapplication.network.RetrofitManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.Arrays;
 import java.util.Objects;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-
+    AuthManager authManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
+       authManager= AuthManager.getInstance(this);
         signUpButton();
         login();
     }
@@ -57,71 +58,63 @@ public class LoginActivity extends AppCompatActivity {
         MaterialButton signInAsCompany = findViewById(R.id.signin_company_button);
 
 
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+
         signInAsCustomer.setOnClickListener(v -> {
-            // object of the customer sign in api
-            CustomerApi customerApi = RetrofitService
-                    .getInstance()
-                    .getRetrofit()
-                    .create(CustomerApi.class);
-            // object of the customer sign in
-            CustomerSignin customerSignin = new CustomerSignin(
+            LoginRequest loginRequest = new LoginRequest(
                     Objects.requireNonNull(email.getText()).toString(),
-                    Objects.requireNonNull(password.getText()).toString()
+                    Objects.requireNonNull(password.getText()).toString(),
+                    false
             );
-
-            customerApi.login(customerSignin).enqueue(new Callback<Customer>() {
-                @Override
-                public void onResponse(@NonNull Call<Customer> call, @NonNull Response<Customer> response) {
-                    if (response.isSuccessful()) {
-                        Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
-                        // Extract the details from response to variables
-                        Customer customer = response.body();
-                        Intent intent = new Intent(LoginActivity.this, CustomerActivity.class);
-                        assert customer != null;
-                        intent.putExtra("customerId", customer.getId());
-                        intent.putExtra("customerName", customer.getFirstName());
-                        intent.putExtra("customerEmail", customer.getEmail());
-                        startActivity(intent);
-                    }
-                }
-
-                @Override
-                public void onFailure(@NonNull Call<Customer> call, @NonNull Throwable t) {
-                    System.out.println(t.getMessage());
-                    System.out.println(Arrays.toString(t.getStackTrace()));
-                    Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
-                }
-            });
+            LoginApi loginApi = RetrofitManager.getInstance(httpClient.build()).getRetrofit().create(LoginApi.class);
+            Call<UserDetails> call = loginApi.authenticate(loginRequest);
+            authenticateCallBack(call, false);
         });
 
         signInAsCompany.setOnClickListener(v -> {
-            CompanyApi companyApi = RetrofitService.getInstance().getRetrofit().create(CompanyApi.class);
-            CompanySignIn companySignIn = new CompanySignIn(Objects.requireNonNull(email.getText()).toString(), Objects.requireNonNull(password.getText()).toString());
+            LoginRequest loginRequest = new LoginRequest(
+                    Objects.requireNonNull(email.getText()).toString(),
+                    Objects.requireNonNull(password.getText()).toString(),
+                    true
+            );
+            LoginApi loginApi = RetrofitManager.getInstance(httpClient.build()).getRetrofit().create(LoginApi.class);
+            Call<UserDetails> call = loginApi.authenticate(loginRequest);
+            authenticateCallBack(call, true);
+        });
+    }
 
-            companyApi.login(companySignIn).enqueue(new Callback<com.example.myapplication.models.company.Company>() {
-                @Override
-                public void onResponse(@NonNull Call<Company> call, @NonNull Response<Company> response) {
-                    if (response.isSuccessful()) {
-                        Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
-                        // Extract the details from response to variables
-                        Company company = response.body();
-                        Intent intent = new Intent(LoginActivity.this, CompanyActivity.class);
-                        assert company != null;
-                        intent.putExtra("companyId", company.getId());
-                        intent.putExtra("companyName", company.getName());
-                        intent.putExtra("companyEmail", company.getEmail());
-                        startActivity(intent);
-//                        overridePendingTransition(R.anim.fade_in, R.anim.slide_out_left);
+    private void authenticateCallBack(Call<UserDetails> call, boolean isCompany) {
+        call.enqueue(new Callback<>() {
+            @Override
+            public void onResponse(@NonNull Call<UserDetails> call, @NonNull Response<UserDetails> response) {
+                if (response.isSuccessful()) {
+                    UserDetails userDetails = response.body();
+                    assert userDetails != null;
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("token", userDetails.getToken());
+                    editor.putString("email", userDetails.getEmail());
+                    editor.putString("fullName", userDetails.getFullName());
+                    editor.putLong("id", userDetails.getId());
+                    editor.putString("token", userDetails.getToken());
+                    editor.apply();
+                    if (authManager!= null){
+                        authManager.setJwtToken(userDetails.getToken());
                     }
-                }
-
-                @Override
-                public void onFailure(@NonNull Call<com.example.myapplication.models.company.Company> call, @NonNull Throwable t) {
-                    System.out.println(t.getMessage());
-                    System.out.println(Arrays.toString(t.getStackTrace()));
+                    if (isCompany) {
+                        startActivity(new Intent(LoginActivity.this, CompanyActivity.class));
+                    } else {
+                        startActivity(new Intent(LoginActivity.this, CustomerActivity.class));
+                    }
+                } else {
                     Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
                 }
-            });
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UserDetails> call, @NonNull Throwable t) {
+                Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }
