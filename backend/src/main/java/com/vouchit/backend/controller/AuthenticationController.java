@@ -29,9 +29,6 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody UserSignInRequest request
     ) {
-        System.out.println(request.email());
-        System.out.println(request.password());
-        System.out.println(request.isCompany());
         return ResponseEntity.ok(service.authenticate(request));
     }
 }

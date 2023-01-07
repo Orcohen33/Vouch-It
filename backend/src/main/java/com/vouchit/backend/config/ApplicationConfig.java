@@ -11,6 +11,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/*
+ApplicationConfig is a class annotated with @Configuration and @RequiredArgsConstructor that provides configuration for the application. It contains the following methods:
+
+1. authenticationProvider: Returns a bean for an AuthenticationProvider object that uses the userDetailsService field to retrieve user details and the passwordEncoder bean to encode passwords.
+2. authenticationManager: Returns a bean for an AuthenticationManager object using the given AuthenticationConfiguration object.
+3. passwordEncoder: Returns a bean for a PasswordEncoder object using the BCryptPasswordEncoder class with a strength of 10.
+
+This class also contains a private field userDetailsService that is injected via the constructor.
+ */
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {

@@ -14,6 +14,7 @@ import com.vouchit.backend.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -46,10 +47,10 @@ public class AuthenticationService {
                     .user(user)
                     .fullName(request.getFullName())
                     .build());
-            var jwtToken = jwtService.generateToken(user);
+            var jwtToken = jwtService.generateAccessToken(user);
 
             return AuthenticationResponse.builder()
-                    .token(jwtToken)
+                    .accessToken(jwtToken)
                     .email(user.getUsername())
                     .id(c.getId())
                     .build();
@@ -60,10 +61,10 @@ public class AuthenticationService {
                     .name(request.getFullName())
                     .build());
 
-            var jwtToken = jwtService.generateToken(user);
+            var jwtToken = jwtService.generateAccessToken(user);
 
             return AuthenticationResponse.builder()
-                    .token(jwtToken)
+                    .accessToken(jwtToken)
                     .email(user.getUsername())
                     .id(c.getId())
                     .build();
@@ -76,35 +77,37 @@ public class AuthenticationService {
         String refreshToken;
 
         // authenticate the user
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
+        var auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
 
-        // retrieve the user
-        var user = userRepository.findByEmail(request.email())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
+        if (!auth.isAuthenticated()) {
+            throw new RuntimeException("Authentication failed");
+        }
         // retrieve customer or company (depending on the user request)
-        var co = request.isCompany() ? companyRepository.findCompanyByEmail(user.getUsername()) : customerRepository.findCustomerByEmail(user.getUsername());
+        var co = request.isCompany() ? companyRepository.findCompanyByEmail(request.email()) : customerRepository.findCustomerByEmail(request.email());
         if (co == null) {
             throw new RuntimeException("User not found");
         }
         if (co instanceof Customer) {
             var customer = (Customer) co;
-            fullName= customer.getFullName();
+            fullName = customer.getFullName();
             id = customer.getId();
 
-        }
-        else {
+        } else {
             var company = (Company) co;
             fullName = company.getName();
             id = company.getId();
         }
-        var jwtToken = jwtService.generateToken(user);
+        var jwtAccessToken = jwtService.generateAccessToken((UserDetails) auth.getPrincipal());
+        var jwtRefreshToken = jwtService.generateRefreshToken((UserDetails) auth.getPrincipal());
+
 
         return AuthenticationResponse.builder()
-                .email(user.getUsername())
+                .email(request.email())
                 .id(id)
                 .fullName(fullName)
-                .token(jwtToken)
+                .accessToken(jwtAccessToken)
+                .refreshToken(jwtRefreshToken)
                 .build();
     }
+
 }
