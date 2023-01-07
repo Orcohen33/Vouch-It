@@ -28,7 +28,7 @@ public class Purchase {
 
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "purchases_coupons2",
+    @JoinTable(name = "purchases_coupons",
             joinColumns = @JoinColumn(name = "purchase_id"),
             inverseJoinColumns = @JoinColumn(name = "coupon_id"))
     private Set<Coupon> coupons;

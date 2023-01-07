@@ -1,6 +1,5 @@
 package com.vouchit.backend.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;

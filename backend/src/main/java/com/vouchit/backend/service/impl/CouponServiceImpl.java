@@ -121,8 +121,7 @@ public class CouponServiceImpl implements CouponService {
                 .image(couponRequest.getImage())
                 .startDate(LocalDate.parse(couponRequest.getStartDate()))
                 .endDate(LocalDate.parse(couponRequest.getEndDate()))
-                .company(companyService.mapCompanyResponseToCompany(companyService.getCompanyById(couponRequest.getCompanyId()).orElseThrow(()
-                        -> new RuntimeException("Company " + couponRequest.getCompanyId() + " do not exist"))))
+                .company(companyService.findById(couponRequest.getCompanyId()))
                 .category(categoryService.mapCategoryResponseToCategory(categoryService.getCategoryById(couponRequest.getCategoryId()).orElseThrow(()
                         -> new RuntimeException("Category " + couponRequest.getCategoryId() + " do not exist"))))
                 .build();
@@ -139,7 +138,6 @@ public class CouponServiceImpl implements CouponService {
                 .category(categoryService.mapCategoryToCategoryResponse(coupon.getCategory()))
                 .id(coupon.getId())
                 .build();
-//        return modelMapper.map(coupon, CouponResponse.class);
     }
 
 

@@ -39,13 +39,13 @@ public class Coupon {
     private Company company;
 
 
-    @ManyToOne(fetch = FetchType.LAZY )
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     @ToString.Exclude
     private Category category;
 
     @ManyToMany(fetch = FetchType.LAZY )
-    @JoinTable(name = "customers_coupons2",
+    @JoinTable(name = "customers_coupons",
             joinColumns = @JoinColumn(name = "coupon_id"),
             inverseJoinColumns = @JoinColumn(name = "customer_id"))
     @ToString.Exclude

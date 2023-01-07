@@ -16,7 +16,7 @@ public class CustomerResponse {
     private Long id;
     private String firstName;
     private String lastName;
-    private String email;
-    private String password;
+
+    private String userEmail;
     private Set<Coupon> coupons;
 }

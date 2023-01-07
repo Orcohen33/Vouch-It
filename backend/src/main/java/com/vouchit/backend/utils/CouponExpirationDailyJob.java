@@ -16,12 +16,13 @@ import java.time.LocalDate;
  * if coupon is expired it will be deleted from the database
  */
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+@Component
 @Slf4j
 public class CouponExpirationDailyJob implements Runnable {
 
     private final CouponRepository couponRepository;
 
-    @Autowired
+
     public CouponExpirationDailyJob(CouponRepository couponRepository) {
         this.couponRepository = couponRepository;
         this.quit = false;
@@ -33,7 +34,6 @@ public class CouponExpirationDailyJob implements Runnable {
         this.quit = true;
     }
 
-    @Bean
     public void start() {
         Thread thread = new Thread(() -> {
             while (!quit) {

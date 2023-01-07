@@ -5,5 +5,7 @@
     <option name="renamerInitialized" value="true" />
     <option name="sourceModelValue" value="Default" />
     <option name="targetDbValue" value="87c941da-7537-45be-bdb4-f1743dbdf5bd" />
+    <option name="newEntityIdType" value="Long" />
+    <option name="newEntityIdStrategy" value="Identity" />
   </component>
 </project>

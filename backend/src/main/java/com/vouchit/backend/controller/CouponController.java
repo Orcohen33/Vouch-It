@@ -68,12 +68,13 @@ public class CouponController {
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional
     public ResponseEntity<CouponResponse> createCoupon(@RequestBody CouponRequest couponRequest) {
-
+        System.out.println("CouponController: createCoupon: couponRequest: " + couponRequest);
         return ResponseEntity.ok(couponService.createCoupon(couponRequest));
     }
 
     @PutMapping("/coupon/{id}")
     public ResponseEntity<CouponResponse> updateCoupon(@PathVariable(name = "id") Long id, @RequestBody CouponRequest couponRequest) {
+
         return ResponseEntity.ok(couponService.updateCoupon(id, couponRequest));
     }
 

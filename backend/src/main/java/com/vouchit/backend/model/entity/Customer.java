@@ -7,8 +7,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "customers2")
-
+@Table(name = "customers")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,13 +20,10 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     // TODO: Change to fullName;
-    private String firstName;
-    private String lastName;
-//    private String email;
-//    private String password;
+    private String fullName;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "customers_coupons2",
+    @JoinTable(name = "customers_coupons",
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "coupon_id"))
     private Set<Coupon> coupons;

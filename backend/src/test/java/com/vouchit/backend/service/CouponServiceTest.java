@@ -10,7 +10,6 @@ import com.vouchit.backend.model.response.CouponResponse;
 import com.vouchit.backend.repository.CategoryRepository;
 import com.vouchit.backend.repository.CompanyRepository;
 import com.vouchit.backend.repository.CouponRepository;
-import com.vouchit.backend.service.client.CompanyServiceImpl;
 import com.vouchit.backend.service.impl.CategoryServiceImpl;
 import com.vouchit.backend.service.impl.CouponServiceImpl;
 import org.junit.jupiter.api.Test;

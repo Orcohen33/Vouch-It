@@ -1,6 +1,5 @@
 package com.vouchit.backend.service.impl;
 
-import com.vouchit.backend.exception.category.CategoryNotFoundException;
 import com.vouchit.backend.model.entity.Category;
 import com.vouchit.backend.model.request.CategoryRequest;
 import com.vouchit.backend.model.response.CategoryResponse;
@@ -8,9 +7,7 @@ import com.vouchit.backend.repository.CategoryRepository;
 import com.vouchit.backend.service.CategoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.Optional;
 import java.util.Set;

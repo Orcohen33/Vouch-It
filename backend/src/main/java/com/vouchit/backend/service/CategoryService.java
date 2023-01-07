@@ -1,10 +1,8 @@
 package com.vouchit.backend.service;
 
 import com.vouchit.backend.model.entity.Category;
-import com.vouchit.backend.model.entity.Coupon;
 import com.vouchit.backend.model.request.CategoryRequest;
 import com.vouchit.backend.model.response.CategoryResponse;
-import com.vouchit.backend.model.response.CouponResponse;
 
 import java.util.Optional;
 import java.util.Set;

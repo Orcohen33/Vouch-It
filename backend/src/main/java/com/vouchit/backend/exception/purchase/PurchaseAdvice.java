@@ -1,6 +1,5 @@
 package com.vouchit.backend.exception.purchase;
 
-import com.vouchit.backend.exception.company.CompanyNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
