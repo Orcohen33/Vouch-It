@@ -42,6 +42,7 @@ public class SecurityConfiguration {
                 .authorizeRequests()
                 .mvcMatchers("/api/v1/auth/**").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/api/v1/coupon/**").permitAll() // allow all to get coupons details
+                .mvcMatchers(HttpMethod.POST, "/api/v1/purchase/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

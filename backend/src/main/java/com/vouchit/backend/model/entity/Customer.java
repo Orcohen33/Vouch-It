@@ -19,7 +19,6 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    // TODO: Change to fullName;
     private String fullName;
 
     @ManyToMany(fetch = FetchType.LAZY)

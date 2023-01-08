@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -28,21 +27,20 @@ public class CouponController {
         this.customerService = customerService;
     }
 
-    @GetMapping("/customer/{customerId}/coupons")
+    @GetMapping("/coupon/customer/{customerId}")
     public ResponseEntity<?> getAllCouponsOfCustomer(@PathVariable Long customerId) {
         var customer = customerService.getCustomerById(customerId);
         var coupons = customer.getCoupons();
-        List<CouponResponse> couponResponses = new ArrayList<>();
-        for (Coupon coupon : coupons) {
-            couponResponses.add(couponService.mapCouponToCouponResponse(coupon));
-        }
+        List<CouponResponse> couponResponses = coupons.stream()
+                .map(couponService::mapCouponToCouponResponse)
+                .toList();
         return ResponseEntity.status(HttpStatus.OK).body(couponResponses);
     }
 
     /*
     This endpoint will return all coupons for a given company
      */
-    @GetMapping("/company/{companyId}/coupon")
+    @GetMapping("/coupon/company/{companyId}")
     public ResponseEntity<Set<CompanyCouponResponse>> getAllCouponsByCompanyId(@PathVariable(name = "companyId") Long companyId) {
         System.out.println("CouponController: getAllCouponsByCompanyId: companyId: " + companyId);
         return ResponseEntity.ok(couponService.getAllCouponsByCompanyId(companyId));
