@@ -55,7 +55,10 @@ public class ReceiptViewAdapter extends RecyclerView.Adapter<ReceiptViewAdapter.
 
     @Override
     public int getItemCount() {
-        return coupons.size();
+        if (couponsTitles != null) {
+            return couponsTitles.size();
+        }
+        return 0;
     }
 
     public void setCouponShareds(List<CouponShared> couponShareds) {

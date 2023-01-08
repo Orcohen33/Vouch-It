@@ -6,10 +6,10 @@ public class PurchaseDto {
 
     private Long customerId;
     private List<Long> couponIds;
-    private String totalPrice;
+    private Double totalPrice;
 
 
-    public PurchaseDto(Long customerId, List<Long> couponIds, String totalPrice) {
+    public PurchaseDto(Long customerId, List<Long> couponIds, Double totalPrice) {
         this.customerId = customerId;
         this.couponIds = couponIds;
         this.totalPrice = totalPrice;
@@ -32,11 +32,11 @@ public class PurchaseDto {
         this.couponIds = couponIds;
     }
 
-    public String getTotalPrice() {
+    public Double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(String totalPrice) {
+    public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
     }
 

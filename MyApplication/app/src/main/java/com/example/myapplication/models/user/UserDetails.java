@@ -6,13 +6,15 @@ public class UserDetails {
     private final Long id;
     private String fullName;
     private String email;
-    private String token;
+    private String accessToken;
+    private String refreshToken;
 
-    public UserDetails(Long id, String fullName, String email, String token) {
+    public UserDetails(Long id, String fullName, String email, String token, String refreshToken) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
-        this.token = token;
+        this.accessToken = token;
+        this.refreshToken = refreshToken;
     }
 
     public Long getId() {
@@ -35,12 +37,21 @@ public class UserDetails {
         this.email = email;
     }
 
-    public String getToken() {
-        return token;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public UserDetails setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+        return this;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     @NonNull
@@ -49,7 +60,7 @@ public class UserDetails {
         return "UserDetails{" + "id=" + id +
                 ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
-                ", token='" + token + '\'' +
+                ", token='" + accessToken + '\'' +
                 '}';
     }
 }

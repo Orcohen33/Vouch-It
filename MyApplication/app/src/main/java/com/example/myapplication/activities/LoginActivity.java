@@ -92,14 +92,16 @@ public class LoginActivity extends AppCompatActivity {
                     assert userDetails != null;
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("token", userDetails.getToken());
+                    editor.putString("token", userDetails.getAccessToken());
                     editor.putString("email", userDetails.getEmail());
                     editor.putString("fullName", userDetails.getFullName());
                     editor.putLong("id", userDetails.getId());
-                    editor.putString("token", userDetails.getToken());
+                    editor.putString("access_token", userDetails.getAccessToken());
+                    editor.putString("refresh_token", userDetails.getAccessToken());
+
                     editor.apply();
                     if (authManager!= null){
-                        authManager.setJwtToken(userDetails.getToken());
+                        authManager.setJwtToken(userDetails.getAccessToken());
                     }
                     if (isCompany) {
                         startActivity(new Intent(LoginActivity.this, CompanyActivity.class));

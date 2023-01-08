@@ -1,14 +1,17 @@
 package com.example.myapplication.fragments.company.analysis;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
-import androidx.lifecycle.ViewModel;
 
 import com.example.myapplication.repository.AnalysisRepository;
 
 import java.util.HashMap;
 
-public class AnalysisViewModel extends ViewModel {
+public class AnalysisViewModel extends AndroidViewModel {
 
     LiveData<HashMap<String, HashMap<String, Long>>> analysisData;
     HashMap<String, Long> salesPerMonth;
@@ -18,14 +21,15 @@ public class AnalysisViewModel extends ViewModel {
     private AnalysisRepository analysisRepository;
     boolean isDataLoaded = false;
 
-    public AnalysisViewModel() {
+    public AnalysisViewModel(@NonNull Application application) {
+        super(application);
         salesPerMonth = new HashMap<>();
         salesPerCategoryData = new HashMap<>();
         totalCouponsSold = new HashMap<>();
+        analysisRepository = new AnalysisRepository(application);
     }
 
     public void init(Long companyId) {
-        analysisRepository = new AnalysisRepository();
         analysisData = analysisRepository.getAnalysisData(companyId);
     }
 

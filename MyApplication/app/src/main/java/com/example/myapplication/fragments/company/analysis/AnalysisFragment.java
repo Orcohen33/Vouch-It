@@ -1,8 +1,10 @@
 package com.example.myapplication.fragments.company.analysis;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,13 +40,17 @@ public class AnalysisFragment extends Fragment {
     private PieChart pieChart;
 
     private Long companyId;
+    private String accessToken;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (this.getArguments() != null) {
-            companyId = this.getArguments().getLong("companyId");
-        }
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        companyId = sharedPreferences.getLong("id", 0);
+        accessToken = sharedPreferences.getString("access_token", "");
+//        if (this.getArguments() != null) {
+//            companyId = this.getArguments().getLong("companyId");
+//        }
     }
 
     @Override

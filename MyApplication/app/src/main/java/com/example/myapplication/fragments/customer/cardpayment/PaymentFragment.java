@@ -1,15 +1,19 @@
 package com.example.myapplication.fragments.customer.cardpayment;
 
+import static android.content.ContentValues.TAG;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +25,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentPaymentBinding;
+import com.example.myapplication.fragments.customer.SharedViewModel;
 import com.example.myapplication.fragments.customer.cart.CartFragment;
+import com.example.myapplication.models.coupon.CouponShared;
+import com.example.myapplication.models.purchase.PurchaseDto;
 import com.example.myapplication.utils.paymentCard.Card;
 import com.example.myapplication.utils.paymentCard.OnPayBtnClickListner;
 
@@ -35,18 +43,15 @@ import java.util.Date;
 public class PaymentFragment extends Fragment {
 
     private PaymentViewModel mViewModel;
+    private SharedViewModel model;
     private FragmentPaymentBinding binding;
     boolean isBackShowing = false;
 
 
-
-    public static PaymentFragment newInstance() {
-        return new PaymentFragment();
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
     }
 
@@ -54,30 +59,60 @@ public class PaymentFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        mViewModel = new ViewModelProvider(this).get(PaymentViewModel.class);
+        model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         binding = FragmentPaymentBinding.inflate(inflater, container, false);
         SearchView searchView = requireActivity().findViewById(R.id.search_view);
         //searchView.setVisibility(View.GONE);
+
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        mViewModel.setCustomerId(sharedPreferences.getLong("id", 0));
+        observeCouponsData();
+
 
         return binding.getRoot();
     }
 
 
-
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        boolean ans =init();
-        System.out.println(ans + " onViewCreated");
-               binding.btnPay.setOnClickListener(v -> {
-                   // navigate to the next fragment
-                   NavController nav = Navigation.findNavController(view);
-                   if(cardIsvalid())
-                   nav.navigate(R.id.action_paymentFragment_to_receiptFragment);
-               });
+        boolean ans = init();
+
+        binding.btnPay.setOnClickListener(v -> {
+
+            mViewModel.purchaseCoupons(new PurchaseDto(
+                    mViewModel.getCustomerId(),
+                    mViewModel.getCouponIds(),
+                    mViewModel.getTotalPrice()
+            ));
+            // navigate to the next fragment
+            NavController nav = Navigation.findNavController(view);
+            if (cardIsvalid())
+                nav.navigate(R.id.action_paymentFragment_to_receiptFragment);
+
+        });
 
 
     }
+
+    private void observeCouponsData() {
+        model.getCoupons().observe(getViewLifecycleOwner(), couponShareds -> {
+            Log.d(TAG, "onChanged: " + couponShareds.size());
+            if (couponShareds.size() > 0) {
+                for (CouponShared couponShared : couponShareds) {
+                    mViewModel.getCouponIds().add(couponShared.getId());
+                }
+                int totalPrice = 0;
+                for (CouponShared couponShared : couponShareds)
+                    totalPrice += Double.parseDouble(couponShared.getPrice());
+                mViewModel.setTotalPrice(totalPrice);
+            } else {
+            }
+        });
+    }
+
     public Card getCard() {
         String[] expiry = getString(binding.expiryDate).split(String.valueOf('/'));
         int month = 0, year = 0;
@@ -125,29 +160,28 @@ public class PaymentFragment extends Fragment {
         EditText cvv = binding.cvc;
         EditText expiryDate = binding.expiryDate;
 
-       TextView previewCardName = binding.cardPreviewName;
-       TextView previewCardNumber = binding.cardPreviewNumber;
-       TextView previewCvc = binding.cardPreviewCvc;
-       TextView previewExpiry = binding.cardPreviewExpiry;
-       TextView paymentAmount = binding.paymentAmount;
-       TextView paymentAmountTextHolder = binding.paymentAmountHolder;
-       TextView previewCardType = binding.cardPreviewType;
+        TextView previewCardName = binding.cardPreviewName;
+        TextView previewCardNumber = binding.cardPreviewNumber;
+        TextView previewCvc = binding.cardPreviewCvc;
+        TextView previewExpiry = binding.cardPreviewExpiry;
+        TextView paymentAmount = binding.paymentAmount;
+        TextView paymentAmountTextHolder = binding.paymentAmountHolder;
+        TextView previewCardType = binding.cardPreviewType;
 
-       ViewGroup cardFront = binding.cardPreviewFront;
-       ViewGroup cardBack = binding.cardPreviewBack;
+        ViewGroup cardFront = binding.cardPreviewFront;
+        ViewGroup cardBack = binding.cardPreviewBack;
 
-       Button btnPay = binding.btnPay;
+        Button btnPay = binding.btnPay;
 
         paymentAmount.setText(CartFragment.totalCart); // take the amount from the previous fragment
 
 
+        if (cardIsvalid()) {
+            System.out.println("card is valid");
+            //onViewCreated(view, savedInstanceState);
+            return true;
 
-                if (cardIsvalid()) {
-                    System.out.println("card is valid");
-                    //onViewCreated(view, savedInstanceState);
-                    return true;
-
-               // }
+            // }
             //}
         }
 
@@ -185,7 +219,7 @@ public class PaymentFragment extends Fragment {
                 if (editable.length() >= 16) {
                     previewCardType.setText(new Card(editable.toString(), 0, 0, "").getBrand());
                 }
-               //editable.charAt(0) + editable.charAt(1) + editable.charAt(2) + editable.charAt(3) + "********" + editable.charAt(12) + " " + editable.charAt(13) + " " + editable.charAt(14) + " " + editable.charAt(15);
+                //editable.charAt(0) + editable.charAt(1) + editable.charAt(2) + editable.charAt(3) + "********" + editable.charAt(12) + " " + editable.charAt(13) + " " + editable.charAt(14) + " " + editable.charAt(15);
                 previewCardNumber.setText(editable.toString());
             }
         });
@@ -274,32 +308,20 @@ public class PaymentFragment extends Fragment {
 
 
         cvv.setOnFocusChangeListener(
-                new View.OnFocusChangeListener() {
-                    @Override
-                    public void onFocusChange(View view, boolean b) {
-                        if (b) showBack();
-                    }
+                (view, b) -> {
+                    if (b) showBack();
                 });
 
-        cardName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b) showFront();
-            }
+        cardName.setOnFocusChangeListener((view, b) -> {
+            if (b) showFront();
         });
 
-        cardNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b) showFront();
-            }
+        cardNumber.setOnFocusChangeListener((view, b) -> {
+            if (b) showFront();
         });
 
-        expiryDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b) showFront();
-            }
+        expiryDate.setOnFocusChangeListener((view, b) -> {
+            if (b) showFront();
         });
         return cardIsvalid();
     }
@@ -323,7 +345,7 @@ public class PaymentFragment extends Fragment {
             binding.cvc.setError(cvcError);
             valid = false;
         }
-        if(!card.validateName()){
+        if (!card.validateName()) {
             binding.cardName.setError(cardNameError);
             valid = false;
         }
@@ -396,8 +418,6 @@ public class PaymentFragment extends Fragment {
         }
 
     }
-
-
 
 
 }

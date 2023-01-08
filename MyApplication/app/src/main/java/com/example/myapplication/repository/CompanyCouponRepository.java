@@ -32,13 +32,13 @@ public class CompanyCouponRepository {
     }
 
 
-    public LiveData<List<CouponResponse>> getCouponsByCompanyId(Long id){
+    public LiveData<List<CouponResponse>> getCouponsByCompanyId(Long id) {
         final MutableLiveData<List<CouponResponse>> data = new MutableLiveData<>();
         new Thread(() -> {
-            try{
-                Call<List<CouponResponse>> call = couponApi.getCouponsByCompanyId(id, "Bearer " + authManager.getJwtToken());
+            try {
+                Call<List<CouponResponse>> call = couponApi.getCouponsByCompanyId(id);
                 Response<List<CouponResponse>> response = call.execute();
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     data.postValue(response.body());
                 }
             } catch (IOException e) {
@@ -69,13 +69,14 @@ public class CompanyCouponRepository {
 
     public void createCoupon(CouponRequest couponRequest) {
         final MutableLiveData<CouponResponse> data = new MutableLiveData<>();
-        couponApi.createCoupon(couponRequest, "Bearer " + authManager.getJwtToken()).enqueue(new Callback<CouponResponse>() {
+        couponApi.createCoupon(couponRequest, "Bearer " + authManager.getJwtToken()).enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<CouponResponse> call, @NonNull Response<CouponResponse> response) {
                 if (response.isSuccessful()) {
                     data.setValue(response.body());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<CouponResponse> call, @NonNull Throwable t) {
                 Log.e(TAG, "onFailure: ", t);
@@ -83,7 +84,7 @@ public class CompanyCouponRepository {
         });
     }
 
-    public void updateCoupon(Long id ,CouponRequest couponRequest) {
+    public void updateCoupon(Long id, CouponRequest couponRequest) {
         final MutableLiveData<CouponResponse> data = new MutableLiveData<>();
         couponApi.updateCoupon(id, couponRequest, "Bearer " + authManager.getJwtToken()).enqueue(new Callback<CouponResponse>() {
             @Override
@@ -92,12 +93,14 @@ public class CompanyCouponRepository {
                     data.setValue(response.body());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<CouponResponse> call, @NonNull Throwable t) {
                 Log.e(TAG, "onFailure: ", t);
             }
         });
     }
+
     public void deleteCouponById(Long id) {
         couponApi.deleteCouponById(id, "Bearer " + authManager.getJwtToken()).enqueue(new Callback<Void>() {
             @Override
@@ -106,6 +109,7 @@ public class CompanyCouponRepository {
                     System.out.println("Coupon deleted successfully");
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                 Log.e(TAG, "onFailure: ", t);

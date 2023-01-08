@@ -18,8 +18,8 @@ import retrofit2.http.Path;
 public interface CouponApi {
 
 //    @Headers("Authorization: Bearer " + "{jwtToken}")
-    @GET("/api/v1/company/{id}/coupon")
-    Call<List<CouponResponse>> getCouponsByCompanyId(@Path("id") Long id, @Header("Authorization") String jwtToken);
+    @GET("/api/v1/coupon/company/{id}")
+    Call<List<CouponResponse>> getCouponsByCompanyId(@Path("id") Long id);
 
     @GET("/api/v1/coupon/category/{id}")
     Call<List<CouponResponse>> getCouponsByCategoryId(@Path("id") Long id);

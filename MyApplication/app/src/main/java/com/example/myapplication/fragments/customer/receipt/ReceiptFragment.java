@@ -1,13 +1,11 @@
 package com.example.myapplication.fragments.customer.receipt;
 
 import static android.content.ContentValues.TAG;
-
 import static com.example.myapplication.fragments.customer.cart.CartFragment.totalPayment;
 
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,8 +23,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.ReceiptViewAdapter;
-import com.example.myapplication.fragments.customer.SharedViewModel;
 import com.example.myapplication.databinding.FragmentReceiptBinding;
+import com.example.myapplication.fragments.customer.SharedViewModel;
 
 import java.util.Objects;
 
@@ -47,7 +45,7 @@ public class ReceiptFragment extends Fragment {
     @Override
    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(false);
     }
 
 
@@ -69,16 +67,11 @@ public class ReceiptFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
-
-
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         Objects.requireNonNull(actionBar).setTitle("קבלה");
 
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         observeCouponsData();
-
-//        SearchView searchView = requireActivity().findViewById(R.id.search_view);
-//        searchView.setVisibility(View.GONE);
         return binding.getRoot();
     }
 
@@ -113,6 +106,7 @@ public class ReceiptFragment extends Fragment {
             }
         });
     }
+
 
 
 

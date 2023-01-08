@@ -121,6 +121,10 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
     @Override
     public void onResume() {
         super.onResume();
+        if (homeCompanyViewModel.couponsTitles.size() != 0) {
+            homeCompanyViewModel.couponsTitles.clear();
+            homeCompanyViewModel.couponsIds.clear();
+        }
         homeCompanyViewModel.init();
         getCompanyCoupons();
     }
@@ -148,8 +152,6 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-        homeCompanyViewModel.couponsTitles.clear();
-        homeCompanyViewModel.couponsIds.clear();
     }
 
     @Override

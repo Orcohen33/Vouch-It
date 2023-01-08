@@ -65,7 +65,8 @@ public class CategoryFragment extends Fragment implements CustomerCouponsViewAda
                 (sharedPreferences.getLong("id", 0)),
                 (sharedPreferences.getString("fullName", "")),
                 (sharedPreferences.getString("email", "")),
-                (sharedPreferences.getString("token", ""))
+                (sharedPreferences.getString("access_token", "")),
+                (sharedPreferences.getString("refresh_token", ""))
         );
 
 
@@ -87,7 +88,7 @@ public class CategoryFragment extends Fragment implements CustomerCouponsViewAda
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         // Here you choose which category to show
-        if (user.getToken() != null) {
+        if (user.getAccessToken() != null) {
             mViewModel.init(mCategoryId);
             getCategoryCoupons();
         }
