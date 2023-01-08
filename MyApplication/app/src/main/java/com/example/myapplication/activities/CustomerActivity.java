@@ -1,7 +1,9 @@
 package com.example.myapplication.activities;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.TextView;
 
@@ -57,8 +59,7 @@ public class CustomerActivity extends AppCompatActivity {
                 case R.id.nav_home:
                     if (isInNavHome) {
                         navController.navigate(R.id.action_nav_home_self);
-                    }
-                    else{
+                    } else {
                         navController.navigate(R.id.action_nav_category_to_nav_home2);
                     }
                     drawer.close();
@@ -97,8 +98,7 @@ public class CustomerActivity extends AppCompatActivity {
             bundle.putString("categoryName", categoryName);
             if (isInNavHome) {
                 navController.navigate(R.id.action_nav_home_to_nav_category, bundle);
-            }
-            else {
+            } else {
                 navController.navigate(R.id.action_nav_category_self);
             }
 //            Close the drawer
@@ -130,14 +130,13 @@ public class CustomerActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         binding.appBarMain.fab.setVisibility(View.VISIBLE);
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            String name = bundle.getString("customerName");
-            String email = bundle.getString("customerEmail");
-            if (name != null && email != null) {
-                ((TextView) binding.navView.getHeaderView(0).findViewById(R.id.nav_header_name)).setText(name);
-                ((TextView) binding.navView.getHeaderView(0).findViewById(R.id.nav_header_email)).setText(email);
-            }
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String name = sharedPreferences.getString("fullName", "");
+        String email = sharedPreferences.getString("email", "");
+        if (name != null && email != null) {
+            ((TextView) binding.navView.getHeaderView(0).findViewById(R.id.nav_header_name)).setText(name);
+            ((TextView) binding.navView.getHeaderView(0).findViewById(R.id.nav_header_email)).setText(email);
+
         }
     }
 

@@ -2,6 +2,7 @@ package com.example.myapplication.fragments.customer.mycoupons;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,7 @@ public class MyCouponsFragment extends Fragment {
         Objects.requireNonNull(actionBar).setTitle("הקניות שלי");
 
         System.out.println("View created");
-        mViewModel.init();
+        mViewModel.init(PreferenceManager.getDefaultSharedPreferences(getContext()).getLong("id", 0));
         getCompanyCoupons();
 
         return binding.getRoot();

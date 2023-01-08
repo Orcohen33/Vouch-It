@@ -100,12 +100,18 @@ public class CategoryFragment extends Fragment implements CustomerCouponsViewAda
         searchView.setVisibility(View.VISIBLE);
         getOnQueryTextListener(searchView);
         searchView.setOnCloseListener(this::onClose);
-        searchView.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                searchView.setQuery("", false);
-                searchView.clearFocus();
-            }
-        });
+//        searchView.setOnFocusChangeListener((v, hasFocus) -> {
+//            if (!hasFocus) {
+//                searchView.setQuery("", false);
+//                searchView.clearFocus();
+//            }
+//        });
+//        searchView.setOnQueryTextFocusChangeListener((view, hasFocus) -> {
+//            if (!hasFocus) {
+//                searchView.setQuery("", false);
+//                searchView.clearFocus();
+//            }
+//        });
         // End of search view
         return binding.getRoot();
     }

@@ -31,7 +31,8 @@
             android:name=".activities.CustomerActivity"
             android:exported="false"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize"></activity>
         <activity
             android:name=".activities.CompanyActivity"
             android:label="@string/title_activity_company"

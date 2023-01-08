@@ -24,7 +24,10 @@ public interface CouponApi {
     @GET("/api/v1/coupon/category/{id}")
     Call<List<CouponResponse>> getCouponsByCategoryId(@Path("id") Long id);
 
+    @GET("/api/v1/coupon/customer/{id}")
+    Call<List<CouponResponse>> getCouponsOfCustomerByCustomerId(@Path("id") Long id);
     // CRUD operations
+
     @POST("/api/v1/coupon")
     Call<CouponResponse> createCoupon(@Body CouponRequest couponRequest, @Header("Authorization") String jwtToken);
 

@@ -1,7 +1,10 @@
 package com.example.myapplication.fragments.customer.mycoupons;
 
+import android.app.Application;
 import android.os.Build;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
@@ -13,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class MyCouponsViewModel extends ViewModel {
+public class MyCouponsViewModel extends AndroidViewModel {
 
     List<String> couponsTitles;
     List<String> couponsCode;
@@ -23,16 +26,17 @@ public class MyCouponsViewModel extends ViewModel {
     private CompanyCouponRepository repository;
     private LiveData<List<CouponResponse>> couponResponsesLiveData;
 
-    public MyCouponsViewModel(){
+    public MyCouponsViewModel(@NonNull Application application) {
+        super(application);
         couponsTitles = new ArrayList<>();
         couponsCode = new ArrayList<>();
         couponsImage = new ArrayList<>();
         couponsEndDate = new ArrayList<>();
-//        repository = new CompanyCouponRepository();
+        repository = new CompanyCouponRepository(application);
     }
 
-    public void init(){
-        couponResponsesLiveData = repository.getCouponsByCompanyId(1L);
+    public void init(Long id){
+        couponResponsesLiveData = repository.getCouponsOfCustomerByCustomerId(id);
     }
     public LiveData<List<CouponResponse>> getCouponResponsesLiveData() {
         System.out.println("HomeCompanyViewModel: getCouponResponsesLiveData");

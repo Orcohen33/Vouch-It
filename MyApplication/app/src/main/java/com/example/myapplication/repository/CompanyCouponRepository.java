@@ -47,6 +47,22 @@ public class CompanyCouponRepository {
         }).start();
         return data;
     }
+
+    public LiveData<List<CouponResponse>> getCouponsOfCustomerByCustomerId(Long id) {
+        final MutableLiveData<List<CouponResponse>> data = new MutableLiveData<>();
+        new Thread(() -> {
+            try {
+                Call<List<CouponResponse>> call = couponApi.getCouponsOfCustomerByCustomerId(id);
+                Response<List<CouponResponse>> response = call.execute();
+                if (response.isSuccessful()) {
+                    data.postValue(response.body());
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+        return data;
+    }
 //    public LiveData<List<CouponResponse>> getCouponsByCompanyId(Long id) {
 //        System.out.println("CompanyCouponRepository.getCouponsByCompanyId");
 //        final MutableLiveData<List<CouponResponse>> data = new MutableLiveData<>();
