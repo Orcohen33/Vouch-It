@@ -1,6 +1,6 @@
 package com.vouchit.backend.repository;
 
-import com.vouchit.backend.model.entity.Purchase;
+import com.vouchit.backend.model.Purchase;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

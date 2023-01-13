@@ -1,9 +1,9 @@
 package com.vouchit.backend.controller;
 
-import com.vouchit.backend.model.request.user.RegisterRequest;
-import com.vouchit.backend.model.request.user.UserSignInRequest;
-import com.vouchit.backend.model.response.AuthenticationResponse;
-import com.vouchit.backend.service.client.AuthenticationService;
+import com.vouchit.backend.dto.request.user.RegisterRequest;
+import com.vouchit.backend.dto.request.user.UserSignInRequest;
+import com.vouchit.backend.dto.response.AuthenticationResponse;
+import com.vouchit.backend.service.impl.client.AuthenticationServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
-    private final AuthenticationService service;
+    private final AuthenticationServiceImpl service;
 
 
     @PostMapping("/register")

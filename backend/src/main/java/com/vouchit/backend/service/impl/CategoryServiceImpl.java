@@ -1,8 +1,8 @@
 package com.vouchit.backend.service.impl;
 
-import com.vouchit.backend.model.entity.Category;
-import com.vouchit.backend.model.request.CategoryRequest;
-import com.vouchit.backend.model.response.CategoryResponse;
+import com.vouchit.backend.dto.request.CategoryRequest;
+import com.vouchit.backend.dto.response.CategoryResponse;
+import com.vouchit.backend.model.Category;
 import com.vouchit.backend.repository.CategoryRepository;
 import com.vouchit.backend.service.CategoryService;
 import org.modelmapper.ModelMapper;

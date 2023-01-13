@@ -1,6 +1,6 @@
 package com.vouchit.backend.controller;
 
-import com.vouchit.backend.service.analysis.AnalysisService;
+import com.vouchit.backend.service.impl.analysis.AnalysisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;

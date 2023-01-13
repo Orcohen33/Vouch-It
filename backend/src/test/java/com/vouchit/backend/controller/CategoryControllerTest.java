@@ -1,7 +1,7 @@
 package com.vouchit.backend.controller;
 
-import com.vouchit.backend.model.request.CategoryRequest;
-import com.vouchit.backend.model.response.CategoryResponse;
+import com.vouchit.backend.dto.request.CategoryRequest;
+import com.vouchit.backend.dto.response.CategoryResponse;
 import com.vouchit.backend.service.CategoryService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

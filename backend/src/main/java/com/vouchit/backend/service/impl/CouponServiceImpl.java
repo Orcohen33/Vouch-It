@@ -1,10 +1,10 @@
 package com.vouchit.backend.service.impl;
 
-import com.vouchit.backend.model.entity.Category;
-import com.vouchit.backend.model.entity.Coupon;
-import com.vouchit.backend.model.request.CouponRequest;
-import com.vouchit.backend.model.response.CompanyCouponResponse;
-import com.vouchit.backend.model.response.CouponResponse;
+import com.vouchit.backend.dto.request.CouponRequest;
+import com.vouchit.backend.dto.response.CompanyCouponResponse;
+import com.vouchit.backend.dto.response.CouponResponse;
+import com.vouchit.backend.model.Category;
+import com.vouchit.backend.model.Coupon;
 import com.vouchit.backend.repository.CouponRepository;
 import com.vouchit.backend.service.CategoryService;
 import com.vouchit.backend.service.CompanyService;

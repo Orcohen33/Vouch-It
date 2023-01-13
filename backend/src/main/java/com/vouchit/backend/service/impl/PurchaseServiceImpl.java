@@ -1,8 +1,8 @@
 package com.vouchit.backend.service.impl;
 
-import com.vouchit.backend.model.entity.Coupon;
-import com.vouchit.backend.model.entity.Purchase;
-import com.vouchit.backend.model.response.CouponResponse;
+import com.vouchit.backend.dto.response.CouponResponse;
+import com.vouchit.backend.model.Coupon;
+import com.vouchit.backend.model.Purchase;
 import com.vouchit.backend.repository.PurchaseRepository;
 import com.vouchit.backend.service.CouponService;
 import com.vouchit.backend.service.CustomerService;

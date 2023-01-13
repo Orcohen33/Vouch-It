@@ -1,6 +1,6 @@
 package com.vouchit.backend.security;
 
-import com.vouchit.backend.model.entity.Authority;
+import com.vouchit.backend.model.Authority;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 

@@ -1,7 +1,7 @@
 package com.vouchit.backend.controller;
 
-import com.vouchit.backend.model.request.CategoryRequest;
-import com.vouchit.backend.model.response.CategoryResponse;
+import com.vouchit.backend.dto.request.CategoryRequest;
+import com.vouchit.backend.dto.response.CategoryResponse;
 import com.vouchit.backend.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

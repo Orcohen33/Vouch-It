@@ -1,4 +1,4 @@
-package com.vouchit.backend.exception.company;
+package com.vouchit.backend.exception.customer;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class CompanyNotFoundAdvice {
+public class CustomerNotFoundAdvice {
 
         @ResponseBody
-        @ExceptionHandler(CompanyNotFoundException.class)
+        @ExceptionHandler(CustomerNotFoundException.class)
         @ResponseStatus(HttpStatus.NOT_FOUND)
-        String companyNotFoundHandler(CompanyNotFoundException ex) {
+        String customerNotFoundHandler(CustomerNotFoundException ex) {
             return ex.getMessage();
         }
 }

@@ -1,6 +1,6 @@
 package com.vouchit.backend.controller;
 
-import com.vouchit.backend.model.request.PurchaseRequest;
+import com.vouchit.backend.dto.request.PurchaseRequest;
 import com.vouchit.backend.service.PurchaseService;
 import com.vouchit.backend.service.impl.PurchaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

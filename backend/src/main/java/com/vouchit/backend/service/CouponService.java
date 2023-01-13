@@ -1,9 +1,9 @@
 package com.vouchit.backend.service;
 
-import com.vouchit.backend.model.entity.Coupon;
-import com.vouchit.backend.model.request.CouponRequest;
-import com.vouchit.backend.model.response.CompanyCouponResponse;
-import com.vouchit.backend.model.response.CouponResponse;
+import com.vouchit.backend.dto.request.CouponRequest;
+import com.vouchit.backend.dto.response.CompanyCouponResponse;
+import com.vouchit.backend.dto.response.CouponResponse;
+import com.vouchit.backend.model.Coupon;
 
 import java.util.Set;
 
