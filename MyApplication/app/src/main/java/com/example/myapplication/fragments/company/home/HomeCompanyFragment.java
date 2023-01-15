@@ -90,31 +90,10 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
                 getContext()
         );
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1, GridLayoutManager.VERTICAL, false));
-//        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
         homeCompanyViewModel.setCompanyDetails(companyDetails);     // Set the company details in the view model
         // open menu
-        binding.floatingButtonCompany.setOnClickListener(v -> onAddButtonClicked());
-
-        // Move to add/edit coupon fragment
-        binding.floatingAddOrEditCouponButton.setOnClickListener(v -> {
-                    if (this.getArguments() == null) {
-                        Bundle bundle = new Bundle();
-                        bundle.putBoolean("isEdit", false);
-                        NavHostFragment.findNavController(HomeCompanyFragment.this)
-                                .navigate(R.id.action_HomeCompanyFragment_to_AddCouponFragment, bundle);
-                    } else {
-                        NavHostFragment.findNavController(HomeCompanyFragment.this)
-                                .navigate(R.id.action_HomeCompanyFragment_to_AddCouponFragment, this.getArguments());
-                    }
-                }
-        );
-        // Move to analysis fragment
-        binding.floatingAnalysisButton.setOnClickListener(v ->
-                NavHostFragment.findNavController(HomeCompanyFragment.this)
-                        .navigate(R.id.action_HomeCompanyFragment_to_analysisFragment, this.getArguments()));
-
         return binding.getRoot();
     }
 
@@ -175,35 +154,6 @@ public class HomeCompanyFragment extends Fragment implements CompanyCouponsViewA
         Objects.requireNonNull(recyclerView.getAdapter()).notifyItemRangeChanged(position, homeCompanyViewModel.couponsTitles.size());
     }
 
-    private void onAddButtonClicked() {
-        setVisibility(clicked);
-        setAnimation(clicked);
-        clicked = !clicked;
-    }
 
-    private void setVisibility(boolean clicked) {
-        if (!clicked) {
-            binding.floatingAddOrEditCouponButton.setVisibility(View.VISIBLE);
-            binding.floatingAddOrEditCouponButton.setClickable(true);
-            binding.floatingAnalysisButton.setVisibility(View.VISIBLE);
-            binding.floatingAnalysisButton.setClickable(true);
-        } else {
-            binding.floatingAddOrEditCouponButton.setVisibility(View.INVISIBLE);
-            binding.floatingAddOrEditCouponButton.setClickable(false);
-            binding.floatingAnalysisButton.setVisibility(View.INVISIBLE);
-            binding.floatingAnalysisButton.setClickable(false);
-        }
-    }
 
-    private void setAnimation(boolean clicked) {
-        if (!clicked) {
-            binding.floatingAddOrEditCouponButton.startAnimation(fromBottom);
-            binding.floatingAnalysisButton.startAnimation(fromBottom);
-            binding.floatingButtonCompany.startAnimation(rotateOpen);
-        } else {
-            binding.floatingAddOrEditCouponButton.startAnimation(toBottom);
-            binding.floatingAnalysisButton.startAnimation(toBottom);
-            binding.floatingButtonCompany.startAnimation(rotateClose);
-        }
-    }
 }

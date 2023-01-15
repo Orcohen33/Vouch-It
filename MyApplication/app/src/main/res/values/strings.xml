@@ -12,6 +12,7 @@
     <string name="action_search">searchTest</string>
     <!-- Menu names -->
     <string name="menu_home">בית</string>
+    <string name="menu_analysis">סטטיסטיקות</string>
     <string name="menu_attractions">אטרקציות</string>
     <string name="menu_shows">הופעות</string>
     <string name="menu_restaurants">מסעדות</string>

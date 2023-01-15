@@ -20,7 +20,6 @@
         <item name="colorPrimaryDark">@color/green_light</item>
         <item name="colorAccent">@color/green_light</item>
         <item name="android:navigationBarColor">@color/white</item>
-
     </style>
 
 </resources>

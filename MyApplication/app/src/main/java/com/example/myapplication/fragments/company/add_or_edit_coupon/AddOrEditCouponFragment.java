@@ -13,8 +13,6 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -61,9 +59,6 @@ public class AddOrEditCouponFragment extends Fragment {
                 (sharedPreferences.getString("email", "")),
                 (sharedPreferences.getString("token", ""))
         );
-
-        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        Objects.requireNonNull(actionBar).setTitle(isEditing? "עריכת קופון" : "הוספת קופון חדש");
     }
 
     @Override
